@@ -370,7 +370,12 @@ function zoomFit() {
     const stage = $("preview-stage");
     const sample = $("preview-1");
     if (!sample?.naturalWidth) return;
-    STATE.zoom = (stage.clientWidth - 40) / sample.naturalWidth;
+    const availW = stage.clientWidth - 40;
+    STATE.zoom = availW / sample.naturalWidth;
+    // Na mobile nie schodzimy poniżej 0.3 — inaczej tekst nieczytelny
+    if (window.innerWidth <= 900 && STATE.zoom < 0.3) {
+        STATE.zoom = 0.3;
+    }
     applyZoom();
 }
 
