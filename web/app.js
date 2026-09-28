@@ -3,34 +3,22 @@ let _backendPromise = null;
 
 async function getBackend() {
     if (_backendPromise) return _backendPromise;
-
     _backendPromise = (async () => {
-        // 1) Desktop (pywebview)
-        if (window.pywebview?.api) {
-            return window.pywebview.api;
-        }
-        // 2) Web (Pyodide)
+        if (window.pywebview?.api) return window.pywebview.api;
         if (typeof initPyodideBridge === "function") {
             const pyodide = await initPyodideBridge();
             return makePyodideAdapter(pyodide);
         }
         throw new Error("Brak backendu (ani pywebview, ani Pyodide).");
     })();
-
     return _backendPromise;
 }
 
 async function backend() { return getBackend(); }
 
 function handleBackendResult(msg) {
-    if (typeof msg === "string") {
-        $("status").textContent = msg;
-        return;
-    }
-    if (!msg) {
-        $("status").textContent = "Anulowano.";
-        return;
-    }
+    if (typeof msg === "string") { $("status").textContent = msg; return; }
+    if (!msg) { $("status").textContent = "Anulowano."; return; }
     if (msg.__download__) {
         const a = document.createElement("a");
         a.href = `data:${msg.mime};base64,${msg.b64}`;
@@ -39,28 +27,21 @@ function handleBackendResult(msg) {
         $("status").textContent = `Pobrano: ${msg.filename}`;
         return;
     }
-    if (msg.__status__) {
-        $("status").textContent = msg.__status__;
-        return;
-    }
+    if (msg.__status__) { $("status").textContent = msg.__status__; return; }
     $("status").textContent = "OK.";
 }
 
 // ============ Globalny stan ============
 const DATA = {};
 const STATE = {
-    talents: [],
-    talents_prof: [],
-    weapon_features: [],
-    equipment: [],
-    blessings: [],
-    zoom: 0.6,
+    talents: [], talents_prof: [], weapon_features: [],
+    equipment: [], blessings: [], zoom: 0.6,
 };
 
 const $ = id => document.getElementById(id);
 const STAT_NAMES = ["WW","US","S","Wt","I","Zw","Zr","Int","SW","Ogd"];
 
-// ============ Religia — uprawnione profesje ============
+// ============ Religia ============
 function professionUsesReligion(prof) {
     if (!prof) return false;
     const clean = prof.replace(/\s*s\.\d+\s*$/i, "").trim();
@@ -101,13 +82,11 @@ function buildStatsGrid() {
 function refreshNames() {
     const sex = $("inp-sex").value;
     const names = sex === "M" ? DATA.names_m : DATA.names_k;
-
     const dl = $("names-list");
     dl.innerHTML = "";
     for (const n of names) {
         const o = document.createElement("option"); o.value = n; dl.appendChild(o);
     }
-
     const sel = $("inp-name-pick");
     sel.innerHTML = '<option value="">— wybierz z pełnej listy —</option>';
     for (const n of names) {
@@ -219,7 +198,7 @@ function renderStatBadges() {
         if (!el) continue;
         if (bonuses[i]) {
             el.textContent = `+${bonuses[i]}`;
-            el.title = `Bonus z talentów: +${bonuses[i]} (wliczony w wartość na karcie)`;
+            el.title = `Bonus z talentów: +${bonuses[i]}`;
         } else {
             el.textContent = "";
         }
@@ -235,26 +214,21 @@ function renderList(elId, items, onRemove, descMap) {
         const li = document.createElement("li");
         const isSimple = typeof it === "string";
         const label = isSimple ? it : `${it.name} (${it.weight})`;
-
         const body = document.createElement("div");
         body.className = "list-body";
-
         const title = document.createElement("div");
         title.className = "list-title";
         title.textContent = label;
         body.appendChild(title);
-
         if (descMap && isSimple && descMap[it]) {
             const desc = document.createElement("div");
             desc.className = "list-desc";
             desc.textContent = descMap[it];
             body.appendChild(desc);
         }
-
         const b = document.createElement("button");
         b.textContent = "×"; b.className = "rm";
         b.onclick = () => { onRemove(idx); };
-
         li.appendChild(body);
         li.appendChild(b);
         el.appendChild(li);
@@ -288,13 +262,11 @@ function renderEquipment() {
 function renderEncumbrance() {
     const el = $("encumbrance");
     if (!el) return;
-
     const total = STATE.equipment.reduce((s, e) => s + (e.weight || 0), 0);
     const bonuses = getStatBonuses();
     const S  = (+$("stat-2").value || 0) + bonuses[2];
     const Wt = (+$("stat-3").value || 0) + bonuses[3];
     const limit = Math.max(1, Math.floor(S / 10) + Math.floor(Wt / 10));
-
     const over = total > limit + 0.0001;
     el.textContent = `Obciążenie: ${total.toFixed(1)} / ${limit}`;
     el.classList.toggle("enc-over", over);
@@ -305,11 +277,9 @@ function renderEncumbrance() {
 function readFormBase() {
     const stats = [];
     for (let i = 0; i < 10; i++) stats.push(+$(`stat-${i}`).value || 0);
-
     const w = DATA.weapons.find(x => x.n === $("inp-weapon").value) || {};
     const allTalents = [...STATE.talents, ...STATE.talents_prof];
     const usesReligion = professionUsesReligion($("inp-prof").value);
-
     return {
         imie: $("inp-name").value,
         plec: $("inp-sex").value,
@@ -329,9 +299,7 @@ function readFormBase() {
         bron: {
             n: w.n || "",
             rzadkosc: $("inp-weapon-rarity").value,
-            k: w.k || "",
-            o: w.o || 0,
-            z: w.z || "",
+            k: w.k || "", o: w.o || 0, z: w.z || "",
             r: $("inp-weapon-dmg").value || w.r || "",
             cechy: STATE.weapon_features.join(", "),
         },
@@ -351,55 +319,45 @@ function readForm() {
 // ============ Zapis formularza ============
 function writeForm(d) {
     if (!d) return;
-
     $("inp-name").value = d.imie || "";
     $("inp-sex").value = d.plec || "M";
     refreshNames();
-
     $("inp-race").value = d.rasa || $("inp-race").value;
     $("inp-class").value = d.klasa || $("inp-class").value;
     refreshProfessions();
     $("inp-prof").value = d.sciezka_profesji || $("inp-prof").value;
     checkReligion();
-
     $("inp-age").value = d.wiek || 0;
     $("inp-height").value = d.wzrost || 0;
     $("inp-hair").value = d.wlosy || $("inp-hair").value;
     $("inp-eyes").value = d.oczy || $("inp-eyes").value;
     $("inp-status").value = d.status || "";
     $("inp-speed").value = d.szybkosc || 0;
-
     const stats = d.stats || [];
     for (let i = 0; i < 10; i++) $(`stat-${i}`).value = stats[i] || 0;
-
     const allT = d.talenty || [];
     STATE.talents = allT.filter(t => DATA.talents.includes(t));
     STATE.talents_prof = allT.filter(t => !DATA.talents.includes(t));
     renderTalents();
     renderTalentsProf();
-
     if (d.bron) {
         if (d.bron.n) $("inp-weapon").value = d.bron.n;
         $("inp-weapon-rarity").value = d.bron.rzadkosc || "Pospolita";
         $("inp-weapon-dmg").value = d.bron.r || "";
         STATE.weapon_features = d.bron.cechy
-            ? d.bron.cechy.split(",").map(s => s.trim()).filter(Boolean)
-            : [];
+            ? d.bron.cechy.split(",").map(s => s.trim()).filter(Boolean) : [];
         renderWeaponFeatures();
         updateWeaponDesc();
     }
-
     STATE.equipment = (d.ekwipunek || []).map(([name, weight]) => ({ name, weight }));
     renderEquipment();
-
     $("inp-god").value = d.bog || "";
     if (d.blogoslawienstwa) {
-        STATE.blessings = [...d.blogoslawienstwa];
+        STATE.blessings = [...d.blessings];
         renderBlessings();
     } else {
         refreshBlessings();
     }
-
     $("inp-history").value = d.historia || "";
 }
 
@@ -464,36 +422,24 @@ async function savePng() {
     $("status").textContent = "Zapisywanie PNG...";
     try {
         const b = await backend();
-        const msg = await b.save_png(readForm(), +page);
-        handleBackendResult(msg);
-    } catch (e) {
-        $("status").textContent = "Błąd: " + (e?.message || e);
-        console.error(e);
-    }
+        handleBackendResult(await b.save_png(readForm(), +page));
+    } catch (e) { $("status").textContent = "Błąd: " + (e?.message || e); console.error(e); }
 }
 
 async function savePdf() {
     $("status").textContent = "Zapisywanie PDF...";
     try {
         const b = await backend();
-        const msg = await b.save_pdf(readForm());
-        handleBackendResult(msg);
-    } catch (e) {
-        $("status").textContent = "Błąd: " + (e?.message || e);
-        console.error(e);
-    }
+        handleBackendResult(await b.save_pdf(readForm()));
+    } catch (e) { $("status").textContent = "Błąd: " + (e?.message || e); console.error(e); }
 }
 
 async function saveCharacter() {
     $("status").textContent = "Zapisywanie postaci...";
     try {
         const b = await backend();
-        const msg = await b.save_character(readFormBase());
-        handleBackendResult(msg);
-    } catch (e) {
-        $("status").textContent = "Błąd: " + (e?.message || e);
-        console.error(e);
-    }
+        handleBackendResult(await b.save_character(readFormBase()));
+    } catch (e) { $("status").textContent = "Błąd: " + (e?.message || e); console.error(e); }
 }
 
 async function loadCharacter() {
@@ -501,8 +447,6 @@ async function loadCharacter() {
     try {
         const b = await backend();
         const result = await b.load_character();
-
-        // Desktop — od razu dane
         if (result && !result.__request_upload__ && !result.__error__) {
             writeForm(result);
             await renderAll();
@@ -534,10 +478,7 @@ async function loadCharacter() {
             return;
         }
         $("status").textContent = "Anulowano.";
-    } catch (e) {
-        $("status").textContent = "Błąd: " + (e?.message || e);
-        console.error(e);
-    }
+    } catch (e) { $("status").textContent = "Błąd: " + (e?.message || e); console.error(e); }
 }
 
 // ============ Losowanie ============
@@ -733,13 +674,11 @@ async function init() {
     $("status").textContent = "Gotowe.";
 }
 
-// Desktop — pywebview ready
 window.addEventListener("pywebviewready", () => init().catch(e => {
     $("status").textContent = "Błąd init: " + e.message;
     console.error(e);
 }));
 
-// Web — od razu start (Pyodide ładuje się przez getBackend)
 if (!window.pywebview?.api && typeof initPyodideBridge === "function") {
     init().catch(e => {
         $("status").textContent = "Błąd init: " + e.message;
