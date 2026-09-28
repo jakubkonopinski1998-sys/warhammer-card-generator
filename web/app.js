@@ -32,7 +32,7 @@ const LoadingUI = {
             if (this.percentEl) this.percentEl.textContent = clamped + "%";
         }
 
-        // Wymuszenie odrysowania klatki przez przeglądarkę przed blokującym kodem Pythona
+        // Wymuszenie odrysowania klatki przez przeglądarkę przed wejściem w kod WASM
         await new Promise(resolve => requestAnimationFrame(() => setTimeout(resolve, 20)));
     },
 
@@ -79,10 +79,11 @@ function handleBackendResult(msg) {
 
 // ============ Globalny stan ============
 const DATA = {};
-const isInitialMobile = window.innerWidth <= 900;
+const isMobileClient = window.innerWidth <= 900;
 const STATE = {
     talents: [], talents_prof: [], weapon_features: [],
-    equipment: [], blessings: [], zoom: isInitialMobile ? 0.15 : 0.6,
+    equipment: [], blessings: [], zoom: isMobileClient ? 0.15 : 0.6,
+    hasRenderedOnce: false, // Flaga pod lazy-render
 };
 
 const $ = id => document.getElementById(id);
@@ -102,12 +103,18 @@ function initMobileNavigation() {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
-    tabPrev.onclick = () => {
+    tabPrev.onclick = async () => {
         layout.dataset.activeTab = "preview";
         tabPrev.classList.add("active");
         tabForm.classList.remove("active");
         window.scrollTo({ top: 0, behavior: "smooth" });
-        setTimeout(() => zoomFit(), 60);
+
+        // Jeśli na mobile karty nie były jeszcze renderowane – renderujemy na żądanie
+        if (!STATE.hasRenderedOnce) {
+            await renderAll();
+        } else {
+            setTimeout(() => zoomFit(), 60);
+        }
     };
 }
 
@@ -502,6 +509,7 @@ async function renderAll() {
         setPreviewImage(4, p4);
 
         await LoadingUI.update(100, "Dopasowywanie podglądu...");
+        STATE.hasRenderedOnce = true;
         zoomFit();
         $("status").textContent = "Wszystkie karty gotowe.";
     } catch (e) {
@@ -693,7 +701,7 @@ async function init() {
 
     const b = await backend();
     
-    await LoadingUI.update(88, "Wczytywanie bazy danych WFRP...");
+    await LoadingUI.update(92, "Wczytywanie bazy danych WFRP...");
     Object.assign(DATA, await b.get_all_data());
 
     buildStatsGrid();
@@ -763,7 +771,14 @@ async function init() {
 
     $("btn-random").onclick = async () => {
         randomizeAll();
-        await renderAll();
+        // Na desktopie renderujemy od razu; na mobile tylko jeśli użytkownik patrzy na podgląd
+        const layout = $("app-layout");
+        if (!isMobileClient || layout.dataset.activeTab === "preview") {
+            await renderAll();
+        } else {
+            STATE.hasRenderedOnce = false; // Zaznaczamy, że jest nowa postać do wyrenderowania po kliknięciu podglądu
+            $("status").textContent = "Wylosowano nową postać.";
+        }
     };
     $("btn-save-char").onclick = saveCharacter;
     $("btn-load-char").onclick = loadCharacter;
@@ -793,9 +808,16 @@ async function init() {
 
     updateWeaponDesc();
     randomizeAll();
-    await renderAll();
-    zoomFit();
-    $("status").textContent = "Gotowe.";
+
+    // OPTYMALIZACJA STARTOWA:
+    // Na telefonie kończymy inicjalizację od razu (użytkownik widzi formularz natychmiast).
+    // Na desktopie renderujemy karty, bo ekran podglądu jest widoczny z prawej strony.
+    if (!isMobileClient) {
+        await renderAll();
+    } else {
+        LoadingUI.hide();
+        $("status").textContent = "Gotowe do edycji.";
+    }
 }
 
 window.addEventListener("pywebviewready", () => init().catch(e => {
