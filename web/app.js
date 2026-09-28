@@ -32,8 +32,7 @@ const LoadingUI = {
             if (this.percentEl) this.percentEl.textContent = clamped + "%";
         }
 
-        // KLUCZOWE: Wymuszenie oddania sterowania do przeglądarki,
-        // aby przerysowała DOM przed wejściem w blokujący kod Pythona w WASM
+        // Wymuszenie odrysowania klatki przez przeglądarkę przed blokującym kodem Pythona
         await new Promise(resolve => requestAnimationFrame(() => setTimeout(resolve, 20)));
     },
 
@@ -434,7 +433,7 @@ function applyZoomToImage(img) {
 }
 
 function applyZoom() {
-    document.querySelectorAll(".card-slot img").forEach(applyZoomToImage);
+    document.querySelectorAll(".card-slot img.rendered").forEach(applyZoomToImage);
     $("zoom-label").textContent = Math.round(STATE.zoom * 100) + "%";
 }
 
@@ -455,16 +454,25 @@ function zoomFit() {
 // ============ Render ============
 function setPreviewImage(page, b64) {
     const img = $(`preview-${page}`);
-    if (!img) return;
+    const skeleton = $(`skeleton-${page}`);
     const slot = $(`slot-${page}`);
+    if (!img) return;
+
     if (!b64) {
         if (slot) slot.setAttribute("hidden", "");
         return;
     }
     if (slot) slot.removeAttribute("hidden");
-    img.onload = () => applyZoomToImage(img);
+    
+    img.onload = () => {
+        if (skeleton) skeleton.style.display = "none";
+        img.classList.add("rendered");
+        applyZoomToImage(img);
+    };
     img.src = "data:image/png;base64," + b64;
     if (img.complete) {
+        if (skeleton) skeleton.style.display = "none";
+        img.classList.add("rendered");
         applyZoomToImage(img);
     }
 }
@@ -495,7 +503,7 @@ async function renderAll() {
 
         await LoadingUI.update(100, "Dopasowywanie podglądu...");
         zoomFit();
-        $("status").textContent = "Wszystkie karty wyrenderowane.";
+        $("status").textContent = "Wszystkie karty gotowe.";
     } catch (e) {
         $("status").textContent = "Błąd: " + (e?.message || e);
         console.error(e);
