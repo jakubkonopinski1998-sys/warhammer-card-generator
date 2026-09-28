@@ -1,7 +1,7 @@
 /* Pyodide bridge — ładuje Pythona i pliki projektu do wirtualnego FS. */
 
 const PYODIDE_VERSION = "0.26.2";
-const PYODIDE_URL = `https://cdn.jsdelivr.net/pyodide/v${PYODIDE_VERSION}/full/`;
+const PYODIDE_CDN = `https://cdn.jsdelivr.net/pyodide/v${PYODIDE_VERSION}/full/`;
 
 const PROJECT_ROOT = "/home/pyodide/project";
 
@@ -41,6 +41,29 @@ const TEMPLATE_FILES = [
     "assets/images/templates/WW2.png",
 ];
 
+// === Dynamiczne ładowanie skryptu Pyodide z CDN ===
+function loadScriptOnce(src) {
+    return new Promise((resolve, reject) => {
+        if (document.querySelector(`script[src="${src}"]`)) {
+            resolve();
+            return;
+        }
+        const s = document.createElement("script");
+        s.src = src;
+        s.onload = () => resolve();
+        s.onerror = () => reject(new Error(`Nie udało się załadować: ${src}`));
+        document.head.appendChild(s);
+    });
+}
+
+async function ensurePyodideLoaded() {
+    if (typeof loadPyodide !== "undefined") return;
+    await loadScriptOnce(`${PYODIDE_CDN}pyodide.js`);
+    if (typeof loadPyodide === "undefined") {
+        throw new Error("loadPyodide nadal niezdefiniowane po załadowaniu skryptu.");
+    }
+}
+
 async function fetchToFs(pyodide, path, targetPath) {
     const res = await fetch(path);
     if (!res.ok) throw new Error(`Brak pliku: ${path} (${res.status})`);
@@ -52,7 +75,8 @@ async function fetchToFs(pyodide, path, targetPath) {
 
 async function initPyodideBridge() {
     logStatus("Ładowanie Pyodide...");
-    const pyodide = await loadPyodide({ indexURL: PYODIDE_URL });
+    await ensurePyodideLoaded();
+    const pyodide = await loadPyodide({ indexURL: PYODIDE_CDN });
 
     logStatus("Instalacja Pillow...");
     await pyodide.loadPackage("micropip");
@@ -111,10 +135,8 @@ if isinstance(_res, (str, type(None))):
 else:
     _json.dumps(_res)
 `);
-        // jeśli Pyodide zwraca Python proxy — konwertujemy
         let out = result;
         if (out && typeof out.toJs === "function") out = out.toJs();
-        // jeśli string JSON — parsujemy
         if (typeof out === "string") {
             const trimmed = out.trim();
             if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
