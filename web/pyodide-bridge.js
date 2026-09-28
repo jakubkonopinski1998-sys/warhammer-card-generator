@@ -121,6 +121,16 @@ import sys
 sys.path.insert(0, "${PROJECT_ROOT}")
 from src.api import Api
 _api = Api()
+
+import json as _json
+def _dispatch(method_name, args_json):
+    _args = _json.loads(args_json)
+    try:
+        _res = getattr(_api, method_name)(*_args)
+    except Exception as _e:
+        import traceback
+        _res = {"__pyerror__": f"{type(_e).__name__}: {_e}\\n{traceback.format_exc()}"}
+    return _json.dumps(_res)
 `);
 
     return pyodide;
@@ -131,44 +141,31 @@ function logStatus(msg) {
     if (el) el.textContent = msg;
 }
 
-/* Adapter — dane przekazywane jako JSON string.
- * Wywołania są SERIALIZOWANE (kolejka), żeby uniknąć konfliktów na wspólnych
- * zmiennych globalnych Pyodide i wspólnym FS przy równoległych renderach. */
+/* Adapter — używa jednej funkcji Python z argumentami (bez globalnych zmiennych).
+ * Dzięki temu równoległe wywołania nie nadpisują sobie nawzajem danych. */
 function makePyodideAdapter(pyodide) {
-    let _counter = 0;
-    let _queue = Promise.resolve();
+    const _dispatch = pyodide.globals.get("_dispatch");
 
-    const _doCall = async (method, ...args) => {
-        const id = ++_counter;
-        const resultPath = `/tmp/_result_${id}.json`;
-        pyodide.globals.set("_args_json", JSON.stringify(args));
-        pyodide.globals.set("_result_path", resultPath);
-        await pyodide.runPythonAsync(`
-import json as _json
-_args = _json.loads(_args_json)
-try:
-    _res = getattr(_api, "${method}")(*_args)
-except Exception as _e:
-    _res = {"__pyerror__": f"{type(_e).__name__}: {_e}"}
-with open(_result_path, "w", encoding="utf-8") as _f:
-    _f.write(_json.dumps(_res))
-`);
-        const str = pyodide.FS.readFile(resultPath, { encoding: "utf8" });
-        try { pyodide.globals.delete("_args_json"); } catch (e) {}
-        try { pyodide.globals.delete("_result_path"); } catch (e) {}
-        try { pyodide.FS.unlink(resultPath); } catch (e) {}
+    const call = async (method, ...args) => {
+        const argsJson = JSON.stringify(args);
+        const result = _dispatch(method, argsJson);
+
+        // Konwersja wyniku z PyProxy/str na JS string
+        let str;
+        if (typeof result === "string") {
+            str = result;
+        } else if (result && typeof result.toString === "function") {
+            str = result.toString();
+            if (result.destroy) result.destroy();
+        } else {
+            str = String(result);
+        }
+
         const parsed = JSON.parse(str);
         if (parsed && parsed.__pyerror__) {
             throw new Error("Python: " + parsed.__pyerror__);
         }
         return parsed;
-    };
-
-    // Kolejka — każde wywołanie czeka aż poprzednie się skończy
-    const call = (method, ...args) => {
-        const task = _queue.then(() => _doCall(method, ...args));
-        _queue = task.catch(() => {}); // nie przerywaj kolejki przy błędzie
-        return task;
     };
 
     return {
