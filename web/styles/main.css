@@ -1,5 +1,6 @@
 /* ============================================================
-   Warhammer Card Generator — styling
+   Warhammer Card Generator — styling + responsywność
+   Motyw: ciemny grafit + pergamin + bursztyn + slate blue
    ============================================================ */
 
 * { box-sizing: border-box; }
@@ -66,7 +67,8 @@ body {
     position: absolute;
     left: 0; right: 0; bottom: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, var(--amber) 20%, var(--amber) 80%, transparent 100%);
+    background: linear-gradient(90deg,
+        transparent 0%, var(--amber) 20%, var(--amber) 80%, transparent 100%);
     opacity: .35;
 }
 
@@ -93,13 +95,16 @@ body {
 .layout {
     display: grid;
     grid-template-columns: minmax(480px, 0.9fr) 1.4fr;
-    gap: 1rem; padding: 1rem; height: calc(100vh - 68px);
+    gap: 1rem; padding: 1rem;
+    height: calc(100vh - 68px);
 }
 
 /* ============ Formularz ============ */
 .form-pane {
-    overflow-y: auto; padding-right: .5rem;
-    scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+    overflow-y: auto;
+    padding-right: .5rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
 }
 .form-pane::-webkit-scrollbar { width: 8px; }
 .form-pane::-webkit-scrollbar-track { background: transparent; }
@@ -107,9 +112,12 @@ body {
 .form-pane::-webkit-scrollbar-thumb:hover { background: var(--border-soft); }
 
 .panel {
-    background: var(--card-bg); color: var(--card-ink);
-    border-radius: var(--radius); padding: 1rem 1.1rem;
-    margin-bottom: .85rem; box-shadow: var(--shadow-md);
+    background: var(--card-bg);
+    color: var(--card-ink);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+    margin-bottom: .85rem;
+    box-shadow: var(--shadow-md);
     border: 1px solid rgba(0,0,0,.15);
 }
 
@@ -137,8 +145,11 @@ body {
 }
 
 /* ============ Pola ============ */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem .8rem; }
-
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .7rem .8rem;
+}
 .field { display: flex; flex-direction: column; gap: .3rem; font-size: .9rem; }
 .field-wide { grid-column: 1 / -1; }
 .field > span {
@@ -163,13 +174,14 @@ input:focus, select:focus, textarea:focus {
     box-shadow: 0 0 0 3px rgba(58,99,137,.18);
 }
 textarea {
-    resize: vertical; font-family: "JetBrains Mono", "Consolas", monospace;
+    resize: vertical;
+    font-family: "JetBrains Mono", "Consolas", monospace;
     font-size: .82rem; line-height: 1.5;
 }
 .row { display: flex; gap: .4rem; align-items: stretch; }
 .row > input, .row > select { flex: 1; min-width: 0; }
 
-/* ============ Opis pod selectem ============ */
+/* ============ Opis ============ */
 .desc-preview {
     margin-top: .5rem; padding: .55rem .75rem;
     background: rgba(58,99,137,.06);
@@ -201,19 +213,12 @@ textarea {
 }
 .stats-grid input:focus { background: #fff; }
 
-/* Bonus z talentu — mały, przygaszony, pod inputem */
 .stat-bonus {
-    display: block;
-    min-height: 14px;
-    font-family: "Cinzel", serif;
-    font-size: .82rem;
-    font-weight: 700;
-    font-style: normal;
-    color: var(--blue-deep);
-    letter-spacing: .5px;
-    line-height: 1;
-    text-transform: none;
-    padding: 0;
+    display: block; min-height: 14px;
+    font-family: "Cinzel", serif; font-size: .82rem; font-weight: 700;
+    font-style: normal; color: var(--blue-deep);
+    letter-spacing: .5px; line-height: 1;
+    text-transform: none; padding: 0;
 }
 .stat-bonus:empty { display: none; }
 .stat-bonus::before { content: attr(data-label); }
@@ -254,16 +259,12 @@ textarea {
 
 /* ============ Obciążenie ============ */
 .enc-info {
-    margin-top: .6rem;
-    padding: .5rem .7rem;
+    margin-top: .6rem; padding: .5rem .7rem;
     background: rgba(58,99,137,.06);
     border-left: 3px solid var(--blue);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    font-family: "Cinzel", serif;
-    font-size: .75rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: var(--card-ink-soft);
+    font-family: "Cinzel", serif; font-size: .75rem; font-weight: 600;
+    letter-spacing: 1px; color: var(--card-ink-soft);
 }
 .enc-info.enc-ok { color: var(--green); }
 .enc-info.enc-over {
@@ -290,7 +291,6 @@ textarea {
     border-color: var(--blue); color: #a8c8e8;
 }
 .btn:active { transform: translateY(1px); }
-
 .btn-primary {
     background: linear-gradient(180deg, var(--blue) 0%, var(--blue-deep) 100%);
     border-color: var(--blue-deep); color: #f5efe2;
@@ -299,7 +299,6 @@ textarea {
     background: linear-gradient(180deg, #4d7ba5 0%, #25496b 100%);
     color: #fff; border-color: var(--amber-deep);
 }
-
 .btn-small { padding: .38rem .7rem; font-size: .72rem; min-height: 30px; }
 
 .btn-icon {
@@ -399,4 +398,142 @@ textarea {
     display: block;
     box-shadow: 0 12px 40px rgba(0,0,0,.7), 0 0 0 1px rgba(201,163,73,.15);
     background: white; border-radius: 3px; max-width: none;
+}
+
+/* ============================================================
+   RESPONSIVE — Tablet (<= 900px)
+   ============================================================ */
+@media (max-width: 900px) {
+    /* Body przewija się naturalnie */
+    html, body { height: auto; min-height: 100%; }
+    body { overflow: auto; }
+
+    .layout {
+        grid-template-columns: 1fr;
+        gap: .8rem;
+        padding: .8rem;
+        height: auto;
+    }
+
+    .form-pane {
+        overflow: visible;
+        padding-right: 0;
+        max-height: none;
+    }
+
+    .preview-pane {
+        min-height: 70vh;
+    }
+
+    .preview-stage {
+        max-height: none;
+        min-height: 60vh;
+    }
+}
+
+/* ============================================================
+   RESPONSIVE — Phone (<= 600px)
+   ============================================================ */
+@media (max-width: 600px) {
+    body { font-size: 14px; }
+
+    /* Header bardziej kompaktowy */
+    .app-header {
+        flex-wrap: wrap;
+        padding: .5rem .8rem;
+        gap: .35rem;
+    }
+    .brand-mark { font-size: 1.4rem; }
+    .brand h1 { font-size: .88rem; letter-spacing: 1.5px; }
+    .brand-sub { display: none; }
+    .status {
+        font-size: .72rem;
+        text-align: left;
+        max-width: 100%;
+        flex-basis: 100%;
+    }
+
+    .layout { padding: .5rem; gap: .5rem; }
+
+    /* Panele — mniej paddingu, żeby zmieścić treść */
+    .panel {
+        padding: .7rem .8rem;
+        margin-bottom: .55rem;
+    }
+    .panel-header { margin-bottom: .6rem; }
+
+    /* Pola — jedna kolumna */
+    .grid-2 { grid-template-columns: 1fr; gap: .55rem; }
+    .field-wide { grid-column: auto; }
+
+    /* Zapobiegnięcie auto-zoom na iOS — 16px w inputach */
+    input, select, textarea {
+        font-size: 16px;
+        min-height: 42px;
+        padding: .5rem .7rem;
+    }
+    textarea { font-size: 14px; }
+
+    /* Statystyki — zachowujemy 5 kolumn, ale mniejsze */
+    .stats-grid { gap: .3rem; }
+    .stats-grid label { font-size: .6rem; letter-spacing: .5px; }
+    .stats-grid input {
+        font-size: .88rem;
+        min-height: 38px;
+        padding: .3rem .15rem;
+    }
+    .stat-bonus { font-size: .7rem; }
+
+    /* Przyciski — większe (touch-friendly) */
+    .btn { padding: .55rem .8rem; min-height: 40px; font-size: .72rem; }
+    .btn-small { padding: .45rem .6rem; min-height: 36px; font-size: .68rem; }
+    .btn-icon { width: 42px; min-width: 42px; min-height: 42px; }
+    .btn-icon-sm { width: 32px; height: 32px; min-width: 32px; min-height: 32px; }
+
+    /* Listy i chipy */
+    .list li { padding: .45rem .55rem; font-size: .85rem; }
+    .list-title { font-size: .85rem; }
+    .list-desc { font-size: .74rem; }
+    .chip { font-size: .62rem; padding: .2rem .55rem; }
+
+    /* Toolbar podglądu — grupy w 2 rzędach */
+    .preview-toolbar {
+        padding: .45rem .55rem;
+        gap: .35rem;
+        justify-content: center;
+    }
+    .toolbar-group { gap: .25rem; }
+    .toolbar-zoom { padding: .15rem .3rem; }
+    .zoom-label { min-width: 42px; font-size: .7rem; }
+
+    .preview-stage {
+        padding: .8rem .4rem;
+        gap: 1.2rem;
+        min-height: 55vh;
+    }
+    .card-label { font-size: .62rem; letter-spacing: 1.2px; }
+    .card-label::before, .card-label::after { width: 15px; }
+
+    /* Panel akcji — pełna szerokość */
+    .actions-panel { padding: .6rem; gap: .35rem; }
+    .actions-panel .btn { flex: 1 1 100%; min-width: 0; }
+
+    .desc-preview { font-size: .76rem; padding: .45rem .6rem; }
+    .enc-info { font-size: .68rem; padding: .4rem .55rem; }
+}
+
+/* ============================================================
+   RESPONSIVE — Small phone (<= 380px)
+   ============================================================ */
+@media (max-width: 380px) {
+    .app-header h1 { font-size: .78rem; letter-spacing: 1px; }
+    .brand-mark { font-size: 1.2rem; }
+
+    .stats-grid { gap: .2rem; }
+    .stats-grid label { font-size: .55rem; letter-spacing: 0; }
+    .stats-grid input { font-size: .8rem; padding: .25rem 0; min-height: 34px; }
+    .stat-bonus { font-size: .62rem; }
+
+    .preview-toolbar .btn-small { padding: .35rem .45rem; font-size: .62rem; }
+    .zoom-label { min-width: 36px; font-size: .65rem; }
 }
