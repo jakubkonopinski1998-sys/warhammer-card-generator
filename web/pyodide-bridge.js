@@ -1,4 +1,4 @@
-/* Pyodide bridge — ładuje Pythona i pliki projektu do wirtualnego FS. */
+/* Pyodide bridge — zoptymalizowane, równoległe ładowanie Pythona do wirtualnego FS. */
 
 const PYODIDE_VERSION = "0.26.2";
 const PYODIDE_CDN = `https://cdn.jsdelivr.net/pyodide/v${PYODIDE_VERSION}/full/`;
@@ -64,8 +64,6 @@ async function fetchToFs(pyodide, path, targetPath) {
     const res = await fetch(path);
     if (!res.ok) throw new Error(`Brak pliku: ${path} (${res.status})`);
     const buf = new Uint8Array(await res.arrayBuffer());
-    const dir = targetPath.substring(0, targetPath.lastIndexOf("/"));
-    try { pyodide.FS.mkdirTree(dir); } catch (e) {}
     pyodide.FS.writeFile(targetPath, buf);
 }
 
@@ -76,7 +74,10 @@ async function ensureProfessionInFs(pyodide, num) {
         return;
     } catch (e) {}
     const webPath = `../assets/images/professions/${num}.png`;
-    await fetchToFs(pyodide, webPath, targetPath);
+    const res = await fetch(webPath);
+    if (!res.ok) throw new Error(`Brak karty profesji: ${webPath}`);
+    const buf = new Uint8Array(await res.arrayBuffer());
+    pyodide.FS.writeFile(targetPath, buf);
 }
 
 async function notifyProgress(percent, msg) {
@@ -88,40 +89,46 @@ async function notifyProgress(percent, msg) {
 }
 
 async function initPyodideBridge() {
-    await notifyProgress(10, "Pobieranie środowiska Pyodide (WASM)...");
+    await notifyProgress(15, "Pobieranie środowiska Pyodide (WASM)...");
     await ensurePyodideLoaded();
     const pyodide = await loadPyodide({ indexURL: PYODIDE_CDN });
 
-    await notifyProgress(25, "Instalacja biblioteki graficznej Pillow...");
-    await pyodide.loadPackage("micropip");
-    const micropip = pyodide.pyimport("micropip");
-    await micropip.install("pillow");
+    // Zamiast micropip: natywne, prekompilowane Pillow z repozytorium Pyodide
+    await notifyProgress(35, "Ładowanie biblioteki graficznej Pillow...");
+    await pyodide.loadPackage("pillow");
 
-    await notifyProgress(45, "Tworzenie wirtualnego systemu plików...");
-    pyodide.FS.mkdirTree(PROJECT_ROOT);
-    pyodide.FS.mkdirTree(`${PROJECT_ROOT}/src`);
-    pyodide.FS.mkdirTree(`${PROJECT_ROOT}/data`);
-    pyodide.FS.mkdirTree(`${PROJECT_ROOT}/assets`);
-    pyodide.FS.mkdirTree(`${PROJECT_ROOT}/assets/images`);
-    pyodide.FS.mkdirTree(`${PROJECT_ROOT}/assets/images/professions`);
+    await notifyProgress(50, "Tworzenie struktury katalogów...");
+    const allFiles = [
+        ...PY_FILES.map(f => ({ src: `../${f}`, dest: `${PROJECT_ROOT}/${f}` })),
+        ...DATA_FILES.map(f => ({ src: `../${f}`, dest: `${PROJECT_ROOT}/${f}` })),
+        ...ASSET_FILES.map(f => ({ src: `../${f}`, dest: `${PROJECT_ROOT}/${f}` })),
+        ...TEMPLATE_FILES.map(f => ({ src: `../${f}`, dest: `${PROJECT_ROOT}/${f}` })),
+    ];
 
-    await notifyProgress(58, "Wczytywanie modułów Pythona...");
-    for (const f of PY_FILES) {
-        await fetchToFs(pyodide, `../${f}`, `${PROJECT_ROOT}/${f}`);
+    // Przygotowanie katalogów w wirtualnym FS
+    const dirs = new Set([
+        PROJECT_ROOT,
+        `${PROJECT_ROOT}/src`,
+        `${PROJECT_ROOT}/src/domain`,
+        `${PROJECT_ROOT}/src/services`,
+        `${PROJECT_ROOT}/src/rendering`,
+        `${PROJECT_ROOT}/src/rendering/widgets`,
+        `${PROJECT_ROOT}/src/utils`,
+        `${PROJECT_ROOT}/data`,
+        `${PROJECT_ROOT}/data/content`,
+        `${PROJECT_ROOT}/assets`,
+        `${PROJECT_ROOT}/assets/fonts`,
+        `${PROJECT_ROOT}/assets/images`,
+        `${PROJECT_ROOT}/assets/images/templates`,
+        `${PROJECT_ROOT}/assets/images/professions`,
+    ]);
+    for (const d of dirs) {
+        try { pyodide.FS.mkdirTree(d); } catch (e) {}
     }
 
-    await notifyProgress(70, "Wczytywanie baz danych gry...");
-    for (const f of DATA_FILES) {
-        await fetchToFs(pyodide, `../${f}`, `${PROJECT_ROOT}/${f}`);
-    }
-
-    await notifyProgress(80, "Wczytywanie fontów i szablonów kart...");
-    for (const f of ASSET_FILES) {
-        await fetchToFs(pyodide, `../${f}`, `${PROJECT_ROOT}/${f}`);
-    }
-    for (const f of TEMPLATE_FILES) {
-        await fetchToFs(pyodide, `../${f}`, `${PROJECT_ROOT}/${f}`);
-    }
+    // RÓWNOLEGŁE pobieranie wszystkich plików przez HTTP/2
+    await notifyProgress(65, "Równoległe pobieranie kodu, fontów i szablonów...");
+    await Promise.all(allFiles.map(f => fetchToFs(pyodide, f.src, f.dest)));
 
     await notifyProgress(85, "Kompilacja i start backendu Pythona...");
     pyodide.runPython(`
