@@ -41,7 +41,6 @@ const TEMPLATE_FILES = [
     "assets/images/templates/WW2.png",
 ];
 
-// === Dynamiczne ładowanie skryptu Pyodide z CDN ===
 function loadScriptOnce(src) {
     return new Promise((resolve, reject) => {
         if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
@@ -57,7 +56,7 @@ async function ensurePyodideLoaded() {
     if (typeof loadPyodide !== "undefined") return;
     await loadScriptOnce(`${PYODIDE_CDN}pyodide.js`);
     if (typeof loadPyodide === "undefined") {
-        throw new Error("loadPyodide nadal niezdefiniowane po załadowaniu skryptu.");
+        throw new Error("loadPyodide nadal niezdefiniowane.");
     }
 }
 
@@ -120,20 +119,29 @@ function logStatus(msg) {
     if (el) el.textContent = msg;
 }
 
-/* Adapter — udaje window.pywebview.api.
- * Zasada: Python zwraca JSON string przez runPython() — Pyodide automatycznie
- * konwertuje końcowe wyrażenie (str) na JS string. JSON.parse po stronie JS. */
+/* Adapter — dane przekazywane jako JSON string w obie strony.
+ * Zapobiega problemom z PyProxy/Map przy dużych base64 i zagnieżdżonych dict. */
 function makePyodideAdapter(pyodide) {
-    const call = (method, ...args) => {
-        pyodide.globals.set("_args", args);
-        // Ostatnia linia w runPython jest wyrażeniem — Pyodide zwraca JS string dla str.
-        const jsonStr = pyodide.runPython(`
+    const call = async (method, ...args) => {
+        const argsJson = JSON.stringify(args);
+        pyodide.globals.set("_args_json", argsJson);
+        await pyodide.runPythonAsync(`
 import json as _json
-_res = getattr(_api, "${method}")(*_args.to_py())
-_json.dumps(_res)
+_args = _json.loads(_args_json)
+try:
+    _res = getattr(_api, "${method}")(*_args)
+except Exception as _e:
+    _res = {"__pyerror__": f"{type(_e).__name__}: {_e}"}
+with open("/tmp/_result.json", "w", encoding="utf-8") as _f:
+    _f.write(_json.dumps(_res))
 `);
-        try { pyodide.globals.delete("_args"); } catch (e) {}
-        return JSON.parse(jsonStr);
+        const str = pyodide.FS.readFile("/tmp/_result.json", { encoding: "utf8" });
+        try { pyodide.globals.delete("_args_json"); } catch (e) {}
+        const parsed = JSON.parse(str);
+        if (parsed && parsed.__pyerror__) {
+            throw new Error("Python: " + parsed.__pyerror__);
+        }
+        return parsed;
     };
 
     return {
