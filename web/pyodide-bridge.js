@@ -44,10 +44,7 @@ const TEMPLATE_FILES = [
 // === Dynamiczne ładowanie skryptu Pyodide z CDN ===
 function loadScriptOnce(src) {
     return new Promise((resolve, reject) => {
-        if (document.querySelector(`script[src="${src}"]`)) {
-            resolve();
-            return;
-        }
+        if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
         const s = document.createElement("script");
         s.src = src;
         s.onload = () => resolve();
@@ -123,28 +120,23 @@ function logStatus(msg) {
     if (el) el.textContent = msg;
 }
 
-/* Adapter — udaje window.pywebview.api */
+/* Adapter — udaje window.pywebview.api.
+ * Zasada: Python zwraca JSON string, JS go parsuje. Zero konwersji PyProxy. */
 function makePyodideAdapter(pyodide) {
     const call = (method, ...args) => {
         pyodide.globals.set("_args", args);
-        const result = pyodide.runPython(`
+        pyodide.runPython(`
 import json as _json
 _res = getattr(_api, "${method}")(*_args.to_py())
-if isinstance(_res, (str, type(None))):
-    _res
-else:
-    _json.dumps(_res)
+_result_json = _json.dumps(_res)
 `);
-        let out = result;
-        if (out && typeof out.toJs === "function") out = out.toJs();
-        if (typeof out === "string") {
-            const trimmed = out.trim();
-            if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
-                try { return JSON.parse(out); } catch (e) { return out; }
-            }
-            return out;
-        }
-        return out;
+        const jsonStr = pyodide.globals.get("_result_json");
+        // jsonStr to JS string z racji prostej konwersji typów w Pyodide
+        const value = JSON.parse(jsonStr);
+        // zwalniamy globalne
+        try { pyodide.globals.delete("_args"); } catch (e) {}
+        try { pyodide.globals.delete("_result_json"); } catch (e) {}
+        return value;
     };
 
     return {
