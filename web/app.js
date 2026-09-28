@@ -48,7 +48,7 @@ function professionUsesReligion(prof) {
     return (DATA.religion_professions || []).includes(clean);
 }
 
-// ============ Formularz — inicjalizacja ============
+// ============ Formularz ============
 function fillSelect(el, options, selected) {
     el.innerHTML = "";
     for (const o of options) {
@@ -144,7 +144,6 @@ function renderBlessings() {
     }
 }
 
-// ============ Opis broni ============
 function setDesc(elId, text) {
     const el = $(elId);
     if (!el) return;
@@ -179,7 +178,6 @@ function populateWeaponFields() {
     updateWeaponDesc();
 }
 
-// ============ Bonusy z talentów ============
 function getStatBonuses() {
     const bonuses = [0,0,0,0,0,0,0,0,0,0];
     const map = { ...(DATA.talent_bonuses || {}), ...(DATA.talent_prof_bonuses || {}) };
@@ -206,7 +204,6 @@ function renderStatBadges() {
     renderEncumbrance();
 }
 
-// ============ Listy ============
 function renderList(elId, items, onRemove, descMap) {
     const el = $(elId);
     el.innerHTML = "";
@@ -272,7 +269,6 @@ function renderEncumbrance() {
     el.classList.toggle("enc-ok", !over);
 }
 
-// ============ Odczyt / zapis formularza ============
 function readFormBase() {
     const stats = [];
     for (let i = 0; i < 10; i++) stats.push(+$(`stat-${i}`).value || 0);
@@ -359,7 +355,6 @@ function writeForm(d) {
     $("inp-history").value = d.historia || "";
 }
 
-// ============ Zoom ============
 function applyZoomToImage(img) {
     if (!img.naturalWidth) return;
     img.style.width = Math.round(img.naturalWidth * STATE.zoom) + "px";
@@ -399,26 +394,25 @@ async function renderAll() {
     try {
         const b = await backend();
         const data = readForm();
-        const results = await Promise.allSettled([
-            b.render_from_form(data, 1).then(x => setPreviewImage(1, x)),
-            b.render_from_form(data, 2).then(x => setPreviewImage(2, x)),
-            b.render_from_form(data, 3).then(x => setPreviewImage(3, x)),
-            b.render_profession(data).then(x => setPreviewImage(4, x)),
-        ]);
-        const rejected = results.filter(r => r.status === "rejected");
-        if (rejected.length) {
-            console.error("Błędy renderowania:", rejected);
-            $("status").textContent = `Wyrenderowano ${4 - rejected.length}/4 kart (szczegóły w konsoli F12).`;
-        } else {
-            $("status").textContent = "Gotowe — wszystkie karty wyrenderowane.";
-        }
+        // SEKWENCYJNIE — każda karta osobno, bez równoległości
+        const p1 = await b.render_from_form(data, 1);
+        setPreviewImage(1, p1);
+        $("status").textContent = "Renderowanie 1/4...";
+        const p2 = await b.render_from_form(data, 2);
+        setPreviewImage(2, p2);
+        $("status").textContent = "Renderowanie 2/4...";
+        const p3 = await b.render_from_form(data, 3);
+        setPreviewImage(3, p3);
+        $("status").textContent = "Renderowanie 3/4...";
+        const p4 = await b.render_profession(data);
+        setPreviewImage(4, p4);
+        $("status").textContent = "Gotowe — wszystkie karty wyrenderowane.";
     } catch (e) {
         $("status").textContent = "Błąd: " + (e?.message || e);
         console.error(e);
     }
 }
 
-// ============ Zapis / wczytanie ============
 async function savePng() {
     const page = prompt("Którą stronę zapisać? (1-4)", "1");
     if (!page) return;
@@ -484,7 +478,6 @@ async function loadCharacter() {
     } catch (e) { $("status").textContent = "Błąd: " + (e?.message || e); console.error(e); }
 }
 
-// ============ Losowanie ============
 function rnd(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
 function randomizeBio() {
@@ -576,7 +569,6 @@ function randomizeAll() {
     randomizeEquipment();
 }
 
-// ============ Init ============
 async function init() {
     $("status").textContent = "Łączenie z backendem...";
     const b = await backend();
