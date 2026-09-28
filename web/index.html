@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Warhammer Card Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <span class="brand-mark">⚔</span>
+            <div>
+                <h1>Warhammer Card Generator</h1>
+                <p class="brand-sub">Generator kart postaci · 4. edycja</p>
+            </div>
+        </div>
+        <p id="status" class="status">Łączenie z backendem...</p>
+    </header>
+
+    <div class="layout">
+        <aside class="form-pane">
+
+            <section class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Dane postaci</h2>
+                    <button id="btn-random-bio" class="btn-icon-sm" title="Losuj dane postaci">🎲</button>
+                </div>
+                <div class="grid-2">
+                    <label class="field field-wide">
+                        <span>Imię</span>
+                        <div class="row">
+                            <input id="inp-name" list="names-list" placeholder="Wpisz lub wybierz z listy">
+                            <button id="btn-random-name" class="btn-icon" title="Losuj imię">🎲</button>
+                        </div>
+                        <datalist id="names-list"></datalist>
+                        <select id="inp-name-pick" class="mt-xs">
+                            <option value="">— wybierz z pełnej listy —</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Płeć</span>
+                        <select id="inp-sex">
+                            <option value="M">Mężczyzna</option>
+                            <option value="K">Kobieta</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Rasa</span>
+                        <select id="inp-race"></select>
+                    </label>
+                    <label class="field">
+                        <span>Klasa</span>
+                        <select id="inp-class"></select>
+                    </label>
+                    <label class="field">
+                        <span>Profesja</span>
+                        <select id="inp-prof"></select>
+                    </label>
+                    <label class="field">
+                        <span>Wiek</span>
+                        <input id="inp-age" type="number">
+                    </label>
+                    <label class="field">
+                        <span>Wzrost (cm)</span>
+                        <input id="inp-height" type="number">
+                    </label>
+                    <label class="field">
+                        <span>Włosy</span>
+                        <select id="inp-hair"></select>
+                    </label>
+                    <label class="field">
+                        <span>Oczy</span>
+                        <select id="inp-eyes"></select>
+                    </label>
+                    <label class="field">
+                        <span>Status</span>
+                        <input id="inp-status">
+                    </label>
+                    <label class="field">
+                        <span>Szybkość</span>
+                        <input id="inp-speed" type="number">
+                    </label>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Cechy główne</h2>
+                    <button id="btn-random-stats" class="btn-icon-sm" title="Losuj cechy">🎲</button>
+                </div>
+                <div id="stats-grid" class="stats-grid"></div>
+            </section>
+
+            <section class="panel" id="panel-religion" style="display:none">
+                <div class="panel-header">
+                    <h2 class="panel-title">Wyznanie</h2>
+                </div>
+                <label class="field">
+                    <span>Bóstwo</span>
+                    <select id="inp-god"><option value="">— brak —</option></select>
+                </label>
+                <div id="blessings-list" class="chips"></div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Talenty ogólne</h2>
+                    <button id="btn-random-talents" class="btn-icon-sm" title="Losuj 2 talenty">🎲</button>
+                </div>
+                <div class="row">
+                    <select id="inp-talent"></select>
+                    <button data-add="talent" class="btn-icon" title="Dodaj">+</button>
+                </div>
+                <ul id="talents-list" class="list"></ul>
+            </section>
+
+            <section class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Talenty profesji</h2>
+                    <button id="btn-random-talents-prof" class="btn-icon-sm" title="Losuj talenty profesji">🎲</button>
+                </div>
+                <div class="row">
+                    <select id="inp-talent-prof"></select>
+                    <button data-add="talent-prof" class="btn-icon" title="Dodaj">+</button>
+                </div>
+                <ul id="talents-prof-list" class="list"></ul>
+            </section>
+
+            <section class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Broń</h2>
+                    <button id="btn-random-weapon" class="btn-icon-sm" title="Losuj broń">🎲</button>
+                    <button id="btn-random-weapon-features" class="btn-icon-sm" title="Losuj cechy broni">✨</button>
+                </div>
+                <div class="grid-2">
+                    <label class="field field-wide">
+                        <span>Typ</span>
+                        <select id="inp-weapon"></select>
+                    </label>
+                    <label class="field">
+                        <span>Rzadkość</span>
+                        <select id="inp-weapon-rarity">
+                            <option>Pospolita</option><option>Rzadka</option><option>Unikat</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Obrażenia</span>
+                        <input id="inp-weapon-dmg" placeholder="np. BS + 4">
+                    </label>
+                    <label class="field field-wide">
+                        <span>Cechy broni</span>
+                        <div class="row">
+                            <select id="inp-weapon-feature-select"></select>
+                            <button data-add="weapon-feature" class="btn-icon" title="Dodaj">+</button>
+                        </div>
+                    </label>
+                </div>
+                <div id="desc-weapon" class="desc-preview">Wybierz broń, aby zobaczyć szczegóły.</div>
+                <ul id="weapon-features-list" class="list"></ul>
+            </section>
+
+            <section class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Ekwipunek</h2>
+                    <button id="btn-random-equip" class="btn-icon-sm" title="Losuj 5 przedmiotów">🎲</button>
+                </div>
+                <div class="row">
+                    <select id="inp-equip"></select>
+                    <button data-add="equip" class="btn-icon" title="Dodaj">+</button>
+                </div>
+                <ul id="equip-list" class="list"></ul>
+                <div id="encumbrance" class="enc-info"></div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Historia (Markdown)</h2>
+                </div>
+                <p class="hint"># H1 · ## H2 · - lista · 1. numer · **bold** · *italic* · &gt; cytat · ---</p>
+                <textarea id="inp-history" rows="8"
+                    placeholder="# Tytuł&#10;## Podtytuł&#10;- punkt&#10;1. numer&#10;**pogrubienie**&#10;---"></textarea>
+            </section>
+
+            <section class="panel actions-panel">
+                <button id="btn-random" class="btn btn-primary">🎲 Losuj wszystko</button>
+                <button id="btn-save-char" class="btn">💾 Zapisz</button>
+                <button id="btn-load-char" class="btn">📂 Wczytaj</button>
+            </section>
+        </aside>
+
+        <main class="preview-pane">
+            <div class="preview-toolbar">
+                <div class="toolbar-group">
+                    <button id="btn-render-all" class="btn btn-primary btn-small">🔄 Odśwież</button>
+                </div>
+                <div class="toolbar-group toolbar-zoom">
+                    <button id="btn-zoom-out" class="btn btn-small" title="Pomniejsz">−</button>
+                    <span id="zoom-label" class="zoom-label">100%</span>
+                    <button id="btn-zoom-in" class="btn btn-small" title="Powiększ">+</button>
+                    <button id="btn-zoom-fit" class="btn btn-small" title="Dopasuj">Fit</button>
+                    <button id="btn-zoom-reset" class="btn btn-small" title="100%">1:1</button>
+                </div>
+                <div class="toolbar-group">
+                    <button id="btn-save-png" class="btn btn-small">💾 PNG</button>
+                    <button id="btn-pdf" class="btn btn-primary btn-small">📕 PDF</button>
+                </div>
+            </div>
+            <div class="preview-stage" id="preview-stage">
+                <div class="card-slot" data-page="1">
+                    <span class="card-label">Strona 1 · Postać</span>
+                    <img id="preview-1" alt="Strona 1">
+                </div>
+                <div class="card-slot" data-page="2">
+                    <span class="card-label">Strona 2 · Ekwipunek</span>
+                    <img id="preview-2" alt="Strona 2">
+                </div>
+                <div class="card-slot" data-page="3">
+                    <span class="card-label">Strona 3 · Opisy</span>
+                    <img id="preview-3" alt="Strona 3">
+                </div>
+                <div class="card-slot" data-page="4" id="slot-4">
+                    <span class="card-label">Karta profesji</span>
+                    <img id="preview-4" alt="Karta profesji">
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
