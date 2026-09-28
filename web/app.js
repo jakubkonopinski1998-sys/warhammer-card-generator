@@ -33,13 +33,37 @@ function handleBackendResult(msg) {
 
 // ============ Globalny stan ============
 const DATA = {};
+const isInitialMobile = window.innerWidth <= 900;
 const STATE = {
     talents: [], talents_prof: [], weapon_features: [],
-    equipment: [], blessings: [], zoom: 0.6,
+    equipment: [], blessings: [], zoom: isInitialMobile ? 0.15 : 0.6,
 };
 
 const $ = id => document.getElementById(id);
 const STAT_NAMES = ["WW","US","S","Wt","I","Zw","Zr","Int","SW","Ogd"];
+
+// ============ Obsługa zakładek Mobile ============
+function initMobileNavigation() {
+    const layout = $("app-layout");
+    const tabForm = $("tab-btn-form");
+    const tabPrev = $("tab-btn-preview");
+    if (!layout || !tabForm || !tabPrev) return;
+
+    tabForm.onclick = () => {
+        layout.dataset.activeTab = "form";
+        tabForm.classList.add("active");
+        tabPrev.classList.remove("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    tabPrev.onclick = () => {
+        layout.dataset.activeTab = "preview";
+        tabPrev.classList.add("active");
+        tabForm.classList.remove("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setTimeout(() => zoomFit(), 60);
+    };
+}
 
 // ============ Religia ============
 function professionUsesReligion(prof) {
@@ -224,6 +248,7 @@ function renderList(elId, items, onRemove, descMap) {
             body.appendChild(desc);
         }
         const b = document.createElement("button");
+        b.type = "button";
         b.textContent = "×"; b.className = "rm";
         b.onclick = () => { onRemove(idx); };
         li.appendChild(body);
@@ -355,27 +380,29 @@ function writeForm(d) {
     $("inp-history").value = d.historia || "";
 }
 
+// ============ Zoom i skalowanie ============
 function applyZoomToImage(img) {
     if (!img.naturalWidth) return;
     img.style.width = Math.round(img.naturalWidth * STATE.zoom) + "px";
 }
+
 function applyZoom() {
     document.querySelectorAll(".card-slot img").forEach(applyZoomToImage);
     $("zoom-label").textContent = Math.round(STATE.zoom * 100) + "%";
 }
-function zoomIn()  { STATE.zoom = Math.min(2.5, STATE.zoom + 0.1); applyZoom(); }
-function zoomOut() { STATE.zoom = Math.max(0.15, STATE.zoom - 0.1); applyZoom(); }
+
+function zoomIn()  { STATE.zoom = Math.min(2.5, +(STATE.zoom + 0.05).toFixed(3)); applyZoom(); }
+function zoomOut() { STATE.zoom = Math.max(0.05, +(STATE.zoom - 0.05).toFixed(3)); applyZoom(); }
 function zoomReset() { STATE.zoom = 1.0; applyZoom(); }
+
 function zoomFit() {
     const stage = $("preview-stage");
     const sample = $("preview-1");
-    if (!sample?.naturalWidth) return;
-    const availW = stage.clientWidth - 40;
-    STATE.zoom = availW / sample.naturalWidth;
-    // Na mobile nie schodzimy poniżej 0.3 — inaczej tekst nieczytelny
-    if (window.innerWidth <= 900 && STATE.zoom < 0.3) {
-        STATE.zoom = 0.3;
-    }
+    if (!sample?.naturalWidth || !stage) return;
+    
+    // Obliczamy szerokość kontenera z uwzględnieniem bezpiecznych marginesów
+    const availW = Math.max(200, stage.clientWidth - 32);
+    STATE.zoom = Number((availW / sample.naturalWidth).toFixed(3));
     applyZoom();
 }
 
@@ -383,35 +410,43 @@ function zoomFit() {
 function setPreviewImage(page, b64) {
     const img = $(`preview-${page}`);
     if (!img) return;
+    const slot = $(`slot-${page}`);
     if (!b64) {
-        const slot = $("slot-" + page);
         if (slot) slot.setAttribute("hidden", "");
         return;
     }
-    const slot = $("slot-" + page);
     if (slot) slot.removeAttribute("hidden");
     img.onload = () => applyZoomToImage(img);
     img.src = "data:image/png;base64," + b64;
+    if (img.complete) {
+        applyZoomToImage(img);
+    }
 }
 
 async function renderAll() {
-    $("status").textContent = "Renderowanie wszystkich kart...";
+    $("status").textContent = "Renderowanie kart postaci...";
     try {
         const b = await backend();
         const data = readForm();
-        // SEKWENCYJNIE — każda karta osobno, bez równoległości
+        
+        $("status").textContent = "Renderowanie: strona 1/4...";
         const p1 = await b.render_from_form(data, 1);
         setPreviewImage(1, p1);
-        $("status").textContent = "Renderowanie 1/4...";
+
+        $("status").textContent = "Renderowanie: strona 2/4...";
         const p2 = await b.render_from_form(data, 2);
         setPreviewImage(2, p2);
-        $("status").textContent = "Renderowanie 2/4...";
+
+        $("status").textContent = "Renderowanie: strona 3/4...";
         const p3 = await b.render_from_form(data, 3);
         setPreviewImage(3, p3);
-        $("status").textContent = "Renderowanie 3/4...";
+
+        $("status").textContent = "Renderowanie: karta profesji 4/4...";
         const p4 = await b.render_profession(data);
         setPreviewImage(4, p4);
+
         $("status").textContent = "Gotowe — wszystkie karty wyrenderowane.";
+        zoomFit();
     } catch (e) {
         $("status").textContent = "Błąd: " + (e?.message || e);
         console.error(e);
@@ -575,9 +610,10 @@ function randomizeAll() {
 }
 
 async function init() {
-    $("status").textContent = "Łączenie z backendem...";
+    initMobileNavigation();
+    $("status").textContent = "Łączenie z silnikiem...";
     const b = await backend();
-    $("status").textContent = "Pobieranie danych...";
+    $("status").textContent = "Pobieranie bazy danych...";
     Object.assign(DATA, await b.get_all_data());
 
     buildStatsGrid();
@@ -666,6 +702,14 @@ async function init() {
             if (e.deltaY < 0) zoomIn(); else zoomOut();
         }
     }, { passive: false });
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            zoomFit();
+        }, 150);
+    });
 
     updateWeaponDesc();
     randomizeAll();
