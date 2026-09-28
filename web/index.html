@@ -7,7 +7,94 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/main.css?v=4">
+    
+    <!-- KRYTYCZNY CSS DLA OKNA ŁADOWANIA (Niezależny od cache pliku CSS) -->
+    <style>
+        .loading-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(10, 13, 17, 0.88);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100000;
+        }
+        .loading-overlay[hidden] {
+            display: none !important;
+        }
+        .loading-box {
+            background: linear-gradient(180deg, #1d222a 0%, #13161c 100%);
+            border: 1px solid #c9a349;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(201, 163, 73, 0.25);
+            border-radius: 8px;
+            padding: 2.2rem 2.4rem;
+            width: 90%;
+            max-width: 440px;
+            text-align: center;
+            color: #e8e2d4;
+            box-sizing: border-box;
+            font-family: "Crimson Pro", Georgia, serif;
+        }
+        .loading-spinner {
+            font-size: 2.8rem;
+            color: #c9a349;
+            display: inline-block;
+            animation: wh-spin 2s infinite ease-in-out;
+            margin-bottom: 0.8rem;
+            line-height: 1;
+        }
+        @keyframes wh-spin {
+            0% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+            50% { transform: scale(1.15) rotate(180deg); opacity: 1; text-shadow: 0 0 16px rgba(201,163,73,.8); }
+            100% { transform: scale(1) rotate(360deg); opacity: 0.8; }
+        }
+        .loading-title {
+            font-family: "Cinzel", Georgia, serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #c9a349;
+            margin: 0 0 0.5rem;
+        }
+        .loading-status {
+            font-size: 0.95rem;
+            color: #e8e2d4;
+            margin: 0 0 1.2rem;
+            min-height: 1.4em;
+            font-style: italic;
+        }
+        .progress-container {
+            width: 100%;
+            background: #090b0e;
+            border: 1px solid #3a4049;
+            border-radius: 10px;
+            height: 14px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #3a6389 0%, #c9a349 100%);
+            border-radius: 10px;
+            transition: width 0.2s ease-out;
+            box-shadow: 0 0 10px rgba(201, 163, 73, 0.5);
+        }
+        .progress-percent {
+            font-family: "Cinzel", Georgia, serif;
+            font-size: 0.85rem;
+            color: #c9a349;
+            margin-top: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="styles/main.css?v=5">
 </head>
 <body>
     <!-- Modal ładowania / pasek postępu -->
@@ -31,7 +118,7 @@
                 <p class="brand-sub">Generator kart postaci · 4. edycja</p>
             </div>
         </div>
-        <p id="status" class="status">Łączenie z backendem...</p>
+        <p id="status" class="status">Inicjalizacja...</p>
     </header>
 
     <div class="layout" id="app-layout" data-active-tab="form">
@@ -234,25 +321,41 @@
             <div class="preview-stage" id="preview-stage">
                 <div class="card-slot" data-page="1" id="slot-1">
                     <span class="card-label">Strona 1 · Postać</span>
-                    <img id="preview-1" alt="Strona 1">
+                    <div class="card-skeleton" id="skeleton-1">
+                        <span class="skeleton-icon">⚔</span>
+                        <span class="skeleton-text">Oczekiwanie na render...</span>
+                    </div>
+                    <img id="preview-1" class="card-img" alt="Strona 1">
                 </div>
                 <div class="card-slot" data-page="2" id="slot-2">
                     <span class="card-label">Strona 2 · Ekwipunek</span>
-                    <img id="preview-2" alt="Strona 2">
+                    <div class="card-skeleton" id="skeleton-2">
+                        <span class="skeleton-icon">⚔</span>
+                        <span class="skeleton-text">Oczekiwanie na render...</span>
+                    </div>
+                    <img id="preview-2" class="card-img" alt="Strona 2">
                 </div>
                 <div class="card-slot" data-page="3" id="slot-3">
                     <span class="card-label">Strona 3 · Opisy</span>
-                    <img id="preview-3" alt="Strona 3">
+                    <div class="card-skeleton" id="skeleton-3">
+                        <span class="skeleton-icon">⚔</span>
+                        <span class="skeleton-text">Oczekiwanie na render...</span>
+                    </div>
+                    <img id="preview-3" class="card-img" alt="Strona 3">
                 </div>
                 <div class="card-slot" data-page="4" id="slot-4">
                     <span class="card-label">Karta profesji</span>
-                    <img id="preview-4" alt="Karta profesji">
+                    <div class="card-skeleton" id="skeleton-4">
+                        <span class="skeleton-icon">⚔</span>
+                        <span class="skeleton-text">Oczekiwanie na render...</span>
+                    </div>
+                    <img id="preview-4" class="card-img" alt="Karta profesji">
                 </div>
             </div>
         </main>
     </div>
 
-    <script src="pyodide-bridge.js?v=4"></script>
-    <script src="app.js?v=4"></script>
+    <script src="pyodide-bridge.js?v=5"></script>
+    <script src="app.js?v=5"></script>
 </body>
 </html>
