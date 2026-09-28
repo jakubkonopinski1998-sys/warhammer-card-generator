@@ -48,7 +48,7 @@ function professionUsesReligion(prof) {
     return (DATA.religion_professions || []).includes(clean);
 }
 
-// ============ Inicjalizacja formularza ============
+// ============ Formularz — inicjalizacja ============
 function fillSelect(el, options, selected) {
     el.innerHTML = "";
     for (const o of options) {
@@ -206,7 +206,7 @@ function renderStatBadges() {
     renderEncumbrance();
 }
 
-// ============ Listy dynamiczne ============
+// ============ Listy ============
 function renderList(elId, items, onRemove, descMap) {
     const el = $(elId);
     el.innerHTML = "";
@@ -258,7 +258,6 @@ function renderEquipment() {
     renderEncumbrance();
 }
 
-// ============ Obciążenie ============
 function renderEncumbrance() {
     const el = $("encumbrance");
     if (!el) return;
@@ -273,7 +272,7 @@ function renderEncumbrance() {
     el.classList.toggle("enc-ok", !over);
 }
 
-// ============ Odczyt formularza ============
+// ============ Odczyt / zapis formularza ============
 function readFormBase() {
     const stats = [];
     for (let i = 0; i < 10; i++) stats.push(+$(`stat-${i}`).value || 0);
@@ -316,7 +315,6 @@ function readForm() {
     return d;
 }
 
-// ============ Zapis formularza ============
 function writeForm(d) {
     if (!d) return;
     $("inp-name").value = d.imie || "";
@@ -353,7 +351,7 @@ function writeForm(d) {
     renderEquipment();
     $("inp-god").value = d.bog || "";
     if (d.blogoslawienstwa) {
-        STATE.blessings = [...d.blessings];
+        STATE.blessings = [...d.blogoslawienstwa];
         renderBlessings();
     } else {
         refreshBlessings();
@@ -377,8 +375,7 @@ function zoomFit() {
     const stage = $("preview-stage");
     const sample = $("preview-1");
     if (!sample?.naturalWidth) return;
-    const availW = stage.clientWidth - 40;
-    STATE.zoom = availW / sample.naturalWidth;
+    STATE.zoom = (stage.clientWidth - 40) / sample.naturalWidth;
     applyZoom();
 }
 
@@ -402,13 +399,19 @@ async function renderAll() {
     try {
         const b = await backend();
         const data = readForm();
-        await Promise.all([
+        const results = await Promise.allSettled([
             b.render_from_form(data, 1).then(x => setPreviewImage(1, x)),
             b.render_from_form(data, 2).then(x => setPreviewImage(2, x)),
             b.render_from_form(data, 3).then(x => setPreviewImage(3, x)),
             b.render_profession(data).then(x => setPreviewImage(4, x)),
         ]);
-        $("status").textContent = "Gotowe — wszystkie karty wyrenderowane.";
+        const rejected = results.filter(r => r.status === "rejected");
+        if (rejected.length) {
+            console.error("Błędy renderowania:", rejected);
+            $("status").textContent = `Wyrenderowano ${4 - rejected.length}/4 kart (szczegóły w konsoli F12).`;
+        } else {
+            $("status").textContent = "Gotowe — wszystkie karty wyrenderowane.";
+        }
     } catch (e) {
         $("status").textContent = "Błąd: " + (e?.message || e);
         console.error(e);
