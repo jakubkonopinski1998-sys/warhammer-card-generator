@@ -41,6 +41,9 @@ const TEMPLATE_FILES = [
     "assets/images/templates/WW2.png",
 ];
 
+// Zakres numerów stron profesji w podręczniku (assets/images/professions/NNN.png)
+const PROFESSION_RANGE = [53, 116];
+
 function loadScriptOnce(src) {
     return new Promise((resolve, reject) => {
         if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
@@ -69,6 +72,19 @@ async function fetchToFs(pyodide, path, targetPath) {
     pyodide.FS.writeFile(targetPath, buf);
 }
 
+async function ensureProfessionInFs(pyodide, num) {
+    // num to string, np. "53"
+    const targetPath = `${PROJECT_ROOT}/assets/images/professions/${num}.png`;
+    try {
+        pyodide.FS.stat(targetPath);
+        return; // już jest w FS
+    } catch (e) {
+        // brak — ładujemy
+    }
+    const webPath = `../assets/images/professions/${num}.png`;
+    await fetchToFs(pyodide, webPath, targetPath);
+}
+
 async function initPyodideBridge() {
     logStatus("Ładowanie Pyodide...");
     await ensurePyodideLoaded();
@@ -84,6 +100,8 @@ async function initPyodideBridge() {
     pyodide.FS.mkdirTree(`${PROJECT_ROOT}/src`);
     pyodide.FS.mkdirTree(`${PROJECT_ROOT}/data`);
     pyodide.FS.mkdirTree(`${PROJECT_ROOT}/assets`);
+    pyodide.FS.mkdirTree(`${PROJECT_ROOT}/assets/images`);
+    pyodide.FS.mkdirTree(`${PROJECT_ROOT}/assets/images/professions`);
 
     logStatus("Wczytywanie kodu Pythona...");
     for (const f of PY_FILES) {
@@ -119,8 +137,7 @@ function logStatus(msg) {
     if (el) el.textContent = msg;
 }
 
-/* Adapter — dane przekazywane jako JSON string w obie strony.
- * Zapobiega problemom z PyProxy/Map przy dużych base64 i zagnieżdżonych dict. */
+/* Adapter — dane przekazywane jako JSON string w obie strony. */
 function makePyodideAdapter(pyodide) {
     const call = async (method, ...args) => {
         const argsJson = JSON.stringify(args);
@@ -148,7 +165,19 @@ with open("/tmp/_result.json", "w", encoding="utf-8") as _f:
         ping: async () => "pong (Pyodide)",
         get_all_data: async () => call("get_all_data"),
         render_from_form: async (data, page) => call("render_from_form", data, page),
-        render_profession: async (data) => call("render_profession", data),
+        render_profession: async (data) => {
+            // Lazy-load: upewnij się, że plik NNN.png jest w FS Pyodide
+            const sciezka = (data && data.sciezka_profesji) || "";
+            const m = sciezka.match(/s\.\s*(\d+)/);
+            if (m) {
+                try {
+                    await ensureProfessionInFs(pyodide, m[1]);
+                } catch (e) {
+                    console.warn("Nie udało się wczytać karty profesji:", e.message);
+                }
+            }
+            return call("render_profession", data);
+        },
         save_pdf: async (data) => call("save_pdf", data),
         save_png: async (data, page) => call("save_png", data, page),
         save_character: async (data) => call("save_character", data),
