@@ -7,9 +7,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/main.css?v=3">
+    <link rel="stylesheet" href="styles/main.css?v=4">
 </head>
 <body>
+    <!-- Modal ładowania / pasek postępu -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-box">
+            <div class="loading-spinner">⚔</div>
+            <h3 id="loading-title" class="loading-title">Kuźnia Sigmara pracuje...</h3>
+            <p id="loading-status" class="loading-status">Uruchamianie silnika generowania...</p>
+            <div class="progress-container">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+            <div id="progress-percent" class="progress-percent">0%</div>
+        </div>
+    </div>
+
     <header class="app-header">
         <div class="brand">
             <span class="brand-mark">⚔</span>
@@ -22,7 +35,7 @@
     </header>
 
     <div class="layout" id="app-layout" data-active-tab="form">
-        <!-- Mobilny przełącznik widoków (widoczny tylko <= 900px) -->
+        <!-- Mobilny przełącznik widoków (<= 900px) -->
         <nav class="mobile-nav" id="mobile-nav">
             <button type="button" id="tab-btn-form" class="mobile-nav-btn active">
                 <span class="nav-icon">📝</span> Formularz
@@ -239,7 +252,7 @@
         </main>
     </div>
 
-    <script src="pyodide-bridge.js?v=3"></script>
-    <script src="app.js?v=3"></script>
+    <script src="pyodide-bridge.js?v=4"></script>
+    <script src="app.js?v=4"></script>
 </body>
 </html>
