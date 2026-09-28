@@ -1,4 +1,4 @@
-"""API wystawiane do JS przez window.pywebview.api.*."""
+"""API — działa w dwóch środowiskach: pywebview (desktop) i Pyodide (web)."""
 import base64
 import io
 import json
@@ -6,7 +6,11 @@ import re
 from functools import lru_cache
 from pathlib import Path
 
-import webview
+try:
+    import webview
+    _HAS_WEBVIEW = True
+except ImportError:
+    _HAS_WEBVIEW = False
 
 from src.domain.character import Character
 from src.rendering.renderer import CardRenderer
@@ -31,7 +35,6 @@ def _talent_descs(d: dict) -> dict:
     return out
 
 
-# Indeksy cech zgodne z kolejnością WW, US, S, Wt, I, Zw, Zr, Int, SW, Ogd
 _STAT_INDEX = {
     "Walka Wręcz": 0,
     "Umiejętności Strzeleckie": 1,
@@ -51,7 +54,6 @@ _TALENT_BONUS_RE = re.compile(
 
 
 def _talent_stat_bonuses(d: dict) -> dict:
-    """Mapa: nazwa talentu -> {stat: idx, value: int} dla talentów typu '+X do cechy'."""
     out = {}
     for name, v in d.items():
         desc = v.get("pelny", "") if isinstance(v, dict) else str(v)
@@ -66,7 +68,6 @@ def _talent_stat_bonuses(d: dict) -> dict:
     return out
 
 
-# Profesje, które mogą wybrać bóstwo (dokładne ścieżki bez numeru strony)
 RELIGION_PROFESSIONS = [
     "Kleryk / Kapłan / Arcykapłan",
     "Nowicjusz / Mnich / Przeor",
@@ -98,18 +99,12 @@ class Api:
             "equipment":        reg.get("ekwipunek_podstawowy", {}),
             "names_m":          reg.get("imiona_m", []),
             "names_k":          reg.get("imiona_k", []),
-
-            # Opisy do UI
             "talent_descriptions":         _talent_descs(reg.get("talenty", {})),
             "talent_prof_descriptions":    _talent_descs(reg.get("talenty_profesji", {})),
             "weapon_feature_descriptions": reg.get("cechy_oreza", {}),
             "blessing_descriptions":       reg.get("modlitwy_szczegolowe", {}),
-
-            # Bonusy z talentów
             "talent_bonuses":      _talent_stat_bonuses(reg.get("talenty", {})),
             "talent_prof_bonuses": _talent_stat_bonuses(reg.get("talenty_profesji", {})),
-
-            # Profesje uprawnione do wyboru bóstwa
             "religion_professions": RELIGION_PROFESSIONS,
         }
 
@@ -131,7 +126,30 @@ class Api:
         img.save(buf, format="PNG")
         return base64.b64encode(buf.getvalue()).decode()
 
-    def save_pdf(self, data: dict) -> str:
+    # ---- Zapis ----
+    def _save_result(self, mime: str, filename: str, content: bytes) -> dict:
+        """W trybie web zwraca dict dla JS. W desktopie zapisuje przez dialog."""
+        if _HAS_WEBVIEW:
+            window = webview.windows[0]
+            result = window.create_file_dialog(
+                webview.SAVE_DIALOG,
+                save_filename=filename,
+                file_types=((mime, "*"),),
+            )
+            if not result:
+                return {"__status__": "Anulowano."}
+            path = result if isinstance(result, str) else result[0]
+            Path(path).write_bytes(content)
+            return {"__status__": f"Zapisano: {path}"}
+        # Web — zwracamy dane do pobrania
+        return {
+            "__download__": True,
+            "filename": filename,
+            "mime": mime,
+            "b64": base64.b64encode(content).decode(),
+        }
+
+    def save_pdf(self, data: dict) -> dict:
         char = Character.from_dict(data)
         pages: list = []
         for p in (1, 2, 3):
@@ -141,74 +159,49 @@ class Api:
         prof = _renderer().render_page(char, 4)
         if prof is not None:
             pages.append(prof.convert("RGB"))
-
         if not pages:
-            return "Brak stron do zapisania."
-
+            return {"__status__": "Brak stron do zapisania."}
+        buf = io.BytesIO()
+        pages[0].save(buf, format="PDF", save_all=True, append_images=pages[1:])
         name = (char.imie or "postac").replace(" ", "_")
-        window = webview.windows[0]
-        result = window.create_file_dialog(
-            webview.SAVE_DIALOG,
-            save_filename=f"{name}_karta.pdf",
-            file_types=("PDF (*.pdf)",),
-        )
-        if not result:
-            return "Anulowano."
+        return self._save_result("application/pdf", f"{name}_karta.pdf", buf.getvalue())
 
-        path = result if isinstance(result, str) else result[0]
-        pages[0].save(path, format="PDF", save_all=True, append_images=pages[1:])
-        return f"Zapisano: {path}"
-
-    def save_png(self, data: dict, page: int) -> str:
+    def save_png(self, data: dict, page: int) -> dict:
         char = Character.from_dict(data)
         img = _renderer().render_page(char, page)
         if img is None:
-            return "Nie udało się wyrenderować strony."
-
+            return {"__status__": "Nie udało się wyrenderować strony."}
+        buf = io.BytesIO()
+        img.convert("RGB").save(buf, format="PNG")
         name = (char.imie or "postac").replace(" ", "_")
-        window = webview.windows[0]
-        result = window.create_file_dialog(
-            webview.SAVE_DIALOG,
-            save_filename=f"{name}_P{page}.png",
-            file_types=("PNG (*.png)",),
-        )
-        if not result:
-            return "Anulowano."
+        return self._save_result("image/png", f"{name}_P{page}.png", buf.getvalue())
 
-        path = result if isinstance(result, str) else result[0]
-        img.convert("RGB").save(path, format="PNG")
-        return f"Zapisano: {path}"
-
-    def save_character(self, data: dict) -> str:
+    def save_character(self, data: dict) -> dict:
+        content = json.dumps(data, ensure_ascii=False, indent=2).encode("utf-8")
         name = (data.get("imie") or "postac").replace(" ", "_")
-        window = webview.windows[0]
-        result = window.create_file_dialog(
-            webview.SAVE_DIALOG,
-            save_filename=f"{name}.json",
-            file_types=("JSON (*.json)",),
-        )
-        if not result:
-            return "Anulowano."
-
-        path = result if isinstance(result, str) else result[0]
-        Path(path).write_text(
-            json.dumps(data, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-        return f"Zapisano: {path}"
+        return self._save_result("application/json", f"{name}.json", content)
 
     def load_character(self) -> dict | None:
-        window = webview.windows[0]
-        result = window.create_file_dialog(
-            webview.OPEN_DIALOG,
-            allow_multiple=False,
-            file_types=("JSON (*.json)",),
-        )
-        if not result:
-            return None
+        if _HAS_WEBVIEW:
+            window = webview.windows[0]
+            result = window.create_file_dialog(
+                webview.OPEN_DIALOG,
+                allow_multiple=False,
+                file_types=("JSON (*.json)",),
+            )
+            if not result:
+                return None
+            path = result[0] if isinstance(result, (list, tuple)) else result
+            try:
+                return json.loads(Path(path).read_text(encoding="utf-8"))
+            except Exception as e:
+                return {"__error__": str(e)}
+        # Web — JS obsługuje wczytywanie po stronie przeglądarki
+        return {"__request_upload__": True}
 
-        path = result[0] if isinstance(result, (list, tuple)) else result
+    def parse_uploaded_json(self, content: str) -> dict:
+        """Po stronie web — JS wczytuje plik i przekazuje treść tutaj."""
         try:
-            return json.loads(Path(path).read_text(encoding="utf-8"))
+            return json.loads(content)
         except Exception as e:
             return {"__error__": str(e)}

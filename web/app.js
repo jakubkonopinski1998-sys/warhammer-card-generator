@@ -1,7 +1,49 @@
 // ============ Backend bridge ============
-async function backend() {
-    if (window.pywebview?.api) return window.pywebview.api;
-    throw new Error("Backend niedostępny.");
+let _backendPromise = null;
+
+async function getBackend() {
+    if (_backendPromise) return _backendPromise;
+
+    _backendPromise = (async () => {
+        // 1) Desktop (pywebview)
+        if (window.pywebview?.api) {
+            return window.pywebview.api;
+        }
+        // 2) Web (Pyodide)
+        if (typeof initPyodideBridge === "function") {
+            const pyodide = await initPyodideBridge();
+            return makePyodideAdapter(pyodide);
+        }
+        throw new Error("Brak backendu (ani pywebview, ani Pyodide).");
+    })();
+
+    return _backendPromise;
+}
+
+async function backend() { return getBackend(); }
+
+function handleBackendResult(msg) {
+    if (typeof msg === "string") {
+        $("status").textContent = msg;
+        return;
+    }
+    if (!msg) {
+        $("status").textContent = "Anulowano.";
+        return;
+    }
+    if (msg.__download__) {
+        const a = document.createElement("a");
+        a.href = `data:${msg.mime};base64,${msg.b64}`;
+        a.download = msg.filename;
+        a.click();
+        $("status").textContent = `Pobrano: ${msg.filename}`;
+        return;
+    }
+    if (msg.__status__) {
+        $("status").textContent = msg.__status__;
+        return;
+    }
+    $("status").textContent = "OK.";
 }
 
 // ============ Globalny stan ============
@@ -123,7 +165,7 @@ function renderBlessings() {
     }
 }
 
-// ============ Opis broni pod selectem ============
+// ============ Opis broni ============
 function setDesc(elId, text) {
     const el = $(elId);
     if (!el) return;
@@ -259,8 +301,7 @@ function renderEncumbrance() {
     el.classList.toggle("enc-ok", !over);
 }
 
-// ============ Formularz — odczyt ============
-// base stats — używane do zapisu
+// ============ Odczyt formularza ============
 function readFormBase() {
     const stats = [];
     for (let i = 0; i < 10; i++) stats.push(+$(`stat-${i}`).value || 0);
@@ -300,7 +341,6 @@ function readFormBase() {
     };
 }
 
-// render data — statystyki z bonusem talentów
 function readForm() {
     const d = readFormBase();
     const bonuses = getStatBonuses();
@@ -308,7 +348,7 @@ function readForm() {
     return d;
 }
 
-// ============ Formularz — zapis ============
+// ============ Zapis formularza ============
 function writeForm(d) {
     if (!d) return;
 
@@ -425,7 +465,7 @@ async function savePng() {
     try {
         const b = await backend();
         const msg = await b.save_png(readForm(), +page);
-        $("status").textContent = msg;
+        handleBackendResult(msg);
     } catch (e) {
         $("status").textContent = "Błąd: " + (e?.message || e);
         console.error(e);
@@ -437,7 +477,7 @@ async function savePdf() {
     try {
         const b = await backend();
         const msg = await b.save_pdf(readForm());
-        $("status").textContent = msg;
+        handleBackendResult(msg);
     } catch (e) {
         $("status").textContent = "Błąd: " + (e?.message || e);
         console.error(e);
@@ -449,7 +489,7 @@ async function saveCharacter() {
     try {
         const b = await backend();
         const msg = await b.save_character(readFormBase());
-        $("status").textContent = msg;
+        handleBackendResult(msg);
     } catch (e) {
         $("status").textContent = "Błąd: " + (e?.message || e);
         console.error(e);
@@ -460,15 +500,40 @@ async function loadCharacter() {
     $("status").textContent = "Wczytywanie postaci...";
     try {
         const b = await backend();
-        const data = await b.load_character();
-        if (!data) { $("status").textContent = "Anulowano."; return; }
-        if (data.__error__) {
-            $("status").textContent = "Błąd pliku: " + data.__error__;
+        const result = await b.load_character();
+
+        // Desktop — od razu dane
+        if (result && !result.__request_upload__ && !result.__error__) {
+            writeForm(result);
+            await renderAll();
+            $("status").textContent = "Postać wczytana.";
             return;
         }
-        writeForm(data);
-        await renderAll();
-        $("status").textContent = "Postać wczytana.";
+        if (result && result.__error__) {
+            $("status").textContent = "Błąd pliku: " + result.__error__;
+            return;
+        }
+        if (result && result.__request_upload__) {
+            const input = document.createElement("input");
+            input.type = "file";
+            input.accept = ".json";
+            input.onchange = async () => {
+                const file = input.files[0];
+                if (!file) return;
+                const text = await file.text();
+                const data = await b.parse_uploaded_json(text);
+                if (data.__error__) {
+                    $("status").textContent = "Błąd pliku: " + data.__error__;
+                    return;
+                }
+                writeForm(data);
+                await renderAll();
+                $("status").textContent = "Postać wczytana.";
+            };
+            input.click();
+            return;
+        }
+        $("status").textContent = "Anulowano.";
     } catch (e) {
         $("status").textContent = "Błąd: " + (e?.message || e);
         console.error(e);
@@ -569,7 +634,9 @@ function randomizeAll() {
 
 // ============ Init ============
 async function init() {
+    $("status").textContent = "Łączenie z backendem...";
     const b = await backend();
+    $("status").textContent = "Pobieranie danych...";
     Object.assign(DATA, await b.get_all_data());
 
     buildStatsGrid();
@@ -666,8 +733,16 @@ async function init() {
     $("status").textContent = "Gotowe.";
 }
 
+// Desktop — pywebview ready
 window.addEventListener("pywebviewready", () => init().catch(e => {
     $("status").textContent = "Błąd init: " + e.message;
     console.error(e);
 }));
-if (window.pywebview?.api) init().catch(console.error);
+
+// Web — od razu start (Pyodide ładuje się przez getBackend)
+if (!window.pywebview?.api && typeof initPyodideBridge === "function") {
+    init().catch(e => {
+        $("status").textContent = "Błąd init: " + e.message;
+        console.error(e);
+    });
+}
