@@ -79,17 +79,25 @@ async function ensureProfessionInFs(pyodide, num) {
     await fetchToFs(pyodide, webPath, targetPath);
 }
 
+async function notifyProgress(percent, msg) {
+    const el = document.getElementById("status");
+    if (el) el.textContent = msg;
+    if (window.setAppProgress) {
+        await window.setAppProgress(percent, msg, "Inicjalizacja silnika...");
+    }
+}
+
 async function initPyodideBridge() {
-    logStatus("Ładowanie Pyodide...");
+    await notifyProgress(10, "Pobieranie środowiska Pyodide (WASM)...");
     await ensurePyodideLoaded();
     const pyodide = await loadPyodide({ indexURL: PYODIDE_CDN });
 
-    logStatus("Instalacja Pillow...");
+    await notifyProgress(25, "Instalacja biblioteki graficznej Pillow...");
     await pyodide.loadPackage("micropip");
     const micropip = pyodide.pyimport("micropip");
     await micropip.install("pillow");
 
-    logStatus("Tworzenie struktury katalogów...");
+    await notifyProgress(45, "Tworzenie wirtualnego systemu plików...");
     pyodide.FS.mkdirTree(PROJECT_ROOT);
     pyodide.FS.mkdirTree(`${PROJECT_ROOT}/src`);
     pyodide.FS.mkdirTree(`${PROJECT_ROOT}/data`);
@@ -97,17 +105,17 @@ async function initPyodideBridge() {
     pyodide.FS.mkdirTree(`${PROJECT_ROOT}/assets/images`);
     pyodide.FS.mkdirTree(`${PROJECT_ROOT}/assets/images/professions`);
 
-    logStatus("Wczytywanie kodu Pythona...");
+    await notifyProgress(58, "Wczytywanie modułów Pythona...");
     for (const f of PY_FILES) {
         await fetchToFs(pyodide, `../${f}`, `${PROJECT_ROOT}/${f}`);
     }
 
-    logStatus("Wczytywanie danych...");
+    await notifyProgress(70, "Wczytywanie baz danych gry...");
     for (const f of DATA_FILES) {
         await fetchToFs(pyodide, `../${f}`, `${PROJECT_ROOT}/${f}`);
     }
 
-    logStatus("Wczytywanie fontów i szablonów...");
+    await notifyProgress(80, "Wczytywanie fontów i szablonów kart...");
     for (const f of ASSET_FILES) {
         await fetchToFs(pyodide, `../${f}`, `${PROJECT_ROOT}/${f}`);
     }
@@ -115,7 +123,7 @@ async function initPyodideBridge() {
         await fetchToFs(pyodide, `../${f}`, `${PROJECT_ROOT}/${f}`);
     }
 
-    logStatus("Uruchamianie backendu Pythona...");
+    await notifyProgress(85, "Kompilacja i start backendu Pythona...");
     pyodide.runPython(`
 import sys
 sys.path.insert(0, "${PROJECT_ROOT}")
@@ -136,13 +144,7 @@ def _dispatch(method_name, args_json):
     return pyodide;
 }
 
-function logStatus(msg) {
-    const el = document.getElementById("status");
-    if (el) el.textContent = msg;
-}
-
-/* Adapter — używa jednej funkcji Python z argumentami (bez globalnych zmiennych).
- * Dzięki temu równoległe wywołania nie nadpisują sobie nawzajem danych. */
+/* Adapter — używa jednej funkcji Python z argumentami (bez globalnych zmiennych). */
 function makePyodideAdapter(pyodide) {
     const _dispatch = pyodide.globals.get("_dispatch");
 
@@ -150,7 +152,6 @@ function makePyodideAdapter(pyodide) {
         const argsJson = JSON.stringify(args);
         const result = _dispatch(method, argsJson);
 
-        // Konwersja wyniku z PyProxy/str na JS string
         let str;
         if (typeof result === "string") {
             str = result;
