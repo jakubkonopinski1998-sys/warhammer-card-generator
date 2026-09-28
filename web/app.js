@@ -1,3 +1,50 @@
+// ============ Zarządzanie paskiem postępu i popupem ============
+const LoadingUI = {
+    overlay: null,
+    titleEl: null,
+    statusEl: null,
+    fillEl: null,
+    percentEl: null,
+
+    init() {
+        this.overlay = document.getElementById("loading-overlay");
+        this.titleEl = document.getElementById("loading-title");
+        this.statusEl = document.getElementById("loading-status");
+        this.fillEl = document.getElementById("progress-fill");
+        this.percentEl = document.getElementById("progress-percent");
+    },
+
+    show(title = "Kuźnia Sigmara pracuje...", status = "Przetwarzanie...") {
+        if (!this.overlay) this.init();
+        if (this.titleEl) this.titleEl.textContent = title;
+        if (this.statusEl) this.statusEl.textContent = status;
+        if (this.overlay) this.overlay.removeAttribute("hidden");
+    },
+
+    async update(percent, status, title = null) {
+        if (!this.overlay) this.init();
+        if (title && this.titleEl) this.titleEl.textContent = title;
+        if (status && this.statusEl) this.statusEl.textContent = status;
+        
+        if (typeof percent === "number") {
+            const clamped = Math.max(0, Math.min(100, Math.round(percent)));
+            if (this.fillEl) this.fillEl.style.width = clamped + "%";
+            if (this.percentEl) this.percentEl.textContent = clamped + "%";
+        }
+
+        // KLUCZOWE: Wymuszenie oddania sterowania do przeglądarki,
+        // aby przerysowała DOM przed wejściem w blokujący kod Pythona w WASM
+        await new Promise(resolve => requestAnimationFrame(() => setTimeout(resolve, 20)));
+    },
+
+    hide() {
+        if (!this.overlay) this.init();
+        if (this.overlay) this.overlay.setAttribute("hidden", "");
+    }
+};
+
+window.setAppProgress = (percent, status, title) => LoadingUI.update(percent, status, title);
+
 // ============ Backend bridge ============
 let _backendPromise = null;
 
@@ -42,7 +89,7 @@ const STATE = {
 const $ = id => document.getElementById(id);
 const STAT_NAMES = ["WW","US","S","Wt","I","Zw","Zr","Int","SW","Ogd"];
 
-// ============ Obsługa zakładek Mobile ============
+// ============ Nawigacja Mobilna ============
 function initMobileNavigation() {
     const layout = $("app-layout");
     const tabForm = $("tab-btn-form");
@@ -400,7 +447,6 @@ function zoomFit() {
     const sample = $("preview-1");
     if (!sample?.naturalWidth || !stage) return;
     
-    // Obliczamy szerokość kontenera z uwzględnieniem bezpiecznych marginesów
     const availW = Math.max(200, stage.clientWidth - 32);
     STATE.zoom = Number((availW / sample.naturalWidth).toFixed(3));
     applyZoom();
@@ -424,51 +470,69 @@ function setPreviewImage(page, b64) {
 }
 
 async function renderAll() {
-    $("status").textContent = "Renderowanie kart postaci...";
+    LoadingUI.show("Generowanie Kart", "Przygotowywanie danych...");
+    await LoadingUI.update(5, "Pobieranie wartości formularza...");
+
     try {
         const b = await backend();
         const data = readForm();
-        
-        $("status").textContent = "Renderowanie: strona 1/4...";
+
+        await LoadingUI.update(20, "Renderowanie Strony 1: Cechy i Talenty...");
         const p1 = await b.render_from_form(data, 1);
         setPreviewImage(1, p1);
 
-        $("status").textContent = "Renderowanie: strona 2/4...";
+        await LoadingUI.update(45, "Renderowanie Strony 2: Ekwipunek i Modlitwy...");
         const p2 = await b.render_from_form(data, 2);
         setPreviewImage(2, p2);
 
-        $("status").textContent = "Renderowanie: strona 3/4...";
+        await LoadingUI.update(70, "Renderowanie Strony 3: Opisy i Historia...");
         const p3 = await b.render_from_form(data, 3);
         setPreviewImage(3, p3);
 
-        $("status").textContent = "Renderowanie: karta profesji 4/4...";
+        await LoadingUI.update(90, "Renderowanie Strony 4: Karta Profesji...");
         const p4 = await b.render_profession(data);
         setPreviewImage(4, p4);
 
-        $("status").textContent = "Gotowe — wszystkie karty wyrenderowane.";
+        await LoadingUI.update(100, "Dopasowywanie podglądu...");
         zoomFit();
+        $("status").textContent = "Wszystkie karty wyrenderowane.";
     } catch (e) {
         $("status").textContent = "Błąd: " + (e?.message || e);
         console.error(e);
+        alert("Wystąpił błąd podczas generowania: " + (e?.message || e));
+    } finally {
+        LoadingUI.hide();
     }
 }
 
 async function savePng() {
     const page = prompt("Którą stronę zapisać? (1-4)", "1");
     if (!page) return;
-    $("status").textContent = "Zapisywanie PNG...";
+    LoadingUI.show("Eksport PNG", "Generowanie grafiki o wysokiej rozdzielczości...");
+    await LoadingUI.update(50, `Renderowanie strony ${page}...`);
     try {
         const b = await backend();
         handleBackendResult(await b.save_png(readForm(), +page));
-    } catch (e) { $("status").textContent = "Błąd: " + (e?.message || e); console.error(e); }
+    } catch (e) {
+        $("status").textContent = "Błąd: " + (e?.message || e);
+        console.error(e);
+    } finally {
+        LoadingUI.hide();
+    }
 }
 
 async function savePdf() {
-    $("status").textContent = "Zapisywanie PDF...";
+    LoadingUI.show("Eksport PDF", "Łączenie stron w dokument...");
+    await LoadingUI.update(40, "Generowanie 4 stron PDF w 300 DPI...");
     try {
         const b = await backend();
         handleBackendResult(await b.save_pdf(readForm()));
-    } catch (e) { $("status").textContent = "Błąd: " + (e?.message || e); console.error(e); }
+    } catch (e) {
+        $("status").textContent = "Błąd: " + (e?.message || e);
+        console.error(e);
+    } finally {
+        LoadingUI.hide();
+    }
 }
 
 async function saveCharacter() {
@@ -501,14 +565,19 @@ async function loadCharacter() {
             input.onchange = async () => {
                 const file = input.files[0];
                 if (!file) return;
+                LoadingUI.show("Wczytywanie", "Przetwarzanie pliku JSON...");
+                await LoadingUI.update(30, "Walidacja postaci...");
                 const text = await file.text();
                 const data = await b.parse_uploaded_json(text);
                 if (data.__error__) {
+                    LoadingUI.hide();
                     $("status").textContent = "Błąd pliku: " + data.__error__;
+                    alert("Błąd: " + data.__error__);
                     return;
                 }
                 writeForm(data);
                 await renderAll();
+                LoadingUI.hide();
                 $("status").textContent = "Postać wczytana.";
             };
             input.click();
@@ -611,9 +680,12 @@ function randomizeAll() {
 
 async function init() {
     initMobileNavigation();
-    $("status").textContent = "Łączenie z silnikiem...";
+    LoadingUI.show("Inicjalizacja", "Łączenie ze środowiskiem Pythona...");
+    await LoadingUI.update(5, "Pobieranie silnika WASM...");
+
     const b = await backend();
-    $("status").textContent = "Pobieranie bazy danych...";
+    
+    await LoadingUI.update(88, "Wczytywanie bazy danych WFRP...");
     Object.assign(DATA, await b.get_all_data());
 
     buildStatsGrid();
@@ -719,12 +791,14 @@ async function init() {
 }
 
 window.addEventListener("pywebviewready", () => init().catch(e => {
+    LoadingUI.hide();
     $("status").textContent = "Błąd init: " + e.message;
     console.error(e);
 }));
 
 if (!window.pywebview?.api && typeof initPyodideBridge === "function") {
     init().catch(e => {
+        LoadingUI.hide();
         $("status").textContent = "Błąd init: " + e.message;
         console.error(e);
     });
