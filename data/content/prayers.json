@@ -1,0 +1,318 @@
+{
+  "modlitwy": {
+    "Błogosławieństwo Bitwy": "Cel uzyskuje premię +10 do Walki Wręcz.",
+    "Błogosławieństwo Charyzmy": "Cel uzyskuje premię +10 do Ogłady.",
+    "Błogosławieństwo Dzikości": "Gdy twój cel zada Ranę Krytyczną, rzuć dwa razy i wybierz lepszy rezultat.",
+    "Błogosławieństwo Finezji": "Cel uzyskuje premię +10 do Zręczności.",
+    "Błogosławieństwo Łowów": "Cel uzyskuje premię +10 do Umiejętności Strzeleckich.",
+    "Błogosławieństwo Mądrości": "Cel uzyskuje premię +10 do Inteligencji.",
+    "Błogosławieństwo Nieustępliwości": "Cel może usunąć 1 Stan.",
+    "Błogosławieństwo Ochrony": "Przeciwnicy muszą wykonać Przeciętny (+20) Test Siły Woli, by zaatakować obrany przez siebie cel, ponieważ zaczyna kąsać ich poczucie wstydu, iż w ogóle zaczęli myśleć o użyciu przemocy. Jeśli Test się nie uda, muszą wybrać inny cel ataku, albo inną Akcję.",
+    "Błogosławieństwo Oddechu": "Cel nie musi oddychać i ignoruje wszelkie konsekwencje duszenia się.",
+    "Błogosławieństwo Odwagi": "Cel uzyskuje premię +10 do Siły Woli.",
+    "Błogosławieństwo Prawości": "Broń celu uznawana jest za Magiczną.",
+    "Błogosławieństwo Siły": "Cel uzyskuje premię +10 do Siły.",
+    "Błogosławieństwo Sprytu": "Cel uzyskuje premię +10 do Inicjatywy.",
+    "Błogosławieństwo Sumienia": "Cel musi wykonać Przeciętny (+20) Test Siły Woli, aby wykonać Akcję, która naruszałaby jedno z przykazań twojego bóstwa. Jeśli Test się nie uda, cel ogarnia wstyd i nie podejmuje żadnej Akcji.",
+    "Błogosławieństwo Szczęścia": "Następny nieudany Test twojego celu może zostać powtórzony. Wiążący jest nowy wynik Testu.",
+    "Błogosławieństwo Uzdrawiania": "1 Rana twojego celu zostaje uleczona.",
+    "Błogosławieństwo Wdzięku": "Cel uzyskuje premię +10 do Zwinności.",
+    "Błogosławieństwo Wytrzymałości": "Cel uzyskuje premię +10 do Wytrzymałości.",
+    "Błogosławieństwo Zdrowia": "Twój cel może skrócić Czas jednej choroby o 1 dzień. Modlitwa ta może być zmówiona jedynie raz w intencji jednej choroby, na którą choruje dana osoba."
+  },
+  "blogoslawienstwa_kultow": {
+    "Manann": [
+      "Bitwy",
+      "Dzikości",
+      "Nieustępliwości",
+      "Oddechu",
+      "Odwagi",
+      "Wytrzymałości"
+    ],
+    "Morr": [
+      "Oddechu",
+      "Odwagi",
+      "Mądrości",
+      "Nieustępliwości",
+      "Prawości",
+      "Szczęścia"
+    ],
+    "Myrmidia": [
+      "Bitwy",
+      "Ochrony",
+      "Odwagi",
+      "Prawości",
+      "Sumienia",
+      "Szczęścia"
+    ],
+    "Ranald": [
+      "Charyzmy",
+      "Finezji",
+      "Ochrony",
+      "Sprytu",
+      "Sumienia",
+      "Szczęścia"
+    ],
+    "Rhya": [
+      "Ochrony",
+      "Oddechu",
+      "Sumienia",
+      "Uzdrawiania",
+      "Wdzięku",
+      "Zdrowia"
+    ],
+    "Shallya": [
+      "Nieustępliwości",
+      "Ochrony",
+      "Oddechu",
+      "Sumienia",
+      "Uzdrawiania",
+      "Zdrowia"
+    ],
+    "Sigmar": [
+      "Bitwy",
+      "Ochrony",
+      "Odwagi",
+      "Prawości",
+      "Siły",
+      "Wytrzymałości"
+    ],
+    "Taal": [
+      "Bitwy",
+      "Dzikości",
+      "Łowów",
+      "Oddechu",
+      "Sumienia",
+      "Wytrzymałości"
+    ],
+    "Ulryk": [
+      "Bitwy",
+      "Dzikości",
+      "Nieustępliwości",
+      "Odwagi",
+      "Siły",
+      "Wytrzymałości"
+    ],
+    "Verena": [
+      "Mądrości",
+      "Odwagi",
+      "Prawości",
+      "Sprytu",
+      "Sumienia",
+      "Szczęścia"
+    ],
+    "Khorne": [
+      "Bitwy",
+      "Dzikości",
+      "Odwagi",
+      "Prawości",
+      "Siły",
+      "Wytrzymałości"
+    ],
+    "Nurgle": [
+      "Nieustępliwości",
+      "Ochrony",
+      "Oddechu",
+      "Wytrzymałości",
+      "Zdrowia",
+      "Szczęścia"
+    ],
+    "Tzeentch": [
+      "Mądrości",
+      "Sprytu",
+      "Sumienia",
+      "Szczęścia",
+      "Finezji",
+      "Charyzmy"
+    ],
+    "Slaanesh": [
+      "Wdzięku",
+      "Charyzmy",
+      "Finezji",
+      "Szczęścia",
+      "Ochrony",
+      "Oddechu"
+    ],
+    "Rat-Horned": [
+      "Bitwy",
+      "Dzikości",
+      "Sprytu",
+      "Siły",
+      "Wytrzymałości",
+      "Szczęścia"
+    ]
+  },
+  "modlitwy_szczegolowe": {
+    "Bitwy": {
+      "nazwa": "Błogosławieństwo Bitwy",
+      "pc": "4",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Premia +10 do Walki Wręcz",
+      "opis": "Cel uzyskuje premię +10 do Walki Wręcz."
+    },
+    "Charyzmy": {
+      "nazwa": "Błogosławieństwo Charyzmy",
+      "pc": "4",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Premia +10 do Ogłady",
+      "opis": "Cel uzyskuje premię +10 do Ogłady."
+    },
+    "Dzikości": {
+      "nazwa": "Błogosławieństwo Dzikości",
+      "pc": "5",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Na Krytyka: rzut 2x, wybierz lepszy",
+      "opis": "Gdy twój cel zada Ranę Krytyczną, rzuć dwa razy i wybierz lepszy rezultat."
+    },
+    "Finezji": {
+      "nazwa": "Błogosławieństwo Finezji",
+      "pc": "4",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Premia +10 do Zręczności",
+      "opis": "Cel uzyskuje premię +10 do Zręczności."
+    },
+    "Łowów": {
+      "nazwa": "Błogosławieństwo Łowów",
+      "pc": "4",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Premia +10 do Umiejętności Strzeleckich",
+      "opis": "Cel uzyskuje premię +10 do Umiejętności Strzeleckich."
+    },
+    "Mądrości": {
+      "nazwa": "Błogosławieństwo Mądrości",
+      "pc": "4",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Premia +10 do Inteligencji",
+      "opis": "Cel uzyskuje premię +10 do Inteligencji."
+    },
+    "Nieustępliwości": {
+      "nazwa": "Błogosławieństwo Nieustępliwości",
+      "pc": "3",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "Natych.",
+      "efekt_krotki": "Cel może natychmiast usunąć 1 Stan",
+      "opis": "Cel może usunąć 1 Stan."
+    },
+    "Ochrony": {
+      "nazwa": "Błogosławieństwo Ochrony",
+      "pc": "5",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Przeciwnicy: Test SW, by zaatakować cel",
+      "opis": "Przeciwnicy muszą wykonać Przeciętny (+20) Test Siły Woli, by zaatakować obrany przez siebie cel, ponieważ zaczyna kąsać ich poczucie wstydu, iż w ogóle zaczęli myśleć o użyciu przemocy. Jeśli Test się nie powiedzie, albo muszą wybrać inny cel ataku, albo inną Akcję."
+    },
+    "Oddechu": {
+      "nazwa": "Błogosławieństwo Oddechu",
+      "pc": "3",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Cel nie musi oddychać, ignoruje duszenie",
+      "opis": "Cel nie musi oddychać i ignoruje wszelkie konsekwencje duszenia się."
+    },
+    "Odwagi": {
+      "nazwa": "Błogosławieństwo Odwagi",
+      "pc": "4",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Premia +10 do Siły Woli",
+      "opis": "Cel uzyskuje premię +10 do Siły Woli."
+    },
+    "Prawości": {
+      "nazwa": "Błogosławieństwo Prawości",
+      "pc": "4",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Broń celu uznawana za Magiczną",
+      "opis": "Broń celu uznawana jest za Magiczną."
+    },
+    "Siły": {
+      "nazwa": "Błogosławieństwo Siły",
+      "pc": "4",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Premia +10 do Siły",
+      "opis": "Cel uzyskuje premię +10 do Siły."
+    },
+    "Sprytu": {
+      "nazwa": "Błogosławieństwo Sprytu",
+      "pc": "4",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Premia +10 do Inicjatywy",
+      "opis": "Cel uzyskuje premię +10 do Inicjatywy."
+    },
+    "Sumienia": {
+      "nazwa": "Błogosławieństwo Sumienia",
+      "pc": "4",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Cel: Test SW, by złamać przykazanie bóstwa",
+      "opis": "Cel musi wykonać Przeciętny (+20) Test Siły Woli, aby wykonać Akcję, która naruszałaby jedno z przykazań twojego bóstwa. Jeśli Test się nie uda, cel ogarnia wstyd i nie podejmuje żadnej Akcji."
+    },
+    "Szczęścia": {
+      "nazwa": "Błogosławieństwo Szczęścia",
+      "pc": "5",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Następny nieudany Test można powtórzyć",
+      "opis": "Następny nieudany Test twojego celu może zostać powtórzony. Wiążący jest nowy wynik Testu."
+    },
+    "Uzdrawiania": {
+      "nazwa": "Błogosławieństwo Uzdrawiania",
+      "pc": "6",
+      "zasieg": "Dotyk",
+      "cel": "1",
+      "czas": "Natych.",
+      "efekt_krotki": "Natychmiast leczy 1 Ranę celu",
+      "opis": "1 Rana twojego celu zostaje uleczona."
+    },
+    "Wdzięku": {
+      "nazwa": "Błogosławieństwo Wdzięku",
+      "pc": "4",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Premia +10 do Zwinności",
+      "opis": "Cel uzyskuje premię +10 do Zwinności."
+    },
+    "Wytrzymałości": {
+      "nazwa": "Błogosławieństwo Wytrzymałości",
+      "pc": "4",
+      "zasieg": "6",
+      "cel": "1",
+      "czas": "6",
+      "efekt_krotki": "Premia +10 do Wytrzymałości",
+      "opis": "Cel uzyskuje premię +10 do Wytrzymałości."
+    },
+    "Zdrowia": {
+      "nazwa": "Błogosławieństwo Zdrowia",
+      "pc": "5",
+      "zasieg": "Dotyk",
+      "cel": "1",
+      "czas": "Natych.",
+      "efekt_krotki": "Skraca czas trwania choroby o 1 dzień",
+      "opis": "Twój cel może skrócić Czas jednej choroby o 1 dzień. Modlitwa ta może być zmówiona jedynie raz w intencji jednej choroby, na którą choruje dana osoba."
+    }
+  }
+}

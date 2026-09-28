@@ -1,0 +1,84 @@
+{
+  "profesje": {
+    "Dworzanie": [
+      "Uczeń Artysty / Artysta / Mistrz Sztuki  s.69",
+      "Asystent / Doradca / Radca  s.70",
+      "Nadzorca / Namiestnik / Seneszal  s.71",
+      "Herold / Poseł / Dyplomata  s.72",
+      "Posługacz / Służący / Lokaj s.73",
+      "Dziedzic / Szlachcic / Magnat  s.74",
+      "Informator / Szpieg / Agent  s.75",
+      "Szermierz / Zwadźca / Mistrz Pojedynków  s.76"
+    ],
+    "Mieszcanie": [
+      "Pamflecista / Agitator / Podżegacz  s.61",
+      "Handlarz / Kupiec / Mistrz Kupiectwa  s.62",
+      "Przekupka / Mieszczka / Rajca Miejski  s.63",
+      "Czeladnik / Rzemieślnik / Mistrz Rzemiosła  s.64",
+      "Rekrut Straży / Strażnik / Sierżant Straży  s.65",
+      "Łowca Szczurów / Szczurołap / Strażnik Kanałów  s.66",
+      "Szpicel / Śledczy / Mistrz Śledczy  s.67",
+      "Biedak / Żebrak / Mistrz Żebraków  s.68"
+    ],
+    "Pospólstwo": [
+      "Parobek / Chłop / Kmieć  s.77",
+      "Poszukiwacz / Górnik / Mistrz Górniczy  s.78",
+      "Uczeń Guślarza / Guślarz / Starszy Guślarzy  s.79",
+      "Traper / Łowca / Tropiciel  s.80",
+      "Wróżbiarz / Mistyk / Mędrzec  s.81",
+      "Poborca Podatków / Zarządca / Włodarz  s.82",
+      "Zbieracz Ziół / Zielarz / Mistrz Ziołolecznictwa  s.83",
+      "Przewodnik / Zwiadowca / Przepatrywacz  s.84"
+    ],
+    "Uczeni": [
+      "Uczeń aptekarza / Aptekarz / Mistrz Aptekarski  s.53",
+      "Uczeń Czarodzieja / Czarodziej / Mistrz Magii  s.54",
+      "Student Inżynierii / Inżynier / Mistrz Inżynierii  s.55",
+      "Kleryk / Kapłan / Arcykapłan  s.56",
+      "Uczeń Lekarza / Lekarz / Doktor  s.57",
+      "Nowicjusz / Mnich / Przeor  s.58",
+      "Student Prawa / Prawnik / Adwokat  s.59",
+      "Student / Uczony / Wykładowca  s.60"
+    ],
+    "Wodniacy": [
+      "Pomocnik Dokera / Doker / Brygadzista  s.93",
+      "Rybak / Flisak / Znawca Rzeki  s.94",
+      "Przewodnik Rzeczny / Pilot Rzeczny / Starszy Pilot  s.95",
+      "Szabrownik / Pirat Rzeczny / Łupieżca  s.96",
+      "Szmuglerz Rzeczny / Przemytnik / Mistrz Przemytników  s.97",
+      "Chłopiec Pokładowy / Przewoźnik / Sternik  s.98",
+      "Rekrut Rzeczny / Strażnik Rzeczny / Żołnierz Okrętowy  s.99",
+      "Szccur Lądowy / Żeglarz / Bosman  s.100"
+    ],
+    "Wojownicy": [
+      "Pięściarz / Gladiator / Mistrz Areny  s.109",
+      "Nowicjusz Wojowników / Kapłan Bitewny / Kapłan-Sierżant s.110",
+      " Jeździec / Kawalerzysta / Sierżant Kawalerii  s.111",
+      "Stróż / Ochroniarz / Gwardzista  s.112",
+      "Tani Drań / Oprych / Płatny Morderca  s.113",
+      "Giermek / Rycerz / Pierwszy Rycerz  s.114",
+      " / Zabójca / Trolli - Olbrzymów - Smoków - Demonów  s.115",
+      "Rekrut / Żołnierz / Sierżant  s.116"
+    ],
+    "Wędrowcy": [
+      "Gorliwiec / Biczownik / Pokutnik  s.85",
+      "Włóczykij / Domokrążca / Mistrz Domokrążców  s.86",
+      " Grajek Uliczny / Kuglarz / Trubadur  s.87",
+      "Oprawca / Łowca Czarownic / Inkwizytor  s.88",
+      "Pogromca Złodziei / Łowca Nagród / Mistrz Łowców  s.89",
+      "Goniec / Posłaniec / Kurier  s.90",
+      "Mytnik / Strażnik Dróg / Sierżant Strażników Dróg  s.91",
+      "Foryś / Woźnica / Mistrz Woźniców  s.92"
+    ],
+    "Łotrzykowie": [
+      "Zbój / Banita / Herszt Banitów  s.101",
+      "Szeptucha / Czarownica / Wiedźma  s.102",
+      "Porywacz Zwłok / Hiena Cmentarna / Rabuś Grobowców  s.103",
+      "Pośrednik / Paser / Mistrz Paserów  s.104",
+      "Naganiacz / Rajfur / Stręczyciel  s.105",
+      "Zbir / Reketer / Głowa Gangu  s.106",
+      "Kanciarz / Szarlatan / Oszust  s.107",
+      "Bandzior / Złodziej / Mistrz Złodziejski  s.108"
+    ]
+  }
+}

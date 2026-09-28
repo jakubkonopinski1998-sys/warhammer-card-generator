@@ -1,0 +1,682 @@
+{
+  "talenty": {
+    "Atrakcyjny": {
+      "pelny": "Zyskujesz premię +10 do wszystkich testów towarzyskich skierowanych do osób, którym możesz się podobać.",
+      "skrot": "+10 testy tow. (atrakcyjność)"
+    },
+    "Bardzo Silny": {
+      "pelny": "Twoja początkowa cecha Siła zostaje zwiększona o +5 punktów.",
+      "skrot": "+5 do początkowej Siły"
+    },
+    "Błyskotliwość": {
+      "pelny": "Twoja początkowa cecha Inteligencja zostaje zwiększona o +5 punktów.",
+      "skrot": "+5 do początkowej Inteligencji"
+    },
+    "Błękitna Krew": {
+      "pelny": "Jesteś traktowany jak szlachcic w sytuacjach towarzyskich i masz wyższy status społeczny.",
+      "skrot": "Traktowany jak szlachcic, +status"
+    },
+    "Charyzmatyczny": {
+      "pelny": "Twoja początkowa cecha Ogłada zostaje zwiększona o +5 punktów.",
+      "skrot": "+5 do początkowej Ogłady"
+    },
+    "Chodu!": {
+      "pelny": "Twoja Szybkość jest traktowana jako wyższa o 1 punkt przy ustalaniu dystansu biegu.",
+      "skrot": "+1 do Szybkości przy biegu"
+    },
+    "Czujny": {
+      "pelny": "Twoja początkowa cecha Inicjatywa zostaje zwiększona o +5 punktów.",
+      "skrot": "+5 do początkowej Inicjatywy"
+    },
+    "Czysta Dusza": {
+      "pelny": "Masz zwiększoną odporność na spaczenie. Twoja Wytrzymałość na zepsucie rośnie o wartość SW.",
+      "skrot": "Odporność na spaczenie (SW)"
+    },
+    "Czytanie/Pisanie": {
+      "pelny": "Potrafisz czytać i pisać w językach, które znasz w mowie.",
+      "skrot": "Umiejętność czytania i pisania"
+    },
+    "Geniusz Arytmetyczny": {
+      "pelny": "Potrafisz błyskawicznie wykonywać skomplikowane obliczenia w pamięci.",
+      "skrot": "Szybkie obliczenia w pamięci"
+    },
+    "Naśladowca": {
+      "pelny": "Zyskujesz premię +10 do testów Występów przy udawaniu cudzych głosów i akcentów.",
+      "skrot": "+10 do udawania głosów"
+    },
+    "Niezwykle Odporny": {
+      "pelny": "Twoja początkowa cecha Wytrzymałość zostaje zwiększona o +5 punktów.",
+      "skrot": "+5 do początkowej Wytrzymałości"
+    },
+    "Oburęczność": {
+      "pelny": "Możesz używać broni w obu dłoniach bez typowych kar dla ręki pomocniczej.",
+      "skrot": "Walka dwiema rękami bez kar"
+    },
+    "Odporny na": {
+      "pelny": "Zyskujesz odporność na konkretny typ zagrożenia (np. trucizny, choroby).",
+      "skrot": "Odporność na wybrane zagrożenie"
+    },
+    "Odporny na zagrozenie": {
+      "pelny": "Zdajesz pierwszy Test odporności\ns. 139",
+      "skrot": "Zdajesz pierwszy Test odporności..."
+    },
+    "Poliglota": {
+      "pelny": "Zyskujesz premię +10 do nauki nowych języków.",
+      "skrot": "+10 do nauki języków"
+    },
+    "Posłuch u Zwierząt": {
+      "pelny": "Zwierzęta instynktownie Ci ufają i łatwiej poddają się Twojej woli.",
+      "skrot": "Zwierzęta Ci ufają"
+    },
+    "Silne Nogi": {
+      "pelny": "Możesz skakać na odległość równą Twojej Szybkości w metrach bez testu atletyki.",
+      "skrot": "Skok o S metrów bez testu"
+    },
+    "Strzelec Wyborowy": {
+      "pelny": "Twoja początkowa cecha Umiejętności Strzeleckie zostaje zwiększona o +5 punktów.",
+      "skrot": "+5 do początkowej US"
+    },
+    "Szczęście": {
+      "pelny": "Zwiększasz swoją pulę Punktów Szczęścia o 1 na każdy poziom tego talentu.",
+      "skrot": "+1 Punkt Szczęścia / poziom"
+    },
+    "Szybki Refleks": {
+      "pelny": "Twoja początkowa cecha Zręczność zostaje zwiększona o +5 punktów.",
+      "skrot": "+5 do początkowej Zręczności"
+    },
+    "Szósty Zmysł": {
+      "pelny": "Mistrz Gry może wykonać dla Ciebie ukryty test Intuicji, aby ostrzec Cię przed zagrożeniem.",
+      "skrot": "MG ostrzega przed zagrożeniem"
+    },
+    "Słuch Absolutny": {
+      "pelny": "Potrafisz idealnie powtórzyć każdą zasłyszaną melodię lub dźwięk bez testu.",
+      "skrot": "Powtarzanie melodii bez testu"
+    },
+    "Talent Artystyczny": {
+      "pelny": "Zyskujesz premię +10 do wszystkich testów Sztuki w wybranej dziedzinie.",
+      "skrot": "+10 do testów Sztuki"
+    },
+    "Tragarz": {
+      "pelny": "Twój maksymalny udźwig (Obciążenie) zostaje zwiększony o +2 punkty na poziom talentu.",
+      "skrot": "+2 do Obciążenia / poziom"
+    },
+    "Twardziel": {
+      "pelny": "Zyskujesz dodatkowe punkty Żywotności równe Twojemu Bonusowi z Wytrzymałości.",
+      "skrot": "+BWt do Żywotności"
+    },
+    "Urodzony Wojownik": {
+      "pelny": "Twoja początkowa cecha Walka Wręcz zostaje zwiększona o +5 punktów.",
+      "skrot": "+5 do początkowej WW"
+    },
+    "Widzenie w Ciemności": {
+      "pelny": "Potrafisz widzieć w niemal całkowitej ciemności na odległość 10 metrów.",
+      "skrot": "Widzenie w ciemności (10m)"
+    },
+    "Wyczucie Kierunku": {
+      "pelny": "Zawsze wiesz, gdzie jest północ i potrafisz odnaleźć drogę bez testu Nawigacji.",
+      "skrot": "Znasz północ, orientacja bez testu"
+    },
+    "Wyczulony Zmysł": {
+      "pelny": "Jeden z Twoich zmysłów jest nadnaturalnie wyostrzony (+10 do testów Percepcji).",
+      "skrot": "+10 do testów Percepcji (zmysł)"
+    },
+    "Wytwórca": {
+      "pelny": "Potrafisz wytwarzać przedmioty w wybranej dziedzinie rzemiosła.",
+      "skrot": "Wytwarzanie przedmiotów"
+    },
+    "Zimna Krew": {
+      "pelny": "Twoja początkowa cecha Siła Woli zostaje zwiększona o +5 punktów.",
+      "skrot": "+5 do początkowej Siły Woli"
+    },
+    "Zręczny": {
+      "pelny": "Twoja początkowa cecha Zręczność zostaje zwiększona o +5 punktów.",
+      "skrot": "+5 do początkowej Zręczności"
+    }
+  },
+  "talenty_profesji": {
+    "Aptekarz": {
+      "pelny": "Możesz odwrócić wynik na kościach w nieudanym teście Rzemiosła (Aptekarstwo), jeśli nowy wynik zapewni ci sukces.",
+      "skrot": "Możesz odwrócić wynik na kościac..."
+    },
+    "Arcydzieło": {
+      "pelny": "Pozwala stworzyć wybitne dzieło sztuki lub rzemiosła, którego sprzedaż przynosi co najmniej dziesięciokrotny zysk względem normalnej ceny.",
+      "skrot": "Pozwala stworzyć wybitne dzieło ..."
+    },
+    "Artylerzysta": {
+      "pelny": "Dodajesz Poziomy Sukcesu równe poziomowi tego talentu do Wydłużonych Testów przeładowywania broni prochowej.",
+      "skrot": "Dodajesz Poziomy Sukcesu równe p..."
+    },
+    "Atak Wyprzedzający": {
+      "pelny": "Gdy wróg na ciebie szarżuje, udany test Inicjatywy pozwala wykonać darmowy atak zanim przeciwnik zdąży uderzyć.",
+      "skrot": "Gdy wróg na ciebie szarżuje, uda..."
+    },
+    "Bardzo Szybki": {
+      "pelny": "Twoja cecha Szybkość na stałe wzrasta o +1.",
+      "skrot": "Twoja cecha Szybkość na stałe wz..."
+    },
+    "Berserkerska Szarża": {
+      "pelny": "Podczas szarży zadajesz w walce wręcz dodatkowy +1 punkt obrażeń na każdy poziom tego talentu.",
+      "skrot": "Podczas szarży zadajesz w walce ..."
+    },
+    "Biczownik": {
+      "pelny": "Codzienne zadawanie sobie ran na modlitwie pozwala ci wpaść w Szał Bojowy bez konieczności wykonywania testów.",
+      "skrot": "Codzienne zadawanie sobie ran na..."
+    },
+    "Bitewna Furia": {
+      "pelny": "Lepiej kontrolujesz swój gniew. Udany test Opanowania pozwala ci zakończyć stan Szału Bojowego na końcu rundy.",
+      "skrot": "Lepiej kontrolujesz swój gniew. ..."
+    },
+    "Bitewny Refleks": {
+      "pelny": "Zyskujesz premię +10 do Inicjatywy na każdy poziom talentu, ale wyłącznie podczas ustalania kolejności działań w walce.",
+      "skrot": "Zyskujesz premię +10 do Inicjaty..."
+    },
+    "Błogosławieństwo (Boska Tradycja)": {
+      "pelny": "Zyskujesz możliwość używania pomniejszych cudów i błogosławieństw wyznawanego bóstwa.",
+      "skrot": "Zyskujesz możliwość używania pom..."
+    },
+    "Błyskawiczny Strzał": {
+      "pelny": "Z naładowaną bronią dystansową możesz oddać strzał poza kolejnością, zanim ktokolwiek zareaguje (zużywa to Akcję i Ruch w następnej rundzie).",
+      "skrot": "Z naładowaną bronią dystansową m..."
+    },
+    "Celny Strzał": {
+      "pelny": "Podczas korzystania z broni strzeleckiej zadajesz dodatkowe obrażenia równe poziomowi tego talentu.",
+      "skrot": "Podczas korzystania z broni strz..."
+    },
+    "Chirurgia": {
+      "pelny": "Pozwala leczyć najgroźniejsze rany z Trafień Krytycznych za pomocą operacji (Wydłużony Test Leczenia).",
+      "skrot": "Pozwala leczyć najgroźniejsze ra..."
+    },
+    "Cień": {
+      "pelny": "Upraszcza śledzenie. Zamiast trudnych Testów Łączonych, pozwala śledzić kogoś pojedynczym testem Percepcji lub Skradania.",
+      "skrot": "Upraszcza śledzenie. Zamiast tru..."
+    },
+    "Cios Mierzony": {
+      "pelny": "Możesz modyfikować wynik rzutu na Miejsce Trafienia w walce o +/- 10 za każdy poziom tego talentu.",
+      "skrot": "Możesz modyfikować wynik rzutu n..."
+    },
+    "Cios Poniżej Pasa": {
+      "pelny": "Stosujesz brudne sztuczki. Podczas walki bez broni zadajesz dodatkowy +1 punkt obrażeń za każdy poziom talentu.",
+      "skrot": "Stosujesz brudne sztuczki. Podcz..."
+    },
+    "Czarownica!": {
+      "pelny": "Samodzielnie uczysz się magii. Dodajesz Język (Magiczny) do umiejętności profesji i możesz odkrywać nowe czary z Tradycji Magii Tajemnej.",
+      "skrot": "Samodzielnie uczysz się magii. D..."
+    },
+    "Człowiek Guma": {
+      "pelny": "Potrafisz wyginać swoje ciało w nienaturalny sposób, co pozwala ci przeciskać się przez niewielkie otwory bez przeszkód.",
+      "skrot": "Potrafisz wyginać swoje ciało w ..."
+    },
+    "Czytanie z Ruchu Warg": {
+      "pelny": "Patrząc na usta innych, potrafisz zrozumieć co mówią z dużej odległości (wymaga widoczności twarzy i testu Percepcji).",
+      "skrot": "Patrząc na usta innych, potrafis..."
+    },
+    "Defraudant": {
+      "pelny": "Potrafisz niepostrzeżenie okradać swoich pracodawców podczas zarabiania dla nich pieniędzy (wymaga Przeciwstawnego Testu Inteligencji).",
+      "skrot": "Potrafisz niepostrzeżenie okrada..."
+    },
+    "Dobrze Przygotowany": {
+      "pelny": "Możesz wyciągnąć z plecaka przydatny, lekki (Obciążenie 0) przedmiot, tak jakbyś przewidująco kupił go wcześniej.",
+      "skrot": "Możesz wyciągnąć z plecaka przyd..."
+    },
+    "Doświadczony Wędrowiec (Wybrany Teren)": {
+      "pelny": "Masz doświadczenie w dziczy. Nie działają na ciebie negatywne modyfikatory wynikające z wpływu wybranego trudnego terenu.",
+      "skrot": "Masz doświadczenie w dziczy. Nie..."
+    },
+    "Dwie Bronie": {
+      "pelny": "Pozwala na jednoczesny atak dwiema broniami, dając szansę na drugi cios poprzez odwrócenie wyniku rzutu z pierwszego ataku.",
+      "skrot": "Pozwala na jednoczesny atak dwie..."
+    },
+    "Etykieta (Grupa Społeczna)": {
+      "pelny": "Potrafisz bez problemu wtopić się w zachowanie wybranej grupy społecznej (np. Szlachtę, Przestępców), nie budząc podejrzeń.",
+      "skrot": "Potrafisz bez problemu wtopić si..."
+    },
+    "Finta": {
+      "pelny": "Możesz wykonać pozorowany atak (Test Przeciwstawny). Sukces daje dodatkowe Poziomy Sukcesu do właściwego ataku w następnej rundzie.",
+      "skrot": "Możesz wykonać pozorowany atak (..."
+    },
+    "Gadanina": {
+      "pelny": "Możesz oszołomić rozmówcę niezwykle zawiłym i pozbawionym sensu słowotokiem, nakładając na niego Stan Oszołomienie.",
+      "skrot": "Możesz oszołomić rozmówcę niezwy..."
+    },
+    "Gładkie Słówka": {
+      "pelny": "Potrafisz tak sprawnie przeplatać prawdę z kłamstwem, że twoi rozmówcy nie mogą użyć Intuicji, by sprawdzić czy kłamiesz.",
+      "skrot": "Potrafisz tak sprawnie przeplata..."
+    },
+    "Groźny": {
+      "pelny": "Twój wygląd i postura budzą obawę. Otrzymujesz dodatkowe Poziomy Sukcesu do testów Zastraszania równe poziomowi tego talentu.",
+      "skrot": "Twój wygląd i postura budzą obaw..."
+    },
+    "Hulaka": {
+      "pelny": "Wiesz, jak dobrze się bawić. Możesz odwrócić wynik na kościach w nieudanym teście Mocnej Głowy, jeśli nowy wynik da ci sukces.",
+      "skrot": "Wiesz, jak dobrze się bawić. Moż..."
+    },
+    "Inspirujący": {
+      "pelny": "Twoje słowa mogą wpłynąć na przebieg bitwy. Pozwala natchnąć morale wielu żołnierzy jednocześnie (ilość zależy od poziomu talentu).",
+      "skrot": "Twoje słowa mogą wpłynąć na prze..."
+    },
+    "Intrygant": {
+      "pelny": "Jesteś mistrzem spisków. Raz na sesję możesz zapytać MG o zagmatwaną sytuację polityczną i otrzymać tajne informacje w oparciu o rzut.",
+      "skrot": "Jesteś mistrzem spisków. Raz na ..."
+    },
+    "Inwokacja (Boska Tradycja)": {
+      "pelny": "Zostajesz pobłogosławiony przez swojego patrona, co pozwala ci na użycie jednego z jego Cudów i naukę kolejnych w przyszłości.",
+      "skrot": "Zostajesz pobłogosławiony przez ..."
+    },
+    "Krasomówstwo": {
+      "pelny": "Wiesz, jak porwać tłum. Otrzymujesz premię równą liczbie wykupień talentu (w postaci PS) do testów Charyzmy podczas przemawiania do tłumu.",
+      "skrot": "Wiesz, jak porwać tłum. Otrzymuj..."
+    },
+    "Krzepki": {
+      "pelny": "Zmniejszasz otrzymywane w walce obrażenia o 1 punkt za każde wykupienie tego talentu (nie można w ten sposób zredukować obrażeń poniżej 1).",
+      "skrot": "Zmniejszasz otrzymywane w walce ..."
+    },
+    "Łapówkarz": {
+      "pelny": "Znasz się na łapówkach. Mistrz Gry obniża stawkę bazową potrzebnej łapówki o 10% za każdy poziom tego talentu.",
+      "skrot": "Znasz się na łapówkach. Mistrz G..."
+    },
+    "Mag Bitewny": {
+      "pelny": "W swojej turze możesz raz rzucić zaklęcie (poziom 5 lub niższy) jako Akcję Darmową, zachowując główną Akcję na inne działanie.",
+      "skrot": "W swojej turze możesz raz rzucić..."
+    },
+    "Magia Chaosu (Tradycja)": {
+      "pelny": "Talent ten odblokowuje dostęp do sztuk magicznych i rzucania zaklęć. W ramach Magii Prostej natychmiast opanowujesz liczbę czarów równą Bonusowi z Siły Woli. W przypadku Magii Tajemnej wybierasz jedną tradycję (np. Ognia, Metalu, Guślarstwa) i uczysz się czarów płacąc PD – pierwsza pula zaklęć równa Bonusowi z Inteligencji kosztuje po 100 PD za czar, kolejna po 200 PD itd. Magia Tajemna wyklucza korzystanie z Błogosławieństw i Inwokacji. Z kolei wybierając Magię Chaosu, otrzymujesz zaklęcia od Mrocznych Bogów; każde kosztuje stałe 100 PD, ale wypalając się w twoim umyśle nakłada na ciebie 1 Punkt Zepsucia. W normalnych warunkach możesz znać tylko jedną tradycję Magii Tajemnej lub Chaosu. Wydając 100 PD możesz zrezygnować z tradycji, bezpowrotnie tracąc dostęp do jej zaklęć.",
+      "skrot": "Talent ten odblokowuje dostęp do..."
+    },
+    "Magia Prosta": {
+      "pelny": "Talent ten odblokowuje dostęp do sztuk magicznych i rzucania zaklęć. W ramach Magii Prostej natychmiast opanowujesz liczbę czarów równą Bonusowi z Siły Woli. W przypadku Magii Tajemnej wybierasz jedną tradycję (np. Ognia, Metalu, Guślarstwa) i uczysz się czarów płacąc PD – pierwsza pula zaklęć równa Bonusowi z Inteligencji kosztuje po 100 PD za czar, kolejna po 200 PD itd. Magia Tajemna wyklucza korzystanie z Błogosławieństw i Inwokacji. Z kolei wybierając Magię Chaosu, otrzymujesz zaklęcia od Mrocznych Bogów; każde kosztuje stałe 100 PD, ale wypalając się w twoim umyśle nakłada na ciebie 1 Punkt Zepsucia. W normalnych warunkach możesz znać tylko jedną tradycję Magii Tajemnej lub Chaosu. Wydając 100 PD możesz zrezygnować z tradycji, bezpowrotnie tracąc dostęp do jej zaklęć.",
+      "skrot": "Talent ten odblokowuje dostęp do..."
+    },
+    "Magia Tajemna (Tradycja)": {
+      "pelny": "Talent ten odblokowuje dostęp do sztuk magicznych i rzucania zaklęć. W ramach Magii Prostej natychmiast opanowujesz liczbę czarów równą Bonusowi z Siły Woli. W przypadku Magii Tajemnej wybierasz jedną tradycję (np. Ognia, Metalu, Guślarstwa) i uczysz się czarów płacąc PD – pierwsza pula zaklęć równa Bonusowi z Inteligencji kosztuje po 100 PD za czar, kolejna po 200 PD itd. Magia Tajemna wyklucza korzystanie z Błogosławieństw i Inwokacji. Z kolei wybierając Magię Chaosu, otrzymujesz zaklęcia od Mrocznych Bogów; każde kosztuje stałe 100 PD, ale wypalając się w twoim umyśle nakłada na ciebie 1 Punkt Zepsucia. W normalnych warunkach możesz znać tylko jedną tradycję Magii Tajemnej lub Chaosu. Wydając 100 PD możesz zrezygnować z tradycji, bezpowrotnie tracąc dostęp do jej zaklęć.",
+      "skrot": "Talent ten odblokowuje dostęp do..."
+    },
+    "Majętny": {
+      "pelny": "Jesteś bajecznie bogaty. Kiedy zarabiasz (włączając w to Zajęcie Dochód), zyskujesz dodatkowo +1 złotą koronę.",
+      "skrot": "Jesteś bajecznie bogaty. Kiedy z..."
+    },
+    "Mały": {
+      "pelny": "Twój rozmiar to Mały. Stosuje się do ciebie odpowiednie zasady dotyczące mniejszych istot z Bestiariusza.",
+      "skrot": "Twój rozmiar to Mały. Stosuje si..."
+    },
+    "Medyk Polowy": {
+      "pelny": "Możesz wykonywać testy Leczenia w połowie czasu trwania akcji bojowej.",
+      "skrot": "Możesz wykonywać testy Leczenia ..."
+    },
+    "Mistrz Charakteryzacji": {
+      "pelny": "Potrafisz upodobnić się do kogoś lub zmienić swój wygląd bez użycia specjalnego zestawu do charakteryzacji, wykorzystując jedynie mimikę, postawę i odpowiedni strój.",
+      "skrot": "Potrafisz upodobnić się do kogoś..."
+    },
+    "Mistrz Rzemiosła (Rzemiosło)": {
+      "pelny": "Zmniejszasz liczbę wymaganych Poziomów Sukcesu (PS) podczas Wydłużonych Testów wybranego rzemiosła o liczbę równą poziomowi tego talentu.",
+      "skrot": "Zmniejszasz liczbę wymaganych Po..."
+    },
+    "Mistrz Walki": {
+      "pelny": "Przy ustalaniu przewagi liczebnej w walce liczysz się jako jedna osoba więcej za każdy poziom tego talentu (o ile wrogów jest faktycznie więcej).",
+      "skrot": "Przy ustalaniu przewagi liczebne..."
+    },
+    "Mocne Plecy": {
+      "pelny": "Zwiększasz swój maksymalny udźwig (Obciążenie) o wartość równą poziomowi talentu. Dodajesz też tę wartość do PS w Przeciwstawnych Testach Siły.",
+      "skrot": "Zwiększasz swój maksymalny udźwi..."
+    },
+    "Morderczy Atak": {
+      "pelny": "Gdy zadasz przeciwnikowi Ranę Krytyczną, zwiększasz zadane obrażenia o wartość równą poziomowi tego talentu.",
+      "skrot": "Gdy zadasz przeciwnikowi Ranę Kr..."
+    },
+    "Mól Książkowy": {
+      "pelny": "W bibliotece czujesz się jak ryba w wodzie. Możesz odwrócić wynik na kościach w nieudanym teście Badań Naukowych, jeśli nowy wynik da ci sukces.",
+      "skrot": "W bibliotece czujesz się jak ryb..."
+    },
+    "Mówca": {
+      "pelny": "Wiesz, jak urabiać tłumy. Znacznie zwiększasz liczbę osób, które ulegają twojemu wpływowi podczas udanych testów Charyzmy w trakcie przemawiania.",
+      "skrot": "Wiesz, jak urabiać tłumy. Znaczn..."
+    },
+    "Musztra": {
+      "pelny": "Walcząc w szyku obok aktywnego sojusznika z tym samym talentem, w przypadku utraty Przewagi możesz zachować 1 punkt Przewagi za każdy poziom tego talentu.",
+      "skrot": "Walcząc w szyku obok aktywnego s..."
+    },
+    "Na Cztery Łapy": {
+      "pelny": "Podczas upadku, udany test Atletyki pozwala ci zmniejszyć efektywną wysokość o 1 metr plus dodatkowy 1 metr za każdy uzyskany Poziom Sukcesu (PS).",
+      "skrot": "Podczas upadku, udany test Atlet..."
+    },
+    "Naciągacz": {
+      "pelny": "Jesteś zaprawionym żebrakiem. Testy Charyzmy podczas żebrania możesz wykonywać co pół godziny, a nie co godzinę.",
+      "skrot": "Jesteś zaprawionym żebrakiem. Te..."
+    },
+    "Niegodny Uwagi": {
+      "pelny": "Osoby o wyższym Statusie cię ignorują, co ułatwia podsłuchiwanie. Dodatkowo, wrogowie o wyższym Statusie nie otrzymują Przewagi za zadanie ci obrażeń.",
+      "skrot": "Osoby o wyższym Statusie cię ign..."
+    },
+    "Nienawiść (Grupa)": {
+      "pelny": "Pałasz nienawiścią do konkretnej grupy (np. Banici, Zwierzoludzie, Zielonoskórzy). Każde wykupienie talentu pozwala wybrać nowy obiekt nienawiści.",
+      "skrot": "Pałasz nienawiścią do konkretnej..."
+    },
+    "Nieubłagany": {
+      "pelny": "Jesteś niezwykle wytrzymały. Możesz zignorować utratę 1 punktu Żywotności powodowaną przez Stan Krwawienie za każdy poziom tego talentu.",
+      "skrot": "Jesteś niezwykle wytrzymały. Moż..."
+    },
+    "Nieugięty": {
+      "pelny": "Ruszając do walki z determinacją, dodajesz liczbę wykupień tego talentu do swojego Bonusu z Siły na czas wykonywania Szarży.",
+      "skrot": "Ruszając do walki z determinacją..."
+    },
+    "Nieustępliwy": {
+      "pelny": "Możesz wykorzystać Przewagę podczas Odwrotu (nawet mając jej mniej niż przeciwnik) i zachować ją w ilości równej poziomowi tego talentu.",
+      "skrot": "Możesz wykorzystać Przewagę podc..."
+    },
+    "Nieustraszony (typ wroga)": {
+      "pelny": "Za pomocą Przeciętnego (+20) testu Opanowania możesz zignorować efekty Zastraszania, Strachu i Grozy ze strony wybranego typu wrogów.",
+      "skrot": "Za pomocą Przeciętnego (+20) tes..."
+    },
+    "Niewzruszony": {
+      "pelny": "Musisz wykonać test Opanowania przeciwko Panice dopiero wtedy, gdy zostaniesz faktycznie zraniony przez broń prochową, a nie tylko z niej ostrzelany.",
+      "skrot": "Musisz wykonać test Opanowania p..."
+    },
+    "Nos do Kłopotów": {
+      "pelny": "Pozwala wyczuć zbliżające się zagrożenie. Mistrz Gry wykonuje ukryty test Intuicji; sukces sprawia, że w razie zasadzki nie działa na ciebie Stan Zaskoczenie.",
+      "skrot": "Pozwala wyczuć zbliżające się za..."
+    },
+    "Numizmatyka": {
+      "pelny": "Potrafisz dokładnie ocenić wartość walut bez testu. Prosty test Wyceny wystarczy, aby wyłapać fałszywe monety.",
+      "skrot": "Potrafisz dokładnie ocenić warto..."
+    },
+    "Obieżyświat": {
+      "pelny": "Dodajesz Wiedzę (Lokalną) do listy umiejętności każdej swojej profesji i płacisz o 5 PD mniej za jej rozwijanie.",
+      "skrot": "Dodajesz Wiedzę (Lokalną) do lis..."
+    },
+    "Odporność na Magię": {
+      "pelny": "Poziom Sukcesów wrogich czarów rzucanych na ciebie spada o 2 za każdy poziom tego talentu. Uniemożliwia posiadanie talentów do rzucania magii i błogosławieństw.",
+      "skrot": "Poziom Sukcesów wrogich czarów r..."
+    },
+    "Odporność Psychiczna": {
+      "pelny": "Jesteś uosobieniem niezłomności. Zwiększasz swoją maksymalną pulę Punktów Determinacji o 1 za każdy poziom tego talentu.",
+      "skrot": "Jesteś uosobieniem niezłomności...."
+    },
+    "Odwrócenie Szans": {
+      "pelny": "Wygrywając Przeciwstawny Test Walki Wręcz w obronie, możesz zdecydować się nie zadawać obrażeń, a zamiast tego odebrać przeciwnikowi wszystkie jego zebrane punkty Przewagi.",
+      "skrot": "Wygrywając Przeciwstawny Test Wa..."
+    },
+    "Ogłuszenie": {
+      "pelny": "Ignorujesz kary za celowanie w głowę, gdy używasz broni z cechą Ogłuszająca. Dodatkowo każda broń improwizowana w twoich rękach zyskuje tę cechę.",
+      "skrot": "Ignorujesz kary za celowanie w g..."
+    },
+    "Oko Łowcy": {
+      "pelny": "Podróżując przez tereny łowieckie i poświęcając czas na polowanie, automatycznie wyżywisz siebie i tylu towarzyszy, ile wynosi poziom tego talentu.",
+      "skrot": "Podróżując przez tereny łowiecki..."
+    },
+    "Percepcja Magiczna": {
+      "pelny": "Potrafisz dostrzegać zmienne Wiatry Magii. Zyskujesz zdolność wizualnego postrzegania magicznych energii.",
+      "skrot": "Potrafisz dostrzegać zmienne Wia..."
+    },
+    "Pierwsza Pomoc": {
+      "pelny": "Opatrując rany za pomocą bandaży (Leczenie), możesz odwrócić wynik na kościach w nieudanym teście (nowy wynik daje maksymalnie +1 PS).",
+      "skrot": "Opatrując rany za pomocą bandaży..."
+    },
+    "Pilot": {
+      "pelny": "Kierując statkiem na zdradliwych akwenach (Wiosłowanie/Żeglowanie), możesz odwrócić wynik w nieudanym teście na sukces (maksymalnie +1 PS).",
+      "skrot": "Kierując statkiem na zdradliwych..."
+    },
+    "Pilot Rzeczny": {
+      "pelny": "Znasz tajniki żeglugi po rzekach. Automatycznie zdajesz łatwe testy przeprowadzania jednostek, a rzuty wykonujesz tylko w wybitnie niebezpiecznych warunkach.",
+      "skrot": "Znasz tajniki żeglugi po rzekach..."
+    },
+    "Pomocny": {
+      "pelny": "Kiedy udanie asystujesz w testach społecznych osobie o wyższym Statusie, możesz jako liczbę PS użyć wyniku z kości jedności (np. rzut 46 to +6 PS).",
+      "skrot": "Kiedy udanie asystujesz w testac..."
+    },
+    "Porywająca Gorliwość": {
+      "pelny": "Kiedy mówisz o swoich pasjach i wierzeniach, podwajasz wartość swojej Ogłady podczas określania, na ile osób ma wpływ twój talent Mówca.",
+      "skrot": "Kiedy mówisz o swoich pasjach i ..."
+    },
+    "Precyzyjne Inkantowanie": {
+      "pelny": "Biegle znasz język magiczny. Jeśli podczas udanego rzucania czaru wyrzucisz dublet na kościach, ignorujesz efekty manifestacji (skutki uboczne).",
+      "skrot": "Biegle znasz język magiczny. Jeś..."
+    },
+    "Prosto Między Oczy": {
+      "pelny": "Zamiast odwracać kolejność na kościach w celu ustalenia Miejsca Trafienia z broni zasięgowej, możesz po prostu samodzielnie wybrać, gdzie chciałeś trafić.",
+      "skrot": "Zamiast odwracać kolejność na ko..."
+    },
+    "Przekonujący": {
+      "pelny": "Udanym testem Charyzmy podczas debaty lub sporu możesz określić zdobyte Poziomy Sukcesów na podstawie samej kości jedności (rzut 24 daje 4 PS).",
+      "skrot": "Udanym testem Charyzmy podczas d..."
+    },
+    "Przestępca": {
+      "pelny": "Działalność kryminalna przynosi ci dodatkowy zysk podczas Zajęcia Dochód, ale jeśli jej nie ukrywasz, ludzie automatycznie traktują cię jak osobę z niższym Statusem.",
+      "skrot": "Działalność kryminalna przynosi ..."
+    },
+    "Przyrządzanie Mikstur": {
+      "pelny": "Wiesz jak pracować w polowych warunkach. Możesz użyć darmowego zajęcia Wytwórstwo dla Aptekarstwa bez konieczności dostępu do prawdziwego Warsztatu.",
+      "skrot": "Wiesz jak pracować w polowych wa..."
+    },
+    "Riposta": {
+      "pelny": "Używając w obronie broni z cechą Szybka, przy udanym parowaniu ciosu zadajesz przeciwnikowi obrażenia, tak jakbyś to ty wykonał udany atak.",
+      "skrot": "Używając w obronie broni z cechą..."
+    },
+    "Rozbrojenie": {
+      "pelny": "Udanym atakiem w walce wręcz możesz wytrącić wrogowi broń z dłoni. Odpowiednio duża przewaga (PS) pozwala określić, gdzie upadnie, lub nawet złapać ją w locie.",
+      "skrot": "Udanym atakiem w walce wręcz moż..."
+    },
+    "Rozpoznanie Artefaktu": {
+      "pelny": "Dotykając magicznego przedmiotu, możesz wykonać test Intuicji. Każdy uzyskany PS zdradza ci jedną właściwość i zasadę działania artefaktu.",
+      "skrot": "Dotykając magicznego przedmiotu,..."
+    },
+    "Rozproszenie Uwagi": {
+      "pelny": "Zamiast Ruchu w walce możesz wykonać test przeciwstawny Atletyki z Opanowaniem wroga. Jeśli wygrasz, przeciwnik nie może zbierać Przewagi do końca następnej rundy.",
+      "skrot": "Zamiast Ruchu w walce możesz wyk..."
+    },
+    "Ruchliwe dłonie": {
+      "pelny": "Gapiom nie przysługuje bierny test Percepcji by zauważyć twoje zwinne palce, a do walki bez broni (Bijatyka) doliczasz premię +10 za każdy poziom talentu.",
+      "skrot": "Gapiom nie przysługuje bierny te..."
+    },
+    "Rybak": {
+      "pelny": "Posiadając dostęp do łowiska i poświęcając godzinę dziennie na wędkowanie, automatycznie zdobędziesz pożywienie dla siebie i tylu osób, ile wynosi poziom talentu.",
+      "skrot": "Posiadając dostęp do łowiska i p..."
+    },
+    "Sekretna Tożsamość": {
+      "pelny": "Posiadasz udokumentowane alter ego. Mając odpowiednie ubranie, możesz korzystać ze Statusu tej sekretnej profesji zamiast swojego własnego.",
+      "skrot": "Posiadasz udokumentowane alter e..."
+    },
+    "Silny Cios": {
+      "pelny": "Zadajesz dodatkowe obrażenia w Walce Wręcz równe poziomowi tego talentu.",
+      "skrot": "Zadajesz dodatkowe obrażenia w W..."
+    },
+    "Skrócenie Dystansu": {
+      "pelny": "Ignorujesz negatywne modyfikatory za walkę w zwarciu z przeciwnikiem, który posługuje się dłuższą bronią niż Ty.",
+      "skrot": "Ignorujesz negatywne modyfikator..."
+    },
+    "Snajper": {
+      "pelny": "Ignorujesz kary za strzelanie na daleki zasięg, a kary za bardzo daleki zasięg są w Twoim przypadku zmniejszone o połowę.",
+      "skrot": "Ignorujesz kary za strzelanie na..."
+    },
+    "Sprężynka": {
+      "pelny": "Po otrzymaniu Stanu Powalony możesz wykonać test Atletyki, by od razu stanąć na nogi (trudność zależy od siły ataku, który Cię obalił).",
+      "skrot": "Po otrzymaniu Stanu Powalony moż..."
+    },
+    "Straszny": {
+      "pelny": "Potrafisz na życzenie wzbudzać u innych Strach na poziomie 1. Każde kolejne wykupienie talentu podnosi siłę Strachu o +1.",
+      "skrot": "Potrafisz na życzenie wzbudzać u..."
+    },
+    "Strzał Przebijający": {
+      "pelny": "Podczas trafienia z broni dystansowej ignorujesz Punkty Pancerza wroga w liczbie równej poziomowi tego talentu.",
+      "skrot": "Podczas trafienia z broni dystan..."
+    },
+    "Strzał w Dziesiątkę": {
+      "pelny": "Zawsze celujesz precyzyjnie. Ignorujesz wszelkie negatywne modyfikatory do strzelania wynikające z niewielkiego rozmiaru celu.",
+      "skrot": "Zawsze celujesz precyzyjnie. Ign..."
+    },
+    "Szał Bojowy": {
+      "pelny": "Zyskujesz możliwość wpadnięcia w bojową furię, która zwiększa Twoje zdolności w walce wręcz, ale pozbawia Cię racjonalnej oceny sytuacji.",
+      "skrot": "Zyskujesz możliwość wpadnięcia w..."
+    },
+    "Szczur Tunelowy": {
+      "pelny": "W kanałach i podziemiach jesteś w swoim żywiole. Przeciwnikom nie przysługuje pasywny test Percepcji, aby zauważyć, jak się tam skradasz.",
+      "skrot": "W kanałach i podziemiach jesteś ..."
+    },
+    "Szuler": {
+      "pelny": "W grach karcianych możesz określać zdobyte PS z użyciem samej kości jedności (np. rzut 28 daje 8 PS). Grając w rzeczywistości, dociągasz dodatkowe karty.",
+      "skrot": "W grach karcianych możesz określ..."
+    },
+    "Szuler Kościany": {
+      "pelny": "W grach w kości możesz zastąpić standardowe PS wynikiem z kości jedności (np. rzut 06 to 6 PS). Grając w rzeczywistości, rzucasz dodatkowymi kośćmi.",
+      "skrot": "W grach w kości możesz zastąpić ..."
+    },
+    "Szybkie Czytanie": {
+      "pelny": "Możesz odwrócić wynik na kościach w nieudanym teście Badań Naukowych na sukces. Zyskujesz też zdolność błyskawicznej analizy tekstu pisanego.",
+      "skrot": "Możesz odwrócić wynik na kościac..."
+    },
+    "Szybkie Przeładowanie": {
+      "pelny": "Dodajesz Poziomy Sukcesu (PS) równe poziomowi tego talentu do wszelkich testów związanych z przeładowywaniem broni dystansowej.",
+      "skrot": "Dodajesz Poziomy Sukcesu (PS) ró..."
+    },
+    "Szybkobiegacz": {
+      "pelny": "Kiedy biegniesz (wykonujesz akcję Bieg), Twoja Szybkość jest traktowana tak, jakby była o 1 wyższa na potrzeby obliczenia dystansu.",
+      "skrot": "Kiedy biegniesz (wykonujesz akcj..."
+    },
+    "Szycha": {
+      "pelny": "Otacza Cię aura szacunku i wpływów. Jesteś odporny na utratę Statusu wynikającą z posiadania w swojej profesji talentu Przestępca.",
+      "skrot": "Otacza Cię aura szacunku i wpływ..."
+    },
+    "Świetny Pływak": {
+      "pelny": "Kiedy obliczasz, jak długo jesteś w stanie wstrzymać oddech pod wodą, do swojego Bonusu z Wytrzymałości dodajesz poziom tego talentu.",
+      "skrot": "Kiedy obliczasz, jak długo jeste..."
+    },
+    "Święta Nienawiść": {
+      "pelny": "Twoje cuda i modlitwy są tak pełne żarliwości, że zadajesz bluźniercom dodatkowy +1 punkt obrażeń za każdy poziom tego talentu.",
+      "skrot": "Twoje cuda i modlitwy są tak peł..."
+    },
+    "Święte Wizje": {
+      "pelny": "Wyraźnie postrzegasz boskie dzieła i interwencje w swoim otoczeniu, co ułatwia testy Intuicji, szczególnie na uświęconej ziemi.",
+      "skrot": "Wyraźnie postrzegasz boskie dzie..."
+    },
+    "Tarczownik": {
+      "pelny": "Gdy używasz tarczy do obrony i przegrywasz Przeciwstawny Test, mimo to zyskujesz punkty Przewagi w liczbie równej poziomowi tego talentu.",
+      "skrot": "Gdy używasz tarczy do obrony i p..."
+    },
+    "Towarzyski": {
+      "pelny": "Możesz odwrócić wynik na kościach w nieudanym teście Plotkowania z wędrowcami, jeśli nowy wynik da ci sukces.",
+      "skrot": "Możesz odwrócić wynik na kościac..."
+    },
+    "Traper": {
+      "pelny": "Potrafisz automatycznie wypatrywać pułapek. Możesz wykonać test Percepcji, by je zauważyć, bez konieczności deklarowania poszukiwań.",
+      "skrot": "Potrafisz automatycznie wypatryw..."
+    },
+    "Ulicznik": {
+      "pelny": "W miejskich zaułkach czujesz się jak w domu. Możesz odwrócić wynik w nieudanym teście Skradania (Miasto), by osiągnąć sukces.",
+      "skrot": "W miejskich zaułkach czujesz się..."
+    },
+    "Urodzony w Siodle": {
+      "pelny": "Ignorujesz trudności walki z końskiego grzbietu. Udany test Jeździectwa pozwala wierzchowcowi podjąć Akcję, a nie tylko wykonywać Ruch.",
+      "skrot": "Ignorujesz trudności walki z koń..."
+    },
+    "Urodzony Żeglarz": {
+      "pelny": "Jesteś całkowicie odporny na chorobę morską, niezależnie od panujących na morzu sztormów czy niekorzystnych warunków.",
+      "skrot": "Jesteś całkowicie odporny na cho..."
+    },
+    "Waleczne Serce": {
+      "pelny": "Nigdy się nie poddajesz. Możesz wykonać test Opanowania na koniec swojej tury oraz całej rundy, by otrząsnąć się ze Stanu Panika.",
+      "skrot": "Nigdy się nie poddajesz. Możesz ..."
+    },
+    "Walka w Ciasnocie": {
+      "pelny": "Ignorujesz kary do testów Broni Białej wynikające z walki w zamkniętych przestrzeniach i możesz wykonywać w nich Uniki mimo braku miejsca.",
+      "skrot": "Ignorujesz kary do testów Broni ..."
+    },
+    "Wieża Pamięci": {
+      "pelny": "Pozwala bezbłędnie przypominać sobie fakty z niezwykłą dokładnością, dając m.in. znaczne premie do testów Hazardu opartych na dobrej pamięci.",
+      "skrot": "Pozwala bezbłędnie przypominać s..."
+    },
+    "Wilk Morski": {
+      "pelny": "Ignorujesz negatywne modyfikatory testów Żeglowania spowodowane złą pogodą i liczysz się jako dwóch członków załogi na morskich statkach.",
+      "skrot": "Ignorujesz negatywne modyfikator..."
+    },
+    "Władcza Postura": {
+      "pelny": "Aura władczości sprawia, że postacie o niższym Statusie nie mogą używać Siły Woli do przeciwstawiania się twoim testom Dowodzenia.",
+      "skrot": "Aura władczości sprawia, że post..."
+    },
+    "Włóczykij": {
+      "pelny": "Podczas używania umiejętności Skradanie w dziczy (na wsi), przeciwnikom nie przysługują bierne testy Percepcji by cię zauważyć, chyba że pełnią wartę.",
+      "skrot": "Podczas używania umiejętności Sk..."
+    },
+    "Wodniak": {
+      "pelny": "Ignorujesz negatywne modyfikatory z powodu falowania i kołysania na statkach rzecznych. Liczysz się jako dwóch członków załogi rzecznej.",
+      "skrot": "Ignorujesz negatywne modyfikator..."
+    },
+    "Woltyżerka": {
+      "pelny": "Możesz używać Kuglarstwa na koniu bez ujemnych modyfikatorów do Uniku oraz wykonywać Ruch wierzchowcem na początku rundy, zamiast w swojej turze.",
+      "skrot": "Możesz używać Kuglarstwa na koni..."
+    },
+    "Wódz": {
+      "pelny": "Podkomendni objęci twoim wpływem (z testu Dowodzenia) zyskują do jednego testu Siły Woli na rundę dodatkowe PS w liczbie równej poziomowi talentu.",
+      "skrot": "Podkomendni objęci twoim wpływem..."
+    },
+    "Wróżba Losu": {
+      "pelny": "Jeśli twoja postać zginie w okolicznościach pasujących do wybranej wróżby/zguby, twoja następna postać otrzyma na start połowę jej zdobytych PD.",
+      "skrot": "Jeśli twoja postać zginie w okol..."
+    },
+    "Wstrzemięźliwy": {
+      "pelny": "Przywykłeś do braku jedzenia i potrafisz przetrwać chude czasy. Testy Odporności na głód wykonujesz co 3 dni, a nie co 2.",
+      "skrot": "Przywykłeś do braku jedzenia i p..."
+    },
+    "Wściekły Atak": {
+      "pelny": "Raz na rundę, po trafieniu wroga w walce wręcz, możesz wydać 1 Przewagę lub zrezygnować ze swojego Ruchu, by natychmiast wykonać dodatkowy atak.",
+      "skrot": "Raz na rundę, po trafieniu wroga..."
+    },
+    "Wtargnięcie z Włamaniem": {
+      "pelny": "Jesteś ekspertem od niszczenia fizycznych przeszkód. Zadajesz dodatkowe obrażenia podczas wyłamywania drzwi, okien czy wiek skrzyń.",
+      "skrot": "Jesteś ekspertem od niszczenia f..."
+    },
+    "Wyborny Wspinacz": {
+      "pelny": "Ignorujesz negatywne modyfikatory do testów Wspinaczki, które wynikają z bardzo trudnej powierzchni (np. zamkowe mury, oblodzone ściany).",
+      "skrot": "Ignorujesz negatywne modyfikator..."
+    },
+    "Wykrywanie Magii": {
+      "pelny": "Potrafisz wyczuwać magię w innych osobach. Test Intuicji pozwala rozpoznać czarodziejów i określić ich specjalizację przy bardzo wysokim sukcesie.",
+      "skrot": "Potrafisz wyczuwać magię w innyc..."
+    },
+    "Wytrwały": {
+      "pelny": "Podwajasz czas opierania się trudnościom fizycznym i atmosferycznym (np. zmęczenie podróżą, zimno) gwarantowany przez udany test Odporności.",
+      "skrot": "Podwajasz czas opierania się tru..."
+    },
+    "Z Bata": {
+      "pelny": "Kiedy zwierzę pod twoją kontrolą (Powożenie lub Jeździectwo) ucieka lub wykonuje Bieg, a ty popędzasz je batem, jego Szybkość wzrasta o +1.",
+      "skrot": "Kiedy zwierzę pod twoją kontrolą..."
+    },
+    "Zabójca": {
+      "pelny": "Przy obliczaniu obrażeń możesz użyć Bonusu z Wytrzymałości wroga zamiast własnego Bonusu z Siły. Dodatkowo zwielokrotniasz obrażenia krytyczne przeciwko celom o większym rozmiarze.",
+      "skrot": "Przy obliczaniu obrażeń możesz u..."
+    },
+    "Zbicie Broni": {
+      "pelny": "Deklarując ten manewr, wykonujesz atak. Jeśli nie zostanie sparowany/uniknięty, nie zadaje obrażeń, ale pozbawia wroga 1 punktu Przewagi (plus 1 za każde twoje 3 PS).",
+      "skrot": "Deklarując ten manewr, wykonujes..."
+    },
+    "Zejście z Linii": {
+      "pelny": "Wygrywając Przeciwstawny Test Uniku podczas ataku wroga, możesz od razu poruszyć się o 2 metry. Przestajesz być związany walką i nie prowokujesz darmowych ataków.",
+      "skrot": "Wygrywając Przeciwstawny Test Un..."
+    },
+    "Złota Rączka": {
+      "pelny": "Kiedy reperujesz uszkodzone przedmioty, traktujesz absolutnie wszystkie niemagiczne umiejętności Rzemiosła tak, jakby były dla ciebie umiejętnościami podstawowymi.",
+      "skrot": "Kiedy reperujesz uszkodzone prze..."
+    },
+    "Zmysł Bitewny": {
+      "pelny": "Błyskawicznie oceniasz sytuację taktyczną. Udany test Percepcji przed rozpoczęciem starcia sprawia, że w ogóle nie działa na ciebie Stan Zaskoczenie.",
+      "skrot": "Błyskawicznie oceniasz sytuację ..."
+    },
+    "Zmysł Magii": {
+      "pelny": "Bezpieczniej manipulujesz magicznymi wiatrami. Jeśli wyrzucisz dublet podczas udanego testu Splatania Magii, całkowicie ignorujesz niebezpieczne efekty manifestacji.",
+      "skrot": "Bezpieczniej manipulujesz magicz..."
+    },
+    "Znawca (Wiedza)": {
+      "pelny": "Jesteś prawdziwym ekspertem. Potrafisz automatycznie, bez rzutu kostkami, przytoczyć przydatne i prawdziwe informacje z danej dziedziny w ilości równej poziomowi tego talentu.",
+      "skrot": "Jesteś prawdziwym ekspertem. Pot..."
+    },
+    "Żelazna Szczęka": {
+      "pelny": "Kiedy coś ma nałożyć na ciebie Stan Oszołomienie, możesz wykonać test Wytrzymałości. Sukces pozwala całkowicie go zignorować (1 zignorowany stan na każdy uzyskany PS).",
+      "skrot": "Kiedy coś ma nałożyć na ciebie S..."
+    },
+    "Żelazna Wola": {
+      "pelny": "Wykorzystywanie przeciwko tobie umiejętności Zastraszania nigdy nie wywołuje u ciebie Strachu, co czyni cię niezwykle opornym na groźby i presję z zewnątrz.",
+      "skrot": "Wykorzystywanie przeciwko tobie ..."
+    },
+    "Żyłka Handlowa": {
+      "pelny": "Znasz świetne sposoby na dobicie targu. Przy udanym teście Targowania obniżasz (lub podwyższasz, jeśli sprzedajesz) cenę o dodatkowe 10%.",
+      "skrot": "Znasz świetne sposoby na dobicie..."
+    }
+  }
+}

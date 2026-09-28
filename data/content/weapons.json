@@ -1,0 +1,658 @@
+{
+  "bronie": [
+    {
+      "n": "Assegai (oszczep)",
+      "k": "Miotana",
+      "o": 2,
+      "z": "20",
+      "r": "BS + 3",
+      "s": "Stal"
+    },
+    {
+      "n": "Bardyzka",
+      "k": "Drzewcowa",
+      "o": 3,
+      "z": "Długi",
+      "r": "BS + 5",
+      "s": "Stal"
+    },
+    {
+      "n": "Berdysz",
+      "k": "Drzewcowa",
+      "o": 3,
+      "z": "Długi",
+      "r": "BS + 5",
+      "s": "Srebro"
+    },
+    {
+      "n": "Bicz",
+      "k": "Giętka",
+      "o": 1,
+      "z": "Średni",
+      "r": "BS + 2",
+      "s": "Brąz"
+    },
+    {
+      "n": "Cep bojowy",
+      "k": "Dwuręczna",
+      "o": 3,
+      "z": "Długi",
+      "r": "BS + 5",
+      "s": "Brąz"
+    },
+    {
+      "n": "Chakram",
+      "k": "Miotana",
+      "o": 2,
+      "z": "12",
+      "r": "BS + 2",
+      "s": "Stal"
+    },
+    {
+      "n": "Ciężka kusza",
+      "k": "Kusze",
+      "o": 4,
+      "z": "60",
+      "r": "US + 3",
+      "s": "Stal",
+      "cechy": "Przeł. 12"
+    },
+    {
+      "n": "Ciężka laga",
+      "k": "Podstawowa",
+      "o": 2,
+      "z": "Średni",
+      "r": "BS + 3",
+      "s": "Drewno"
+    },
+    {
+      "n": "Falcata",
+      "k": "Podstawowa",
+      "o": 2,
+      "z": "Średni",
+      "r": "BS + 4",
+      "s": "Stal"
+    },
+    {
+      "n": "Flet bojowy",
+      "k": "Podstawowa",
+      "o": 1,
+      "z": "Krótki",
+      "r": "BS + 2",
+      "s": "Stal"
+    },
+    {
+      "n": "Garłacz",
+      "k": "Prochowa",
+      "o": 5,
+      "z": "8",
+      "r": "US + 3",
+      "s": "Srebro",
+      "cechy": "Przeł. 4"
+    },
+    {
+      "n": "Glaive",
+      "k": "Drzewcowa",
+      "o": 3,
+      "z": "Długi",
+      "r": "BS + 5",
+      "s": "Stal"
+    },
+    {
+      "n": "Halabarda",
+      "k": "Drzewcowa",
+      "o": 3,
+      "z": "Bardzo długi",
+      "r": "BS + 5",
+      "s": "Srebro"
+    },
+    {
+      "n": "Harpun",
+      "k": "Miotana",
+      "o": 2,
+      "z": "10",
+      "r": "BS + 3",
+      "s": "Żelazo"
+    },
+    {
+      "n": "Kamień",
+      "k": "Miotana",
+      "o": 1,
+      "z": "10",
+      "r": "BS + 1",
+      "s": "Kamień"
+    },
+    {
+      "n": "Kastet",
+      "k": "Bijatyka",
+      "o": 0,
+      "z": "Osobisty",
+      "r": "BS + 1",
+      "s": "Brąz"
+    },
+    {
+      "n": "Kij",
+      "k": "Podstawowa",
+      "o": 1,
+      "z": "Średni",
+      "r": "BS + 2",
+      "s": "Drewno"
+    },
+    {
+      "n": "Kilof",
+      "k": "Podstawowa",
+      "o": 2,
+      "z": "Średni",
+      "r": "BS + 4",
+      "s": "Brąz"
+    },
+    {
+      "n": "Korbacz",
+      "k": "Podstawowa",
+      "o": 2,
+      "z": "Średni",
+      "r": "BS + 4",
+      "s": "Srebro"
+    },
+    {
+      "n": "Kosa",
+      "k": "Dwuręczna",
+      "o": 3,
+      "z": "Długi",
+      "r": "BS + 5",
+      "s": "Brąz"
+    },
+    {
+      "n": "Kostur",
+      "k": "Dwuręczna",
+      "o": 2,
+      "z": "Długi",
+      "r": "BS + 3",
+      "s": "Brąz"
+    },
+    {
+      "n": "Lekka kusza",
+      "k": "Kusze",
+      "o": 2,
+      "z": "25",
+      "r": "US + 2",
+      "s": "Stal",
+      "cechy": "Przeł. 2"
+    },
+    {
+      "n": "Kusza ciężka",
+      "k": "Kusze",
+      "o": 3,
+      "z": "40",
+      "r": "BS + 4",
+      "s": "Srebro"
+    },
+    {
+      "n": "Kusza pistoletowa",
+      "k": "Kusze",
+      "o": 3,
+      "z": "8",
+      "r": "BS + 3",
+      "s": "Srebro"
+    },
+    {
+      "n": "Kusza zwykła",
+      "k": "Kusze",
+      "o": 3,
+      "z": "32",
+      "r": "BS + 3",
+      "s": "Brąz"
+    },
+    {
+      "n": "Laga dębowa",
+      "k": "Podstawowa",
+      "o": 2,
+      "z": "Średni",
+      "r": "BS + 3",
+      "s": "Drewno"
+    },
+    {
+      "n": "Lasso",
+      "k": "Podstawowa",
+      "o": 0,
+      "z": "10",
+      "r": "Unieruchomienie",
+      "s": "Lina"
+    },
+    {
+      "n": "Lewak",
+      "k": "Podstawowa",
+      "o": 0,
+      "z": "Krótki",
+      "r": "BS + 2",
+      "s": "Srebro"
+    },
+    {
+      "n": "Maczeta",
+      "k": "Podstawowa",
+      "o": 2,
+      "z": "Średni",
+      "r": "BS + 3",
+      "s": "Stal"
+    },
+    {
+      "n": "Maczuga",
+      "k": "Podstawowa",
+      "o": 1,
+      "z": "Średni",
+      "r": "BS + 4",
+      "s": "Brąz"
+    },
+    {
+      "n": "Miecz",
+      "k": "Podstawowa",
+      "o": 1,
+      "z": "Średni",
+      "r": "BS + 4",
+      "s": "Brąz"
+    },
+    {
+      "n": "Miecz dwuręczny",
+      "k": "Dwuręczna",
+      "o": 3,
+      "z": "Długi",
+      "r": "BS + 6",
+      "s": "Srebro"
+    },
+    {
+      "n": "Miecz krótki",
+      "k": "Podstawowa",
+      "o": 1,
+      "z": "Krótki",
+      "r": "BS + 3",
+      "s": "Srebro"
+    },
+    {
+      "n": "Miecz półtoraręczny",
+      "k": "Podstawowa",
+      "o": 3,
+      "z": "Długi",
+      "r": "BS + 5",
+      "s": "Stal"
+    },
+    {
+      "n": "Morning Star",
+      "k": "Podstawowa",
+      "o": 3,
+      "z": "Średni",
+      "r": "BS + 4",
+      "s": "Stal"
+    },
+    {
+      "n": "Muszkiet",
+      "k": "Prochowa",
+      "o": 4,
+      "z": "36",
+      "r": "US + 2",
+      "s": "Srebro"
+    },
+    {
+      "n": "Młot bojowy",
+      "k": "Podstawowa",
+      "o": 1,
+      "z": "Średni",
+      "r": "BS + 4",
+      "s": "Srebro"
+    },
+    {
+      "n": "Nadziak",
+      "k": "Podstawowa",
+      "o": 3,
+      "z": "Średni",
+      "r": "BS + 4",
+      "s": "Stal"
+    },
+    {
+      "n": "Młot bojowy lekki",
+      "k": "Podstawowa",
+      "o": 1,
+      "z": "Krótki",
+      "r": "BS + 3",
+      "s": "Żelazo"
+    },
+    {
+      "n": "Młot dwuręczny",
+      "k": "Dwuręczna",
+      "o": 3,
+      "z": "Długi",
+      "r": "BS + 6",
+      "s": "Srebro"
+    },
+    {
+      "n": "Oszczep",
+      "k": "Miotana",
+      "o": 2,
+      "z": "20",
+      "r": "BS + 3",
+      "s": "Stal"
+    },
+    {
+      "n": "Pika",
+      "k": "Drzewcowa",
+      "o": 1,
+      "z": "Bardzo długi",
+      "r": "BS + 4",
+      "s": "Srebro"
+    },
+    {
+      "n": "Pikowana pałka",
+      "k": "Podstawowa",
+      "o": 1,
+      "z": "Krótki",
+      "r": "BS + 2",
+      "s": "Skóra"
+    },
+    {
+      "n": "Pistolet",
+      "k": "Prochowa",
+      "o": 4,
+      "z": "10",
+      "r": "US + 2",
+      "s": "Srebro",
+      "cechy": "Przeł. 3"
+    },
+    {
+      "n": "Proca",
+      "k": "Proce",
+      "o": 1,
+      "z": "12",
+      "r": "BS + 3",
+      "s": "Brąz"
+    },
+    {
+      "n": "Puklerz",
+      "k": "Podstawowa",
+      "o": 1,
+      "z": "Osobisty",
+      "r": "BS + 1",
+      "s": "Stal"
+    },
+    {
+      "n": "Rapier",
+      "k": "Fechtunek",
+      "o": 1,
+      "z": "Średni",
+      "r": "BS + 3",
+      "s": "Złoto"
+    },
+    {
+      "n": "Rewolwer",
+      "k": "Prochowa",
+      "o": 4,
+      "z": "15",
+      "r": "US + 2",
+      "s": "Stal",
+      "cechy": "Przeł. 6"
+    },
+    {
+      "n": "Rondel (sztylet)",
+      "k": "Podstawowa",
+      "o": 1,
+      "z": "Krótki",
+      "r": "BS + 2",
+      "s": "Stal"
+    },
+    {
+      "n": "Siekiera",
+      "k": "Podstawowa",
+      "o": 2,
+      "z": "Średni",
+      "r": "BS + 3",
+      "s": "Stal"
+    },
+    {
+      "n": "Sierp",
+      "k": "Podstawowa",
+      "o": 1,
+      "z": "Krótki",
+      "r": "BS + 2",
+      "s": "Stal"
+    },
+    {
+      "n": "Sieć",
+      "k": "Miotana",
+      "o": 0,
+      "z": "6",
+      "r": "Unieruchomienie",
+      "s": "Lina"
+    },
+    {
+      "n": "Skorpion (Bicz kolczasty)",
+      "k": "Giętka",
+      "o": 2,
+      "z": "Długi",
+      "r": "BS + 3",
+      "s": "Żelazo"
+    },
+    {
+      "n": "Szabla kawaleryjska",
+      "k": "Podstawowa",
+      "o": 2,
+      "z": "Średni",
+      "r": "BS + 4",
+      "s": "Stal"
+    },
+    {
+      "n": "Szpada",
+      "k": "Fechtunek",
+      "o": 1,
+      "z": "Średni",
+      "r": "BS + 3",
+      "s": "Złoto"
+    },
+    {
+      "n": "Sztylet",
+      "k": "Podstawowa",
+      "o": 0,
+      "z": "Bardzo krótki",
+      "r": "BS + 2",
+      "s": "Brąz"
+    },
+    {
+      "n": "Pawęż (tarcza)",
+      "k": "Podstawowa",
+      "o": 2,
+      "z": "Osobisty",
+      "r": "BS + 1",
+      "s": "Stal"
+    },
+    {
+      "n": "Toporek do rzucania",
+      "k": "Miotana",
+      "o": 2,
+      "z": "12",
+      "r": "BS + 3",
+      "s": "Stal"
+    },
+    {
+      "n": "Topór bojowy",
+      "k": "Podstawowa",
+      "o": 1,
+      "z": "Średni",
+      "r": "BS + 4",
+      "s": "Srebro"
+    },
+    {
+      "n": "Topór dwuręczny",
+      "k": "Dwuręczna",
+      "o": 4,
+      "z": "Długi",
+      "r": "BS + 6",
+      "s": "Stal"
+    },
+    {
+      "n": "Trójząb",
+      "k": "Podstawowa",
+      "o": 2,
+      "z": "Długi",
+      "r": "BS + 4",
+      "s": "Stal"
+    },
+    {
+      "n": "Trójząb rybacki",
+      "k": "Podstawowa",
+      "o": 2,
+      "z": "Długi",
+      "r": "BS + 3",
+      "s": "Żelazo"
+    },
+    {
+      "n": "Wybity kołek",
+      "k": "Bijatyka",
+      "o": 1,
+      "z": "Osobisty",
+      "r": "BS + 1",
+      "s": "Drewno"
+    },
+    {
+      "n": "Włócznia",
+      "k": "Drzewcowa",
+      "o": 2,
+      "z": "Długi",
+      "r": "BS + 4",
+      "s": "Stal"
+    },
+    {
+      "n": "Włócznia rzutowa",
+      "k": "Miotana",
+      "o": 2,
+      "z": "15",
+      "r": "BS + 3",
+      "s": "Stal"
+    },
+    {
+      "n": "Zaghnal (młot-kilof)",
+      "k": "Podstawowa",
+      "o": 2,
+      "z": "Średni",
+      "r": "BS + 3",
+      "s": "Stal"
+    },
+    {
+      "n": "Zweihänder",
+      "k": "Dwuręczna",
+      "o": 4,
+      "z": "Bardzo długi",
+      "r": "BS + 7",
+      "s": "Stal"
+    },
+    {
+      "n": "Zębaty łańcuch",
+      "k": "Giętka",
+      "o": 3,
+      "z": "Długi",
+      "r": "BS + 4",
+      "s": "Żelazo"
+    },
+    {
+      "n": "Łańcuch",
+      "k": "Giętka",
+      "o": 2,
+      "z": "Długi",
+      "r": "BS + 3",
+      "s": "Żelazo"
+    },
+    {
+      "n": "Długi Łuk",
+      "k": "Łuki",
+      "o": 3,
+      "z": "30",
+      "r": "US + 3",
+      "s": "Srebro"
+    },
+    {
+      "n": "Łuk krótki",
+      "k": "Łuki",
+      "o": 1,
+      "z": "16",
+      "r": "US + 2",
+      "s": "Brąz"
+    },
+    {
+      "n": "Łuk bloczkowy",
+      "k": "Łuki",
+      "o": 2,
+      "z": "24",
+      "r": "US + 4",
+      "s": "Brąz"
+    }
+  ],
+  "cechy_oreza": {
+    " - ": "Brak cech.",
+    "Antyczny": "Zabytek z dawnych er, o ogromnej wartości historycznej i materialnej.",
+    "Celny": "Broń jest doskonale wyważona, co daje premię +10 do testów umiejętności strzeleckich.",
+    "Celny (II)": "Mistrzowska precyzja dająca premię +20 do testów umiejętności strzeleckich.",
+    "Cichy": "Atak tą bronią jest niemal niesłyszalny, idealny do skrytobójstw.",
+    "Ciężki": "Broń jest wyjątkowo masywna. Wymaga Siły minimum 40 do efektywnego użycia.",
+    "Drogocenny": "Broń jest symbolem statusu. Zwiększa Twój status społeczny o jeden poziom.",
+    "Druzgocący": "Siła uderzenia niszczy tarcze i pancerze przeciwników.",
+    "Dwustrzałowy": "Mechanizm pozwala na wystrzelenie dwóch pocisków przed koniecznością przeładowania.",
+    "Dymny": "Strzał generuje chmurę dymu, zapewniając chwilową osłonę właścicielowi.",
+    "Dziki": "Większa siła ataku kosztem mniejszej kontroli nad parowaniem.",
+    "Długi": "Dzięki zasięgowi możesz atakować wrogów, zanim oni zbliżą się do Ciebie.",
+    "Elektryczny": "Wyładowania prądu przy uderzeniu ignorują pancerze metalowe.",
+    "Elficki": "Niezwykle lekka konstrukcja, zwiększająca zasięg ataku dystansowego.",
+    "Eteryczny": "Broń nie posiada formy fizycznej, póki nie zostanie nasycona wolą właściciela.",
+    "Głośny": "Huk wystrzału płoszy zwierzęta i zdradza pozycję strzelca z dużej odległości.",
+    "Hakowy": "Wyprofilowane ostrze ułatwia wytrącanie broni lub przewracanie wroga.",
+    "Kolczasty": "Dodatkowe kolce zadają bolesne rany przy każdej szarży na wroga.",
+    "Kompaktowy": "Możliwość użycia broni dystansowej w bezpośrednim starciu (zwarciu).",
+    "Krasnoludzki": "Niezawodna broń, która nigdy się nie zacina i jest odporna na rdzę.",
+    "Kruchy": "Istnieje ryzyko pęknięcia broni przy pechowym rzucie na atak.",
+    "Krwawy": "Ciężkie rany powodują natychmiastowe osłabienie przeciwnika (2 poziomy krwawienia).",
+    "Legendarny": "Broń o własnej świadomości i imieniu, niosąca potężną moc.",
+    "Lekki": "Zastosowanie lekkich materiałów sprawia, że broń nie obciąża postaci (Waga 0).",
+    "Lodowy": "Zimno bijące od stali spowalnia ruchy przeciwnika po każdym trafieniu.",
+    "Lojalny": "Broń wraca do dłoni właściciela po rzuceniu nią w przeciwnika.",
+    "Magiczny": "Broń nasycona magią, ignoruje niemagiczne odporności i rani zjawy.",
+    "Miażdżący": "Potężne uderzenie, które ignoruje 1 punkt pancerza przeciwnika na trafionej lokacji.",
+    "Mroczny": "Broń staje się celniejsza i groźniejsza podczas walki w ciemności.",
+    "Nieunikniony": "Szybkość i precyzja sprawiają, że przeciwnik ma karę -10 do próby Uniku.",
+    "Niziołczy": "Broń dopasowana do małych dłoni, pozwalająca niziołkom walczyć bez kar.",
+    "Ochronny": "Oręż tworzy barierę chroniącą właściciela przed wrogimi czarami.",
+    "Odbijający": "Konstrukcja broni ułatwia parowanie ciosów przeciwnika (+10 do Parowania).",
+    "Ognisty": "Broń może podpalić cel, zadając obrażenia od ognia w kolejnych rundach.",
+    "Ogłuszający": "Siła uderzenia może ogłuszyć przeciwnika przy trafieniu w głowę.",
+    "Ostry": "Broń jest nadnaturalnie ostra, zwiększając szansę na poważne rany krytyczne.",
+    "Piękny": "Kunsztowne zdobienia dają premię +10 do testów towarzyskich, gdy broń jest widoczna.",
+    "Plugawy": "Broń nasycona mocą bogów Chaosu, raniąca sługi bogów porządku.",
+    "Precyzyjny": "Możesz celować w konkretne części ciała wroga z mniejszą karą do ataku.",
+    "Przebijający": "Kształt ostrza pozwala na całkowite zignorowanie pancerza przy trafieniu krytycznym.",
+    "Przeklęty": "Broń obłożona klątwą, która zabiera właścicielowi 1 stały Punkt Szczęścia.",
+    "Przerażający": "Budzisz grozę samym dobyciem tego oręża (+10 do Zastraszania).",
+    "Półmroczny": "Ostrze świeci bladym blaskiem i zadaje pełne rany istotom eterycznym.",
+    "Półtoraręczny": "Broń może być używana jednoręcznie lub oburącz dla większych obrażeń.",
+    "Rdza": "Broń powoduje natychmiastową korozję i niszczenie pancerza przeciwnika.",
+    "Runiczny": "Broń wykuta przez krasnoludy, niezniszczalna i nasycona starożytną magią.",
+    "Spaczony": "Broń skażona Chaosem. Kontakt fizyczny grozi bolesnymi mutacjami.",
+    "Specjalny": "Broń posiada unikalny mechanizm, którego działanie określa Mistrz Gry.",
+    "Srebrzony": "Ostrze pokryte srebrem, zabójcze dla wilkołaków, wampirów i zjaw.",
+    "Stabilny": "Umożliwia celniejsze strzały, jeśli postać nie poruszała się w tej rundzie.",
+    "Straszny": "Widok tej broni budzi lęk. Wymusza na wrogach test Opanowania (Strach).",
+    "Subtelny": "Broń jest łatwa do ukrycia w ubraniu. Testy na jej wykrycie są trudniejsze.",
+    "Szał Bojowy": "Każdy udany cios wprowadza Cię w furię, zwiększając Twoją szansę na kolejne trafienie.",
+    "Szczęśliwy": "Broń sprzyja losowi, pozwalając raz na jakiś czas ponowić nieudany atak.",
+    "Szybki": "Lekkość i balans pozwalają zawsze atakować przed przeciwnikiem.",
+    "Szybkoładowalny": "Przeładowanie tej broni zajmuje o połowę mniej czasu niż zwykle.",
+    "Trudny": "Broń wymaga specjalistycznego szkolenia. Kara za brak umiejętności wynosi -20.",
+    "Trujący": "Ostrze pokryte jadem, który zadaje dodatkowe rany ignorujące pancerz.",
+    "Ubogi": "Broń wygląda jak stary łom. Obniża Twój status społeczny o jeden poziom.",
+    "Unieruchamiający": "Broń pozwala na zaplątanie lub powalenie przeciwnika (np. sieć, bolas).",
+    "Wampiryczny": "Każdy zadany cios regeneruje siły witalne właściciela.",
+    "Wytrzymały": "Broń może służyć jako improwizowana tarcza, dając 1 punkt pancerza.",
+    "Wyważony": "Doskonały balans pozwala na walkę dwiema broniami bez kar dla ręki pomocniczej.",
+    "Wzmocniony": "Hartowana stal sprawia, że broń jest niemal niemożliwa do złamania.",
+    "Zajadły": "Zadaje większe obrażenia wybranemu typowi wrogów (np. mutantom).",
+    "Zasięgowy": "Wyjątkowa konstrukcja pozwala razić cele z bardzo dużych dystansów.",
+    "Zdobiony": "Broń wykonana ze szlachetnych metali, warta znacznie więcej niż zwykła.",
+    "Zębaty": "Haczykowate ostrza powodują bolesne rany i obfite Krwawienie.",
+    "Złowieszczy": "Wygląd broni paraliżuje wolę walki u wrogów znajdujących się blisko Ciebie.",
+    "Świetlisty": "Magiczne światło bijące od broni oświetla okolicę jak mocna pochodnia.",
+    "Święty": "Błogosławiony oręż zadający potężne rany nieumarłym i demonom."
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Content File",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "imiona_m": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "imiona_k": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "wlosy":    { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "oczy":     { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "rasy": {
+      "type": "object",
+      "patternProperties": {
+        "^.+$": {
+          "type": "object",
+          "required": ["cechy", "szybkosc", "wzrost", "wiek"],
+          "properties": {
+            "cechy":    { "type": "array", "items": { "type": "integer" }, "minItems": 10, "maxItems": 10 },
+            "szybkosc": { "type": "integer", "minimum": 1 },
+            "wzrost":   { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
+            "wiek":     { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 }
+          }
+        }
+      }
+    },
+    "profesje": {
+      "type": "object",
+      "patternProperties": {
+        "^.+$": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 }
+      }
+    },
+    "talenty": {
+      "type": "object",
+      "patternProperties": {
+        "^.+$": {
+          "type": "object",
+          "required": ["pelny", "skrot"],
+          "properties": {
+            "pelny": { "type": "string" },
+            "skrot": { "type": "string" }
+          }
+        }
+      }
+    },
+    "talenty_profesji": { "type": "object" },
+    "bronie": { "type": "array", "items": { "type": "object", "required": ["n", "k"] } },
+    "cechy_oreza": { "type": "object" },
+    "modlitwy": { "type": "object" },
+    "blogoslawienstwa_kultow": { "type": "object" },
+    "modlitwy_szczegolowe": { "type": "object" },
+    "ekwipunek_podstawowy": {
+      "type": "object",
+      "patternProperties": { "^.+$": { "type": "number", "minimum": 0 } }
+    }
+  }
+}
