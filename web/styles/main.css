@@ -52,99 +52,6 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* ============ Loading Overlay & Progress Bar ============ */
-.loading-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(10, 12, 16, 0.85);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    opacity: 1;
-    transition: opacity .2s ease;
-}
-.loading-overlay[hidden] {
-    display: none !important;
-}
-
-.loading-box {
-    background: linear-gradient(180deg, #1f242d 0%, #14171d 100%);
-    border: 1px solid var(--amber);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, .85), 0 0 24px rgba(201, 163, 73, .25);
-    border-radius: var(--radius);
-    padding: 1.8rem 2rem;
-    width: 90%;
-    max-width: 440px;
-    text-align: center;
-    color: var(--fg);
-    position: relative;
-}
-
-.loading-spinner {
-    font-size: 2.4rem;
-    color: var(--amber);
-    display: inline-block;
-    animation: warhammer-spin 2s infinite ease-in-out;
-    margin-bottom: .8rem;
-    line-height: 1;
-}
-
-@keyframes warhammer-spin {
-    0% { transform: scale(1) rotate(0deg); opacity: 0.85; }
-    50% { transform: scale(1.2) rotate(180deg); opacity: 1; text-shadow: 0 0 16px rgba(201,163,73,.8); }
-    100% { transform: scale(1) rotate(360deg); opacity: 0.85; }
-}
-
-.loading-title {
-    font-family: "Cinzel", serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin: 0 0 .5rem;
-}
-
-.loading-status {
-    font-size: .92rem;
-    color: var(--fg);
-    margin: 0 0 1.2rem;
-    min-height: 1.4em;
-    font-style: italic;
-}
-
-.progress-container {
-    width: 100%;
-    background: #0d0f13;
-    border: 1px solid var(--border-soft);
-    border-radius: 10px;
-    height: 14px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,.7);
-}
-
-.progress-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--blue) 0%, var(--amber) 100%);
-    border-radius: 10px;
-    transition: width .2s ease-out;
-    box-shadow: 0 0 12px rgba(201, 163, 73, .6);
-}
-
-.progress-percent {
-    font-family: "Cinzel", serif;
-    font-size: .8rem;
-    color: var(--amber);
-    margin-top: .6rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-
 /* ============ Header ============ */
 .app-header {
     display: flex;
@@ -500,11 +407,45 @@ textarea {
 .card-label::before { right: 100%; }
 .card-label::after  { left: 100%; }
 
-.card-slot img {
-    display: block;
+/* Szkielet karty (Zamiast zepsutej ikonki img) */
+.card-skeleton {
+    width: 280px;
+    height: 395px;
+    background: rgba(29, 33, 41, 0.4);
+    border: 2px dashed rgba(201, 163, 73, 0.3);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    color: var(--fg-muted);
+}
+.skeleton-icon {
+    font-size: 2.2rem;
+    color: var(--amber);
+    opacity: 0.4;
+    animation: wh-pulse 2s infinite ease-in-out;
+}
+.skeleton-text {
+    font-family: "Cinzel", serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    opacity: 0.6;
+}
+@keyframes wh-pulse {
+    0%, 100% { opacity: 0.2; transform: scale(0.95); }
+    50% { opacity: 0.5; transform: scale(1.05); }
+}
+
+.card-slot img.card-img {
+    display: none;
     box-shadow: 0 10px 36px rgba(0,0,0,.8), 0 0 0 1px rgba(201,163,73,.2);
     background: var(--card-bg); border-radius: 4px;
     height: auto; max-width: none;
+}
+.card-slot img.card-img.rendered {
+    display: block;
 }
 
 /* ============================================================
@@ -526,7 +467,6 @@ textarea {
         gap: .6rem;
     }
 
-    /* Pasek przełączania widoków na telefonie */
     .mobile-nav {
         display: flex;
         gap: .4rem;
@@ -565,7 +505,6 @@ textarea {
         box-shadow: 0 2px 8px rgba(0,0,0,.3);
     }
 
-    /* Sterowanie widocznością przez atrybut data-active-tab */
     .layout[data-active-tab="form"] .form-pane {
         display: block !important;
     }
@@ -627,7 +566,6 @@ textarea {
     .grid-2 { grid-template-columns: 1fr; gap: .55rem; }
     .field-wide { grid-column: auto; }
 
-    /* Bez auto-zoomu na iOS przy kliknięciu pola (wymaga 16px) */
     input, select, textarea {
         font-size: 16px;
         min-height: 44px;
@@ -635,7 +573,6 @@ textarea {
     }
     textarea { font-size: 14px; }
 
-    /* Cechy główne w 5 kolumnach */
     .stats-grid { gap: .3rem; }
     .stats-grid label { font-size: .62rem; }
     .stats-grid input {
@@ -645,7 +582,6 @@ textarea {
     }
     .stat-bonus { font-size: .75rem; }
 
-    /* Touch targety pod palec */
     .btn { min-height: 42px; font-size: .75rem; }
     .btn-small { min-height: 36px; padding: .4rem .65rem; }
     .btn-icon { width: 44px; min-width: 44px; min-height: 44px; }
