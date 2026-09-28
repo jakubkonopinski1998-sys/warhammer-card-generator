@@ -2,7 +2,7 @@
 
 Generator kart postaci do Warhammer Fantasy RPG 4. edycji.
 
-[Sprawdź tutaj >>](warhammercardgen.netlify.app)
+![Sprawdź tutaj >>](warhammercardgen.netlify.app)
 
 Albo pod linkiem: warhammercardgen.netlify.app
 
