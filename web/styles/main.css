@@ -36,7 +36,11 @@
     --shadow-md:     0 4px 16px rgba(0,0,0,.35);
 }
 
-html, body { margin: 0; padding: 0; height: 100%; }
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
 
 body {
     font-family: "Crimson Pro", "Georgia", serif;
@@ -88,7 +92,12 @@ body {
 }
 .status {
     margin: 0; font-size: .82rem; color: var(--amber);
-    font-style: italic; text-align: right; max-width: 40%;
+    font-style: italic; text-align: right; max-width: 45%;
+}
+
+/* ============ Nawigacja Mobilna ============ */
+.mobile-nav {
+    display: none;
 }
 
 /* ============ Layout ============ */
@@ -240,8 +249,8 @@ textarea {
     color: var(--card-ink-soft);
 }
 .list .rm {
-    padding: 0 .35rem; background: transparent; border: none;
-    color: var(--blue); font-size: 1.15rem; font-weight: 700;
+    padding: 0 .4rem; background: transparent; border: none;
+    color: var(--blue); font-size: 1.25rem; font-weight: 700;
     cursor: pointer; line-height: 1; border-radius: 3px;
     transition: background .1s, color .1s; flex-shrink: 0;
 }
@@ -249,7 +258,7 @@ textarea {
 
 .chips { margin-top: .6rem; display: flex; flex-wrap: wrap; gap: .3rem; }
 .chip {
-    display: inline-block; padding: .22rem .65rem;
+    display: inline-block; padding: .25rem .65rem;
     background: var(--blue-deep); color: var(--card-bg);
     border-radius: 14px;
     font-family: "Cinzel", serif; font-size: .68rem; font-weight: 600;
@@ -284,7 +293,8 @@ textarea {
     font-size: .78rem; font-weight: 600;
     letter-spacing: 1.5px; text-transform: uppercase;
     cursor: pointer; transition: all .15s;
-    box-shadow: 0 1px 3px rgba(0,0,0,.3); min-height: 34px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.3); min-height: 36px;
+    display: inline-flex; align-items: center; justify-content: center;
 }
 .btn:hover {
     background: linear-gradient(180deg, #4a515c 0%, #363c47 100%);
@@ -299,7 +309,7 @@ textarea {
     background: linear-gradient(180deg, #4d7ba5 0%, #25496b 100%);
     color: #fff; border-color: var(--amber-deep);
 }
-.btn-small { padding: .38rem .7rem; font-size: .72rem; min-height: 30px; }
+.btn-small { padding: .38rem .7rem; font-size: .72rem; min-height: 32px; }
 
 .btn-icon {
     width: 38px; min-width: 38px; min-height: 34px; padding: 0;
@@ -315,10 +325,10 @@ textarea {
 }
 
 .btn-icon-sm {
-    width: 28px; height: 28px; min-width: 28px; min-height: 28px; padding: 0;
+    width: 32px; height: 32px; min-width: 32px; min-height: 32px; padding: 0;
     background: transparent; color: var(--blue);
     border: 1px solid rgba(58,99,137,.3);
-    border-radius: var(--radius-sm); font-size: .9rem;
+    border-radius: var(--radius-sm); font-size: .95rem;
     cursor: pointer; display: inline-flex;
     align-items: center; justify-content: center;
     transition: all .15s; line-height: 1;
@@ -347,16 +357,18 @@ textarea {
     background: #0d0f13; border: 1px solid var(--border);
     border-radius: var(--radius); overflow: hidden;
     box-shadow: var(--shadow-lg);
+    min-width: 0;
 }
 .preview-toolbar {
     display: flex; justify-content: space-between; align-items: center;
     gap: .75rem; padding: .55rem .8rem;
     background: linear-gradient(180deg, #232830 0%, #1a1e25 100%);
     border-bottom: 1px solid var(--border); flex-wrap: wrap;
+    z-index: 5;
 }
 .toolbar-group { display: flex; align-items: center; gap: .35rem; }
 .toolbar-zoom {
-    background: rgba(0,0,0,.25);
+    background: rgba(0,0,0,.3);
     padding: .2rem .4rem; border-radius: 6px;
 }
 .zoom-label {
@@ -365,22 +377,23 @@ textarea {
     letter-spacing: 1px; color: var(--amber);
 }
 .preview-stage {
-    flex: 1; overflow: auto; padding: 1.5rem 1rem;
+    flex: 1; overflow-y: auto; overflow-x: auto;
+    padding: 1.5rem 1rem;
     display: flex; flex-direction: column; align-items: center;
     gap: 2rem;
     background: radial-gradient(circle at 50% 0%, #1a1e25 0%, #0d0f13 70%);
     scrollbar-width: thin; scrollbar-color: var(--border) transparent;
 }
-.preview-stage::-webkit-scrollbar { width: 10px; height: 10px; }
+.preview-stage::-webkit-scrollbar { width: 8px; height: 8px; }
 .preview-stage::-webkit-scrollbar-track { background: #0d0f13; }
-.preview-stage::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+.preview-stage::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 .preview-stage::-webkit-scrollbar-thumb:hover { background: var(--border-soft); }
 
 .card-slot {
     display: flex; flex-direction: column; align-items: center;
-    gap: .6rem; width: 100%;
+    gap: .6rem; width: 100%; max-width: 100%;
 }
-.card-slot[hidden] { display: none; }
+.card-slot[hidden] { display: none !important; }
 
 .card-label {
     font-family: "Cinzel", serif; font-size: .72rem; font-weight: 600;
@@ -396,23 +409,83 @@ textarea {
 
 .card-slot img {
     display: block;
-    box-shadow: 0 12px 40px rgba(0,0,0,.7), 0 0 0 1px rgba(201,163,73,.15);
-    background: white; border-radius: 3px; max-width: none;
+    box-shadow: 0 10px 36px rgba(0,0,0,.8), 0 0 0 1px rgba(201,163,73,.2);
+    background: var(--card-bg); border-radius: 4px;
+    height: auto; max-width: none;
 }
 
 /* ============================================================
-   RESPONSIVE — Tablet (<= 900px)
+   RESPONSIVE — Tablet & Mobile (<= 900px)
    ============================================================ */
 @media (max-width: 900px) {
-    /* Body przewija się naturalnie */
-    html, body { height: auto; min-height: 100%; }
-    body { overflow: auto; }
+    html, body {
+        height: auto;
+        min-height: 100%;
+        overflow-y: auto !important;
+        overflow-x: hidden;
+    }
 
     .layout {
-        grid-template-columns: 1fr;
-        gap: .8rem;
-        padding: .8rem;
+        display: flex;
+        flex-direction: column;
         height: auto;
+        padding: .6rem;
+        gap: .6rem;
+    }
+
+    /* Pasek przełączania widoków na telefonie */
+    .mobile-nav {
+        display: flex;
+        gap: .4rem;
+        background: var(--bg-panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: .35rem;
+        position: sticky;
+        top: .4rem;
+        z-index: 50;
+        box-shadow: 0 4px 16px rgba(0,0,0,.5);
+    }
+
+    .mobile-nav-btn {
+        flex: 1;
+        padding: .6rem;
+        background: transparent;
+        border: none;
+        border-radius: var(--radius-sm);
+        color: var(--fg-muted);
+        font-family: "Cinzel", serif;
+        font-size: .8rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .4rem;
+        transition: all .15s;
+    }
+
+    .mobile-nav-btn.active {
+        background: linear-gradient(180deg, var(--blue) 0%, var(--blue-deep) 100%);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,.3);
+    }
+
+    /* Sterowanie widocznością przez atrybut data-active-tab */
+    .layout[data-active-tab="form"] .form-pane {
+        display: block !important;
+    }
+    .layout[data-active-tab="form"] .preview-pane {
+        display: none !important;
+    }
+
+    .layout[data-active-tab="preview"] .form-pane {
+        display: none !important;
+    }
+    .layout[data-active-tab="preview"] .preview-pane {
+        display: flex !important;
+        min-height: calc(100vh - 120px);
     }
 
     .form-pane {
@@ -421,13 +494,15 @@ textarea {
         max-height: none;
     }
 
-    .preview-pane {
-        min-height: 70vh;
+    .preview-stage {
+        padding: 1rem .4rem;
+        gap: 1.2rem;
+        min-height: 60vh;
     }
 
-    .preview-stage {
-        max-height: none;
-        min-height: 60vh;
+    .preview-toolbar {
+        position: sticky;
+        top: 0;
     }
 }
 
@@ -437,11 +512,10 @@ textarea {
 @media (max-width: 600px) {
     body { font-size: 14px; }
 
-    /* Header bardziej kompaktowy */
     .app-header {
+        padding: .5rem .75rem;
         flex-wrap: wrap;
-        padding: .5rem .8rem;
-        gap: .35rem;
+        gap: .3rem;
     }
     .brand-mark { font-size: 1.4rem; }
     .brand h1 { font-size: .88rem; letter-spacing: 1.5px; }
@@ -453,87 +527,44 @@ textarea {
         flex-basis: 100%;
     }
 
-    .layout { padding: .5rem; gap: .5rem; }
-
-    /* Panele — mniej paddingu, żeby zmieścić treść */
     .panel {
-        padding: .7rem .8rem;
-        margin-bottom: .55rem;
+        padding: .75rem .85rem;
+        margin-bottom: .6rem;
     }
-    .panel-header { margin-bottom: .6rem; }
-
-    /* Pola — jedna kolumna */
     .grid-2 { grid-template-columns: 1fr; gap: .55rem; }
     .field-wide { grid-column: auto; }
 
-    /* Zapobiegnięcie auto-zoom na iOS — 16px w inputach */
+    /* Bez auto-zoomu na iOS przy kliknięciu pola (wymaga 16px) */
     input, select, textarea {
         font-size: 16px;
-        min-height: 42px;
-        padding: .5rem .7rem;
+        min-height: 44px;
+        padding: .5rem .75rem;
     }
     textarea { font-size: 14px; }
 
-    /* Statystyki — zachowujemy 5 kolumn, ale mniejsze */
+    /* Cechy główne w 5 kolumnach */
     .stats-grid { gap: .3rem; }
-    .stats-grid label { font-size: .6rem; letter-spacing: .5px; }
+    .stats-grid label { font-size: .62rem; }
     .stats-grid input {
-        font-size: .88rem;
+        font-size: .92rem;
         min-height: 38px;
-        padding: .3rem .15rem;
+        padding: .2rem;
     }
-    .stat-bonus { font-size: .7rem; }
+    .stat-bonus { font-size: .75rem; }
 
-    /* Przyciski — większe (touch-friendly) */
-    .btn { padding: .55rem .8rem; min-height: 40px; font-size: .72rem; }
-    .btn-small { padding: .45rem .6rem; min-height: 36px; font-size: .68rem; }
-    .btn-icon { width: 42px; min-width: 42px; min-height: 42px; }
-    .btn-icon-sm { width: 32px; height: 32px; min-width: 32px; min-height: 32px; }
+    /* Touch targety pod palec */
+    .btn { min-height: 42px; font-size: .75rem; }
+    .btn-small { min-height: 36px; padding: .4rem .65rem; }
+    .btn-icon { width: 44px; min-width: 44px; min-height: 44px; }
+    .btn-icon-sm { width: 34px; height: 34px; min-width: 34px; min-height: 34px; }
 
-    /* Listy i chipy */
-    .list li { padding: .45rem .55rem; font-size: .85rem; }
-    .list-title { font-size: .85rem; }
-    .list-desc { font-size: .74rem; }
-    .chip { font-size: .62rem; padding: .2rem .55rem; }
-
-    /* Toolbar podglądu — grupy w 2 rzędach */
     .preview-toolbar {
-        padding: .45rem .55rem;
-        gap: .35rem;
+        padding: .45rem;
         justify-content: center;
+        gap: .3rem;
     }
     .toolbar-group { gap: .25rem; }
-    .toolbar-zoom { padding: .15rem .3rem; }
-    .zoom-label { min-width: 42px; font-size: .7rem; }
+    .zoom-label { min-width: 44px; font-size: .72rem; }
 
-    .preview-stage {
-        padding: .8rem .4rem;
-        gap: 1.2rem;
-        min-height: 55vh;
-    }
-    .card-label { font-size: .62rem; letter-spacing: 1.2px; }
-    .card-label::before, .card-label::after { width: 15px; }
-
-    /* Panel akcji — pełna szerokość */
-    .actions-panel { padding: .6rem; gap: .35rem; }
-    .actions-panel .btn { flex: 1 1 100%; min-width: 0; }
-
-    .desc-preview { font-size: .76rem; padding: .45rem .6rem; }
-    .enc-info { font-size: .68rem; padding: .4rem .55rem; }
-}
-
-/* ============================================================
-   RESPONSIVE — Small phone (<= 380px)
-   ============================================================ */
-@media (max-width: 380px) {
-    .app-header h1 { font-size: .78rem; letter-spacing: 1px; }
-    .brand-mark { font-size: 1.2rem; }
-
-    .stats-grid { gap: .2rem; }
-    .stats-grid label { font-size: .55rem; letter-spacing: 0; }
-    .stats-grid input { font-size: .8rem; padding: .25rem 0; min-height: 34px; }
-    .stat-bonus { font-size: .62rem; }
-
-    .preview-toolbar .btn-small { padding: .35rem .45rem; font-size: .62rem; }
-    .zoom-label { min-width: 36px; font-size: .65rem; }
+    .actions-panel .btn { flex: 1 1 100%; }
 }
