@@ -1,12 +1,15 @@
 # Warhammer Card Generator
 
-Generator kart postaci do Warhammer Fantasy RPG 4ed.
+Generator kart postaci do Warhammer Fantasy RPG 4. edycji.
 
-## Uruchomienie desktop
+## Wymagania
+
+- Python 3.11+
+- Windows / Linux / macOS
+
+## Instalacja
 
 ```bash
-python -m venv .venv
-.venv\Scripts\activate  # Windows
 pip install -r requirements.txt
 python main.py
 ```
