@@ -121,22 +121,19 @@ function logStatus(msg) {
 }
 
 /* Adapter — udaje window.pywebview.api.
- * Zasada: Python zwraca JSON string, JS go parsuje. Zero konwersji PyProxy. */
+ * Zasada: Python zwraca JSON string przez runPython() — Pyodide automatycznie
+ * konwertuje końcowe wyrażenie (str) na JS string. JSON.parse po stronie JS. */
 function makePyodideAdapter(pyodide) {
     const call = (method, ...args) => {
         pyodide.globals.set("_args", args);
-        pyodide.runPython(`
+        // Ostatnia linia w runPython jest wyrażeniem — Pyodide zwraca JS string dla str.
+        const jsonStr = pyodide.runPython(`
 import json as _json
 _res = getattr(_api, "${method}")(*_args.to_py())
-_result_json = _json.dumps(_res)
+_json.dumps(_res)
 `);
-        const jsonStr = pyodide.globals.get("_result_json");
-        // jsonStr to JS string z racji prostej konwersji typów w Pyodide
-        const value = JSON.parse(jsonStr);
-        // zwalniamy globalne
         try { pyodide.globals.delete("_args"); } catch (e) {}
-        try { pyodide.globals.delete("_result_json"); } catch (e) {}
-        return value;
+        return JSON.parse(jsonStr);
     };
 
     return {
