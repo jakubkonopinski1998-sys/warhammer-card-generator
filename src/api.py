@@ -36,16 +36,9 @@ def _talent_descs(d: dict) -> dict:
 
 
 _STAT_INDEX = {
-    "Walka Wręcz": 0,
-    "Umiejętności Strzeleckie": 1,
-    "Siła": 2,
-    "Wytrzymałość": 3,
-    "Inicjatywa": 4,
-    "Zwinność": 5,
-    "Zręczność": 6,
-    "Inteligencja": 7,
-    "Siła Woli": 8,
-    "Ogłada": 9,
+    "Walka Wręcz": 0, "Umiejętności Strzeleckie": 1, "Siła": 2,
+    "Wytrzymałość": 3, "Inicjatywa": 4, "Zwinność": 5,
+    "Zręczność": 6, "Inteligencja": 7, "Siła Woli": 8, "Ogłada": 9,
 }
 
 _TALENT_BONUS_RE = re.compile(
@@ -60,8 +53,7 @@ def _talent_stat_bonuses(d: dict) -> dict:
         m = _TALENT_BONUS_RE.search(desc)
         if not m:
             continue
-        stat_name = m.group(1).strip()
-        idx = _STAT_INDEX.get(stat_name)
+        idx = _STAT_INDEX.get(m.group(1).strip())
         if idx is None:
             continue
         out[name] = {"stat": idx, "value": int(m.group(2))}
@@ -126,9 +118,7 @@ class Api:
         img.save(buf, format="PNG")
         return base64.b64encode(buf.getvalue()).decode()
 
-    # ---- Zapis ----
     def _save_result(self, mime: str, filename: str, content: bytes) -> dict:
-        """W trybie web zwraca dict dla JS. W desktopie zapisuje przez dialog."""
         if _HAS_WEBVIEW:
             window = webview.windows[0]
             result = window.create_file_dialog(
@@ -141,7 +131,6 @@ class Api:
             path = result if isinstance(result, str) else result[0]
             Path(path).write_bytes(content)
             return {"__status__": f"Zapisano: {path}"}
-        # Web — zwracamy dane do pobrania
         return {
             "__download__": True,
             "filename": filename,
@@ -196,11 +185,9 @@ class Api:
                 return json.loads(Path(path).read_text(encoding="utf-8"))
             except Exception as e:
                 return {"__error__": str(e)}
-        # Web — JS obsługuje wczytywanie po stronie przeglądarki
         return {"__request_upload__": True}
 
     def parse_uploaded_json(self, content: str) -> dict:
-        """Po stronie web — JS wczytuje plik i przekazuje treść tutaj."""
         try:
             return json.loads(content)
         except Exception as e:
