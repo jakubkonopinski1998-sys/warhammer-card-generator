@@ -41,9 +41,6 @@ const TEMPLATE_FILES = [
     "assets/images/templates/WW2.png",
 ];
 
-// Zakres numerów stron profesji w podręczniku (assets/images/professions/NNN.png)
-const PROFESSION_RANGE = [53, 116];
-
 function loadScriptOnce(src) {
     return new Promise((resolve, reject) => {
         if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
@@ -73,14 +70,11 @@ async function fetchToFs(pyodide, path, targetPath) {
 }
 
 async function ensureProfessionInFs(pyodide, num) {
-    // num to string, np. "53"
     const targetPath = `${PROJECT_ROOT}/assets/images/professions/${num}.png`;
     try {
         pyodide.FS.stat(targetPath);
-        return; // już jest w FS
-    } catch (e) {
-        // brak — ładujemy
-    }
+        return;
+    } catch (e) {}
     const webPath = `../assets/images/professions/${num}.png`;
     await fetchToFs(pyodide, webPath, targetPath);
 }
@@ -137,11 +131,18 @@ function logStatus(msg) {
     if (el) el.textContent = msg;
 }
 
-/* Adapter — dane przekazywane jako JSON string w obie strony. */
+/* Adapter — dane przekazywane jako JSON string.
+ * Wywołania są SERIALIZOWANE (kolejka), żeby uniknąć konfliktów na wspólnych
+ * zmiennych globalnych Pyodide i wspólnym FS przy równoległych renderach. */
 function makePyodideAdapter(pyodide) {
-    const call = async (method, ...args) => {
-        const argsJson = JSON.stringify(args);
-        pyodide.globals.set("_args_json", argsJson);
+    let _counter = 0;
+    let _queue = Promise.resolve();
+
+    const _doCall = async (method, ...args) => {
+        const id = ++_counter;
+        const resultPath = `/tmp/_result_${id}.json`;
+        pyodide.globals.set("_args_json", JSON.stringify(args));
+        pyodide.globals.set("_result_path", resultPath);
         await pyodide.runPythonAsync(`
 import json as _json
 _args = _json.loads(_args_json)
@@ -149,11 +150,13 @@ try:
     _res = getattr(_api, "${method}")(*_args)
 except Exception as _e:
     _res = {"__pyerror__": f"{type(_e).__name__}: {_e}"}
-with open("/tmp/_result.json", "w", encoding="utf-8") as _f:
+with open(_result_path, "w", encoding="utf-8") as _f:
     _f.write(_json.dumps(_res))
 `);
-        const str = pyodide.FS.readFile("/tmp/_result.json", { encoding: "utf8" });
+        const str = pyodide.FS.readFile(resultPath, { encoding: "utf8" });
         try { pyodide.globals.delete("_args_json"); } catch (e) {}
+        try { pyodide.globals.delete("_result_path"); } catch (e) {}
+        try { pyodide.FS.unlink(resultPath); } catch (e) {}
         const parsed = JSON.parse(str);
         if (parsed && parsed.__pyerror__) {
             throw new Error("Python: " + parsed.__pyerror__);
@@ -161,12 +164,18 @@ with open("/tmp/_result.json", "w", encoding="utf-8") as _f:
         return parsed;
     };
 
+    // Kolejka — każde wywołanie czeka aż poprzednie się skończy
+    const call = (method, ...args) => {
+        const task = _queue.then(() => _doCall(method, ...args));
+        _queue = task.catch(() => {}); // nie przerywaj kolejki przy błędzie
+        return task;
+    };
+
     return {
         ping: async () => "pong (Pyodide)",
         get_all_data: async () => call("get_all_data"),
         render_from_form: async (data, page) => call("render_from_form", data, page),
         render_profession: async (data) => {
-            // Lazy-load: upewnij się, że plik NNN.png jest w FS Pyodide
             const sciezka = (data && data.sciezka_profesji) || "";
             const m = sciezka.match(/s\.\s*(\d+)/);
             if (m) {
